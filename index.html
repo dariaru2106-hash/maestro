@@ -10,7 +10,7 @@
 <title>Maestro — всё для музыканта</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg:        #f4f1ea;
@@ -18,20 +18,18 @@
     --ink:       #1c1a17;
     --muted:     #837c6e;
     --line:      #ddd6c8;
-    --accent:    #8a6f47;
+    --accent:    #8a6f47; /* классический коричневый */
     --accent-2:  #b89b6b;
     --green:     #5a7a5a;
     --red:       #a05555;
+    --blue:      #4a6a8a;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    height: 100%;
-    -webkit-text-size-adjust: 100%;
-  }
+  html { height: 100%; -webkit-text-size-adjust: 100%; }
   html, body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Source Sans 3', 'Merriweather', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
@@ -48,20 +46,22 @@
 
   /* ---------- SIDEBAR ---------- */
   .sidebar {
-    width: 240px;
+    width: 260px;
     flex-shrink: 0;
     background: var(--surface);
     border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
     padding: 32px 0;
+    overflow-y: auto;
   }
   .brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 30px;
-    font-weight: 600;
+    font-family: 'Merriweather', serif;
+    font-size: 28px;
+    font-weight: 700;
     letter-spacing: 0.02em;
     padding: 0 28px 4px;
+    color: var(--ink);
   }
   .brand-sub {
     font-size: 11px;
@@ -92,7 +92,7 @@
   .nav-item:hover { background: rgba(138,111,71,.07); color: var(--ink); }
   .nav-item.active { background: var(--ink); color: var(--surface); }
   .nav-item .num {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Merriweather', serif;
     font-size: 13px;
     opacity: .55;
     min-width: 16px;
@@ -135,11 +135,12 @@
     margin-bottom: 10px;
   }
   .panel-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 500;
-    line-height: 1.1;
+    font-family: 'Merriweather', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
     margin-bottom: 10px;
+    color: var(--ink);
   }
   .panel-desc {
     font-size: 14px;
@@ -164,12 +165,13 @@
     flex-wrap: wrap;
   }
   .bpm-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 84px;
-    font-weight: 500;
+    font-family: 'Merriweather', serif;
+    font-size: 72px;
+    font-weight: 700;
     line-height: 1;
     font-variant-numeric: tabular-nums;
     min-width: 140px;
+    color: var(--ink);
   }
   .bpm-label {
     font-size: 11px;
@@ -179,8 +181,8 @@
   }
   .tempo-name {
     margin-left: auto;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
     font-style: italic;
     color: var(--accent);
   }
@@ -213,6 +215,7 @@
     align-items: center;
     gap: 24px;
     flex-wrap: wrap;
+    margin-bottom: 16px;
   }
   .beats {
     display: flex;
@@ -232,6 +235,27 @@
     transform: scale(1.25);
   }
   .beat-dot.accent.active { background: var(--accent); border-color: var(--accent); }
+
+  .beat-durations {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+  }
+  .duration-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--muted);
+  }
+  .duration-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
 
   select {
     font-family: inherit;
@@ -266,6 +290,7 @@
   .btn.ghost:hover { background: var(--ink); color: var(--surface); }
   .btn.accent { background: var(--accent); border-color: var(--accent); }
   .btn.accent:hover { background: transparent; color: var(--accent); }
+  .btn.small { padding: 10px 16px; font-size: 12px; }
 
   .divider {
     height: 1px; background: var(--line); margin: 28px 0;
@@ -279,12 +304,13 @@
     padding: 24px 0 8px;
   }
   .tuner-note {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Merriweather', serif;
     font-size: 120px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
     transition: color .2s;
+    color: var(--ink);
   }
   .tuner-note .oct {
     font-size: 40px;
@@ -343,29 +369,63 @@
   }
   .tuner-status.on { color: var(--green); }
 
-  /* ---------- PIANO ---------- */
-  .piano-toolbar {
+  .tuner-mode-switch {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-    font-size: 13px;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .mode-btn {
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 6px;
+    cursor: pointer;
     color: var(--muted);
+    transition: all .15s;
+  }
+  .mode-btn.active {
+    background: var(--ink);
+    color: var(--surface);
+    border-color: var(--ink);
+  }
+
+  .tuner-keys {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
     flex-wrap: wrap;
   }
-  .toggle-hints {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .key-btn {
+    font-family: 'Merriweather', serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 6px;
     cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
+    color: var(--ink);
+    transition: all .15s;
+    min-width: 44px;
   }
-  .toggle-hints input { accent-color: var(--accent); }
+  .key-btn:hover { border-color: var(--accent); }
+  .key-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+  /* ---------- PIANO ---------- */
+  .piano-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
   .piano {
     position: relative;
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     height: 220px;
     background: var(--ink);
     border-radius: 6px;
@@ -387,8 +447,8 @@
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 10px;
-    font-size: 10px;
-    letter-spacing: .05em;
+    font-size: 11px;
+    letter-spacing: .03em;
     color: var(--muted);
     transition: background .05s, transform .05s;
     touch-action: none;
@@ -401,6 +461,7 @@
     background: linear-gradient(to bottom, #fdfcf8 0%, #f2eee4 100%);
     border: 1px solid #d8d1c2;
     z-index: 1;
+    color: #5a5448;
   }
   .key.white:hover { background: #ffffff; }
   .key.white.active {
@@ -420,12 +481,6 @@
     background: linear-gradient(to bottom, #5a5142 0%, #3a352c 100%);
     transform: translateY(1px);
   }
-  .key .hint {
-    opacity: 0;
-    transition: opacity .15s;
-    pointer-events: none;
-  }
-  .key .hint.show { opacity: .65; }
 
   /* ---------- TERMS ---------- */
   .search-bar {
@@ -492,17 +547,24 @@
   }
   .term:hover { background: #fff; }
   .term-word {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 500;
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    font-weight: 700;
     font-style: italic;
+    margin-bottom: 2px;
+    color: var(--ink);
+  }
+  .term-pron {
+    font-size: 12px;
+    color: var(--accent);
     margin-bottom: 4px;
+    font-style: italic;
   }
   .term-cat {
     font-size: 10px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--muted);
     margin-bottom: 8px;
   }
   .term-def {
@@ -528,15 +590,16 @@
     background: var(--surface);
   }
   .placeholder-mark {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Merriweather', serif;
     font-size: 56px;
     color: var(--accent-2);
     line-height: 1;
     margin-bottom: 20px;
   }
   .placeholder-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
+    font-family: 'Merriweather', serif;
+    font-size: 24px;
+    font-weight: 700;
     margin-bottom: 12px;
   }
   .placeholder-desc {
@@ -586,15 +649,16 @@
     .nav-item .num { display: none; }
     .sidebar-foot { display: none; }
     main { padding: 32px 20px 60px; overflow: visible; }
-    .panel-title { font-size: 32px; }
-    .bpm-value { font-size: 64px; min-width: 100px; }
-    .tempo-name { font-size: 18px; }
+    .panel-title { font-size: 28px; }
+    .bpm-value { font-size: 56px; min-width: 100px; }
+    .tempo-name { font-size: 16px; }
     .tuner-note { font-size: 88px; }
     .tuner-note .oct { font-size: 30px; }
     .card { padding: 22px; }
     .piano { height: 160px; }
     .metro-row { gap: 16px; }
     .placeholder { padding: 50px 22px; }
+    .key-btn { padding: 8px 10px; min-width: 38px; font-size: 12px; }
   }
 </style>
 </head>
@@ -605,14 +669,14 @@
   <div class="brand-sub">Всё для музыканта</div>
   <nav id="nav">
     <button type="button" class="nav-item active" data-panel="metronome"><span class="num">01</span>Метроном</button>
-    <button type="button" class="nav-item" data-panel="tuner"><span class="num">02</span>Тюнер</button>
+    <button type="button" class="nav-item" data-panel="tuner"><span class="num">02</span>Тюнер / Камертон</button>
     <button type="button" class="nav-item" data-panel="piano"><span class="num">03</span>Пианино</button>
     <button type="button" class="nav-item" data-panel="terms"><span class="num">04</span>Термины</button>
     <button type="button" class="nav-item" data-panel="composers"><span class="num">05</span>Композиторы<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.1.1 · прототип</div>
+  <div class="sidebar-foot">v0.2 · прототип</div>
 </aside>
 
 <main>
@@ -622,7 +686,7 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 01</div>
       <h1 class="panel-title">Метроном</h1>
-      <p class="panel-desc">Точный тактовый пульс с акцентом на сильную долю. Настройте темп, размер и слушайте.</p>
+      <p class="panel-desc">Точный тактовый пульс. Настройте темп, размер и длительности долей.</p>
     </div>
 
     <div class="card">
@@ -636,18 +700,38 @@
 
       <div class="metro-row">
         <button type="button" class="btn accent" id="metroToggle">Старт</button>
+        <label class="toggle-hints" style="font-size:13px;color:var(--muted);">
+          <input type="checkbox" id="accentToggle" checked> Акцент на сильную долю
+        </label>
+      </div>
 
+      <div class="metro-row">
         <div>
           <div class="bpm-label" style="margin-bottom:8px;">Размер</div>
           <select id="timeSig">
-            <option value="2">2/4</option>
-            <option value="3">3/4</option>
-            <option value="4" selected>4/4</option>
-            <option value="6">6/8</option>
+            <option value="2/4">2/4</option>
+            <option value="3/4">3/4</option>
+            <option value="4/4" selected>4/4</option>
+            <option value="5/4">5/4</option>
+            <option value="6/8">6/8</option>
+            <option value="7/8">7/8</option>
+            <option value="9/8">9/8</option>
+            <option value="12/8">12/8</option>
+            <option value="2/2">2/2</option>
+            <option value="3/8">3/8</option>
+            <option value="5/8">5/8</option>
+            <option value="4/2">4/2</option>
+            <option value="6/4">6/4</option>
+            <option value="8/8">8/8</option>
+            <option value="10/8">10/8</option>
           </select>
         </div>
-
         <div class="beats" id="beats"></div>
+      </div>
+
+      <div class="metro-row">
+        <div class="bpm-label">Длительности долей:</div>
+        <div class="beat-durations" id="beatDurations"></div>
       </div>
 
       <div class="divider"></div>
@@ -662,16 +746,21 @@
     </div>
   </section>
 
-  <!-- TUNER -->
+  <!-- TUNER / TONE -->
   <section id="panel-tuner" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 02</div>
-      <h1 class="panel-title">Тюнер</h1>
-      <p class="panel-desc">Хроматический тюнер реального времени. Разрешите доступ к микрофону и играйте ноту — приложение покажет отклонение в центах.</p>
+      <h1 class="panel-title">Тюнер / Камертон</h1>
+      <p class="panel-desc">Хроматический тюнер реального времени. Или воспроизводите эталонные ноты в режиме камертона.</p>
     </div>
 
     <div class="card">
-      <div class="tuner-stage">
+      <div class="tuner-mode-switch">
+        <button type="button" class="mode-btn active" data-mode="tuner">Тюнер</button>
+        <button type="button" class="mode-btn" data-mode="tone">Камертон</button>
+      </div>
+
+      <div id="tunerMode" class="tuner-stage">
         <div class="tuner-note" id="tunerNote">—<span class="oct"></span></div>
         <div class="tuner-freq" id="tunerFreq">0.0 Hz</div>
 
@@ -685,6 +774,11 @@
         </div>
 
         <div class="tuner-status" id="tunerStatus">Нажмите «Включить микрофон»</div>
+      </div>
+
+      <div id="toneMode" class="tuner-stage" style="display:none;">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:8px;">Эталонные тоны</div>
+        <div class="tuner-keys" id="toneKeys"></div>
       </div>
 
       <div class="divider"></div>
@@ -705,16 +799,13 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 03</div>
       <h1 class="panel-title">Пианино</h1>
-      <p class="panel-desc">Две октавы с мягким синтезированным звуком. Играйте касанием, а на компьютере — с клавиатуры.</p>
+      <p class="panel-desc">Четыре октавы с мягким синтезированным звуком. Играйте касанием или мышью.</p>
     </div>
 
-    <div class="piano-toolbar">
-      <label class="toggle-hints"><input type="checkbox" id="showHints"> Показать раскладку клавиатуры</label>
-      <span style="opacity:.6;">A W S E D F T G Y H U J — нижняя октава</span>
-    </div>
-
-    <div class="piano">
-      <div class="piano-inner" id="pianoInner"></div>
+    <div class="piano-scroll">
+      <div class="piano">
+        <div class="piano-inner" id="pianoInner"></div>
+      </div>
     </div>
   </section>
 
@@ -723,12 +814,12 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Справочник 04</div>
       <h1 class="panel-title">Музыкальные термины</h1>
-      <p class="panel-desc">Итальянские, немецкие и французские термины, с которыми вы встретитесь в нотах. Поиск по слову или значению.</p>
+      <p class="panel-desc">Итальянские, немецкие и французские термины с русской транскрипцией.</p>
     </div>
 
     <div class="search-bar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input type="text" id="termSearch" placeholder="Найти термин или значение…" autocomplete="off" autocorrect="off" autocapitalize="off">
+      <input type="text" id="termSearch" placeholder="Найти термин, транскрипцию или значение…" autocomplete="off" autocorrect="off" autocapitalize="off">
     </div>
 
     <div class="term-cats" id="termCats"></div>
@@ -801,9 +892,10 @@
 'use strict';
 
 /* ============================================================
-   1. АУДИО-КОНТЕКСТ
+   1. АУДИО-КОНТЕКСТ (с исправлением для iOS)
    ============================================================ */
 let audioCtx = null;
+let audioUnlocked = false;
 
 function getCtx() {
   if (!audioCtx) {
@@ -811,11 +903,32 @@ function getCtx() {
     if (!AC) return null;
     audioCtx = new AC();
   }
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
   return audioCtx;
 }
 
-// Возобновляем контекст после сворачивания Safari / iOS
+// Разблокировка аудио на iOS при первом касании
+function unlockAudio() {
+  if (audioUnlocked) return;
+  const ctx = getCtx();
+  if (!ctx) return;
+
+  // Создаём беззвучный буфер и проигрываем его
+  const buffer = ctx.createBuffer(1, 1, 22050);
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(ctx.destination);
+  source.start(0);
+
+  audioUnlocked = true;
+}
+
+document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+document.addEventListener('click', unlockAudio, { once: true });
+
+// Возобновляем контекст после сворачивания Safari
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden && audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume();
@@ -823,6 +936,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const NOTE_NAMES_RU = ['до','до-диез','ре','ре-диез','ми','фа','фа-диез','соль','соль-диез','ля','ля-диез','си'];
 const midiToFreq = (midi, ref = 440) => ref * Math.pow(2, (midi - 69) / 12);
 
 /* ============================================================
@@ -834,9 +948,9 @@ const panels = document.querySelectorAll('.panel');
 navItems.forEach(item => {
   item.addEventListener('click', () => {
     const target = item.dataset.panel;
-
     if (target !== 'metronome' && metronomePlaying) toggleMetronome(false);
     if (target !== 'tuner' && tunerRunning) toggleTuner(false);
+    if (target !== 'tuner' && tonePlaying) stopTone();
 
     navItems.forEach(i => i.classList.toggle('active', i === item));
     panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + target));
@@ -852,6 +966,8 @@ const tempoName  = document.getElementById('tempoName');
 const timeSig    = document.getElementById('timeSig');
 const beatsWrap  = document.getElementById('beats');
 const metroBtn   = document.getElementById('metroToggle');
+const accentToggle = document.getElementById('accentToggle');
+const beatDurations = document.getElementById('beatDurations');
 
 let metronomePlaying = false;
 let currentBeat = 0;
@@ -859,10 +975,11 @@ let nextNoteTime = 0;
 let schedulerId = null;
 let beatsPerMeasure = 4;
 let bpm = 90;
+let beatTypes = []; // массив длительностей для каждой доли: 'whole', 'half', 'quarter', 'eighth'
 
 const TEMPO_NAMES = [
-  [30,  'Grave'], [45,  'Largo'], [55,  'Larghetto'], [66,  'Adagio'],
-  [76,  'Andante'], [96,  'Moderato'], [120, 'Allegro'], [152, 'Vivace'],
+  [30, 'Grave'], [45, 'Largo'], [55, 'Larghetto'], [66, 'Adagio'],
+  [76, 'Andante'], [96, 'Moderato'], [120, 'Allegro'], [152, 'Vivace'],
   [176, 'Presto'], [200, 'Prestissimo'],
 ];
 
@@ -874,24 +991,55 @@ function nameForBpm(v) {
   return name;
 }
 
-function renderBeats() {
-  beatsWrap.innerHTML = '';
-  for (let i = 0; i < beatsPerMeasure; i++) {
-    const d = document.createElement('div');
-    d.className = 'beat-dot' + (i === 0 ? ' accent' : '');
-    beatsWrap.appendChild(d);
-  }
-}
-
-function clearBeats() {
-  document.querySelectorAll('.beat-dot').forEach(d => d.classList.remove('active'));
-}
-
 function updateBpm(v) {
   bpm = v;
   bpmValue.textContent = v;
   tempoName.textContent = nameForBpm(v);
   bpmSlider.value = v;
+}
+
+function getBeatsCount(sig) {
+  return parseInt(sig.split('/')[0], 10);
+}
+
+function renderBeats() {
+  beatsWrap.innerHTML = '';
+  beatTypes = [];
+  for (let i = 0; i < beatsPerMeasure; i++) {
+    const d = document.createElement('div');
+    d.className = 'beat-dot' + (i === 0 ? ' accent' : '');
+    beatsWrap.appendChild(d);
+    beatTypes.push('quarter'); // по умолчанию — четверть
+  }
+  renderBeatDurations();
+}
+
+function renderBeatDurations() {
+  beatDurations.innerHTML = '';
+  const durations = [
+    { key: 'whole', label: '𝅝' },
+    { key: 'half', label: '𝅗𝅥' },
+    { key: 'quarter', label: '♩' },
+    { key: 'eighth', label: '♪' },
+  ];
+  durations.forEach(d => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'duration-btn' + (d.key === 'quarter' ? ' active' : '');
+    btn.textContent = d.label;
+    btn.dataset.duration = d.key;
+    btn.addEventListener('click', () => {
+      // Меняем длительность для ВСЕХ долей сразу (можно потом сделать индивидуально)
+      beatTypes = beatTypes.map(() => d.key);
+      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    beatDurations.appendChild(btn);
+  });
+}
+
+function clearBeats() {
+  document.querySelectorAll('.beat-dot').forEach(d => d.classList.remove('active'));
 }
 
 bpmSlider.addEventListener('input', e => updateBpm(+e.target.value));
@@ -901,26 +1049,34 @@ document.querySelectorAll('[data-bpm]').forEach(btn => {
 });
 
 timeSig.addEventListener('change', e => {
-  beatsPerMeasure = +e.target.value;
+  beatsPerMeasure = getBeatsCount(e.target.value);
   currentBeat = 0;
   renderBeats();
 });
 
-function playClick(time, accent) {
+function playClick(time, accent, durationKey) {
   const ctx = getCtx();
   if (!ctx) return;
-  const osc  = ctx.createOscillator();
+
+  const osc = ctx.createOscillator();
   const gain = ctx.createGain();
   osc.type = 'sine';
-  osc.frequency.value = accent ? 1400 : 900;
+
+  // Частота в зависимости от длительности
+  const freqMap = { whole: 800, half: 900, quarter: 1000, eighth: 1100 };
+  osc.frequency.value = accent ? (freqMap[durationKey] || 1000) * 1.4 : (freqMap[durationKey] || 1000);
+
+  // Длительность звука
+  const durMap = { whole: 0.08, half: 0.06, quarter: 0.05, eighth: 0.03 };
+  const dur = durMap[durationKey] || 0.05;
 
   gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(accent ? 0.55 : 0.32, time + 0.002);
-  gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
+  gain.gain.linearRampToValueAtTime(accent ? 0.5 : 0.3, time + 0.002);
+  gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
 
   osc.connect(gain).connect(ctx.destination);
   osc.start(time);
-  osc.stop(time + 0.08);
+  osc.stop(time + dur + 0.02);
 }
 
 function scheduleVisual(beat, time) {
@@ -939,7 +1095,8 @@ function scheduler() {
   if (!ctx) return;
   const secondsPerBeat = 60.0 / bpm;
   while (nextNoteTime < ctx.currentTime + 0.1) {
-    playClick(nextNoteTime, currentBeat === 0);
+    const accent = accentToggle.checked && currentBeat === 0;
+    playClick(nextNoteTime, accent, beatTypes[currentBeat] || 'quarter');
     scheduleVisual(currentBeat, nextNoteTime);
     nextNoteTime += secondsPerBeat;
     currentBeat = (currentBeat + 1) % beatsPerMeasure;
@@ -952,6 +1109,7 @@ function toggleMetronome(force) {
   const wantOn = (force !== undefined) ? force : !metronomePlaying;
 
   if (wantOn) {
+    unlockAudio();
     metronomePlaying = true;
     currentBeat = 0;
     nextNoteTime = ctx.currentTime + 0.06;
@@ -974,7 +1132,7 @@ renderBeats();
 updateBpm(90);
 
 /* ============================================================
-   4. ТЮНЕР
+   4. ТЮНЕР / КАМЕРТОН
    ============================================================ */
 const tunerBtn    = document.getElementById('tunerToggle');
 const tunerNote   = document.getElementById('tunerNote');
@@ -982,14 +1140,94 @@ const tunerFreq   = document.getElementById('tunerFreq');
 const tunerMarker = document.getElementById('tunerMarker');
 const tunerStatus = document.getElementById('tunerStatus');
 const tunerRef    = document.getElementById('tunerRef');
+const modeBtns    = document.querySelectorAll('.mode-btn');
+const tunerMode   = document.getElementById('tunerMode');
+const toneMode    = document.getElementById('toneMode');
+const toneKeys    = document.getElementById('toneKeys');
 
 let tunerRunning = false;
+let tonePlaying = false;
+let toneOsc = null;
+let toneGain = null;
 let micStream = null;
 let analyser = null;
 let sourceNode = null;
 let rafId = null;
 let buf = null;
 
+// Переключение режимов
+modeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.dataset.mode;
+    if (mode === 'tuner') {
+      tunerMode.style.display = 'flex';
+      toneMode.style.display = 'none';
+      tunerBtn.style.display = 'inline-block';
+    } else {
+      tunerMode.style.display = 'none';
+      toneMode.style.display = 'flex';
+      tunerBtn.style.display = 'none';
+      stopTuner();
+    }
+  });
+});
+
+// Создание кнопок для камертона
+function buildToneKeys() {
+  toneKeys.innerHTML = '';
+  // Одна октава: C4 - B4
+  for (let midi = 60; midi <= 71; midi++) {
+    const name = NOTE_NAMES[midi % 12];
+    const oct = Math.floor(midi / 12) - 1;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'key-btn';
+    btn.textContent = name + oct;
+    btn.dataset.midi = midi;
+    btn.addEventListener('click', () => {
+      playTone(midi);
+    });
+    toneKeys.appendChild(btn);
+  }
+}
+
+function playTone(midi) {
+  stopTone();
+  const ctx = getCtx();
+  if (!ctx) return;
+  unlockAudio();
+
+  const freq = midiToFreq(midi, +tunerRef.value);
+  toneOsc = ctx.createOscillator();
+  toneGain = ctx.createGain();
+  toneOsc.type = 'sine';
+  toneOsc.frequency.value = freq;
+
+  toneGain.gain.setValueAtTime(0, ctx.currentTime);
+  toneGain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.02);
+
+  toneOsc.connect(toneGain).connect(ctx.destination);
+  toneOsc.start();
+  tonePlaying = true;
+
+  document.querySelectorAll('.key-btn').forEach(b => {
+    b.classList.toggle('active', +b.dataset.midi === midi);
+  });
+}
+
+function stopTone() {
+  if (toneOsc) {
+    try { toneOsc.stop(); } catch(e) {}
+    toneOsc = null;
+  }
+  if (toneGain) { toneGain = null; }
+  tonePlaying = false;
+  document.querySelectorAll('.key-btn').forEach(b => b.classList.remove('active'));
+}
+
+// Тюнер (без изменений по логике, но с учётом unlockAudio)
 async function startTuner() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     tunerStatus.textContent = 'Микрофон не поддерживается';
@@ -1009,9 +1247,12 @@ async function startTuner() {
   const ctx = getCtx();
   if (!ctx) return false;
 
+  // ВАЖНО для Safari: возобновляем контекст ПОСЛЕ getUserMedia
+  await ctx.resume();
+
   sourceNode = ctx.createMediaStreamSource(micStream);
   analyser = ctx.createAnalyser();
-  analyser.fftSize = 1024; // меньше — быстрее на iPhone
+  analyser.fftSize = 1024;
   sourceNode.connect(analyser);
 
   buf = new Float32Array(analyser.fftSize);
@@ -1037,7 +1278,7 @@ function stopTuner() {
   tunerFreq.textContent = '0.0 Hz';
   tunerMarker.style.left = '50%';
   tunerMarker.classList.remove('in-tune');
-  tunerStatus.textContent = 'Микрофон выключен';
+  tunerStatus.textContent = 'Нажмите «Включить микрофон»';
   tunerStatus.classList.remove('on');
   tunerBtn.textContent = 'Включить микрофон';
   tunerBtn.classList.add('accent');
@@ -1051,7 +1292,6 @@ async function toggleTuner(force) {
 
 tunerBtn.addEventListener('click', () => toggleTuner());
 
-/* Автокорреляция */
 function autoCorrelate(buffer, sampleRate) {
   let SIZE = buffer.length;
   let rms = 0;
@@ -1139,49 +1379,36 @@ function tickTuner() {
   }
 }
 
+buildToneKeys();
+
 /* ============================================================
-   5. ПИАНИНО
+   5. ПИАНИНО (4 октавы, латинские названия)
    ============================================================ */
 const pianoInner = document.getElementById('pianoInner');
-const showHints  = document.getElementById('showHints');
 
 const BLACK_PCS = [1, 3, 6, 8, 10];
 const isBlackPc = pc => BLACK_PCS.indexOf(pc) !== -1;
 
-const START_MIDI = 60;
+// 4 октавы: C3 (48) - B6 (83)
+const START_MIDI = 48;
 const END_MIDI   = 83;
 
-const KEY_MAP = {
-  60:'a', 61:'w', 62:'s', 63:'e', 64:'d', 65:'f', 66:'t',
-  67:'g', 68:'y', 69:'h', 70:'u', 71:'j',
-  72:'k', 73:'o', 74:'l', 75:'p', 76:';', 77:"'",
-  78:'z', 79:'x', 80:'c', 81:'v', 82:'b', 83:'n'
-};
-
-// Обратный словарь для быстрого поиска: 'a' -> 60
-const REV_KEY_MAP = {};
-Object.keys(KEY_MAP).forEach(midi => {
-  REV_KEY_MAP[KEY_MAP[midi]] = +midi;
-});
-
-const keyElements = new Map(); // midi -> HTMLElement
+const keyElements = new Map();
 let pointerDown = false;
 
 function buildPiano() {
   pianoInner.innerHTML = '';
   keyElements.clear();
 
-  const whites = [];
-  for (let m = START_MIDI; m <= END_MIDI; m++) {
-    const pc = ((m % 12) + 12) % 12;
-    if (!isBlackPc(pc)) whites.push(m);
-  }
+  const allNotes = [];
+  for (let m = START_MIDI; m <= END_MIDI; m++) allNotes.push(m);
 
+  const whites = allNotes.filter(m => !isBlackPc(((m % 12) + 12) % 12));
   const whiteW = 100 / whites.length;
   const blackW = whiteW * 0.62;
   let whiteIndex = 0;
 
-  for (let midi = START_MIDI; midi <= END_MIDI; midi++) {
+  allNotes.forEach(midi => {
     const pc = ((midi % 12) + 12) % 12;
     const isBlack = isBlackPc(pc);
 
@@ -1189,10 +1416,14 @@ function buildPiano() {
     el.className = 'key ' + (isBlack ? 'black' : 'white');
     el.dataset.midi = midi;
 
-    const hint = document.createElement('span');
-    hint.className = 'hint';
-    hint.textContent = KEY_MAP[midi] ? KEY_MAP[midi].toUpperCase() : '';
-    el.appendChild(hint);
+    // Латинское название ноты + октава
+    const noteName = NOTE_NAMES[pc];
+    const octave = Math.floor(midi / 12) - 1;
+    const label = document.createElement('span');
+    label.textContent = noteName + octave;
+    label.style.fontSize = '10px';
+    label.style.opacity = '0.7';
+    el.appendChild(label);
 
     if (isBlack) {
       el.style.left = (whiteIndex * whiteW - blackW / 2) + '%';
@@ -1203,43 +1434,28 @@ function buildPiano() {
       whiteIndex++;
     }
 
-    // Основной обработчик — pointerdown (работает на iOS 13+)
     el.addEventListener('pointerdown', e => {
       e.preventDefault();
       pointerDown = true;
       playPiano(midi, el);
     });
-
-    // Глиссандо при протягивании пальцем
     el.addEventListener('pointerenter', () => {
       if (pointerDown) playPiano(midi, el);
     });
-
-    // Fallback для очень старых iOS (< 13) — на всякий случай
     el.addEventListener('touchstart', e => {
-      if (window.PointerEvent) return; // если pointer events есть — не дублируем
+      if (window.PointerEvent) return;
       e.preventDefault();
       playPiano(midi, el);
     }, { passive: false });
 
     pianoInner.appendChild(el);
     keyElements.set(midi, el);
-  }
-
-  applyHintVisibility();
+  });
 }
 
-// Сброс pointerDown при отпускании / отмене / потере фокуса
 document.addEventListener('pointerup', () => pointerDown = false);
 document.addEventListener('pointercancel', () => pointerDown = false);
 window.addEventListener('blur', () => pointerDown = false);
-
-function applyHintVisibility() {
-  document.querySelectorAll('.key .hint').forEach(h => {
-    h.classList.toggle('show', showHints.checked);
-  });
-}
-showHints.addEventListener('change', applyHintVisibility);
 
 function playPiano(midi, el) {
   const freq = midiToFreq(midi, 440);
@@ -1251,12 +1467,13 @@ function playPiano(midi, el) {
 function playPianoNote(freq) {
   const ctx = getCtx();
   if (!ctx) return;
+  unlockAudio();
   const now = ctx.currentTime;
   const dur = 1.6;
 
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, now);
-  master.gain.linearRampToValueAtTime(0.32, now + 0.008);
+  master.gain.linearRampToValueAtTime(0.3, now + 0.008);
   master.gain.exponentialRampToValueAtTime(0.0001, now + dur);
 
   const filter = ctx.createBiquadFilter();
@@ -1286,92 +1503,86 @@ function playPianoNote(freq) {
   filter.connect(master).connect(ctx.destination);
 }
 
-// Клавиатура компьютера — с проверками, чтобы не мешать вводу в поиске
-document.addEventListener('keydown', e => {
-  if (e.repeat) return;
-  if (e.metaKey || e.ctrlKey || e.altKey) return;
-
-  const target = e.target;
-  const tag = target && target.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (target && target.isContentEditable)) {
-    return;
-  }
-
-  const key = e.key.toLowerCase();
-  const midi = REV_KEY_MAP[key];
-  if (midi !== undefined) {
-    const el = keyElements.get(midi);
-    if (el) playPiano(midi, el);
-  }
-});
-
 buildPiano();
 
 /* ============================================================
-   6. СЛОВАРЬ ТЕРМИНОВ
+   6. СЛОВАРЬ ТЕРМИНОВ (расширенный, с транскрипцией)
    ============================================================ */
 const TERMS = [
-  { t:'Grave',         c:'Темп',         d:'Очень медленно и торжественно, тяжело.' },
-  { t:'Largo',         c:'Темп',         d:'Широко, очень медленно.' },
-  { t:'Larghetto',     c:'Темп',         d:'Несколько быстрее, чем largo.' },
-  { t:'Adagio',        c:'Темп',         d:'Медленно, спокойно, с чувством.' },
-  { t:'Andante',       c:'Темп',         d:'В темпе шага, умеренно медленно.' },
-  { t:'Moderato',      c:'Темп',         d:'Умеренно.' },
-  { t:'Allegretto',    c:'Темп',         d:'Умеренно оживлённо.' },
-  { t:'Allegro',       c:'Темп',         d:'Скоро, весело, живо.' },
-  { t:'Vivace',        c:'Темп',         d:'Живо, быстро.' },
-  { t:'Presto',        c:'Темп',         d:'Очень быстро.' },
-  { t:'Prestissimo',   c:'Темп',         d:'Предельно быстро.' },
-  { t:'Accelerando',   c:'Темп',         d:'Постепенно ускоряя.' },
-  { t:'Ritardando',    c:'Темп',         d:'Постепенно замедляя.' },
-  { t:'Rallentando',   c:'Темп',         d:'Замедляя, с расширением.' },
-  { t:'Rubato',        c:'Темп',         d:'Свободно, с отклонениями от строгого темпа ради выразительности.' },
-  { t:'A tempo',       c:'Темп',         d:'Вернуться к исходному темпу.' },
-  { t:'Meno mosso',    c:'Темп',         d:'Менее подвижно.' },
-  { t:'Più mosso',     c:'Темп',         d:'Более подвижно.' },
+  // Темп
+  { t:'Grave', pr:'гра́вэ', c:'Темп', d:'Очень медленно и торжественно, тяжело.' },
+  { t:'Largo', pr:'ля́рго', c:'Темп', d:'Широко, очень медленно.' },
+  { t:'Larghetto', pr:'ляргэ́тто', c:'Темп', d:'Несколько быстрее, чем largo.' },
+  { t:'Lento', pr:'ле́нто', c:'Темп', d:'Протяжно, медленно.' },
+  { t:'Adagio', pr:'ада́жио', c:'Темп', d:'Медленно, спокойно, с чувством.' },
+  { t:'Adagietto', pr:'ададже́тто', c:'Темп', d:'Довольно медленно, достаточно спокойно.' },
+  { t:'Andante', pr:'анда́нтэ', c:'Темп', d:'В темпе шага, умеренно медленно.' },
+  { t:'Andantino', pr:'анданти́но', c:'Темп', d:'Чуть оживлённее, чем andante.' },
+  { t:'Moderato', pr:'модэра́то', c:'Темп', d:'Умеренно.' },
+  { t:'Allegretto', pr:'аллегрэ́тто', c:'Темп', d:'Умеренно оживлённо.' },
+  { t:'Allegro', pr:'алле́гро', c:'Темп', d:'Скоро, весело, живо.' },
+  { t:'Vivace', pr:'вива́че', c:'Темп', d:'Живо, быстро.' },
+  { t:'Presto', pr:'прэ́сто', c:'Темп', d:'Очень быстро.' },
+  { t:'Prestissimo', pr:'прэсти́ссимо', c:'Темп', d:'Предельно быстро.' },
+  { t:'Accelerando', pr:'аччелера́ндо', c:'Темп', d:'Постепенно ускоряя.' },
+  { t:'Ritardando', pr:'ритарда́ндо', c:'Темп', d:'Постепенно замедляя.' },
+  { t:'Rallentando', pr:'раллента́ндо', c:'Темп', d:'Замедляя, с расширением.' },
+  { t:'Allargando', pr:'алларга́ндо', c:'Темп', d:'Замедляя, расширяя.' },
+  { t:'Rubato', pr:'руба́то', c:'Темп', d:'Свободно, с отклонениями от строгого темпа.' },
+  { t:'A tempo', pr:'а тэ́мпо', c:'Темп', d:'Вернуться к исходному темпу.' },
+  { t:'Meno mosso', pr:'мэ́но мо́ссо', c:'Темп', d:'Менее подвижно.' },
+  { t:'Più mosso', pr:'пью мо́ссо', c:'Темп', d:'Более подвижно.' },
+  { t:'Tempo giusto', pr:'тэ́мпо джу́сто', c:'Темп', d:'Точный, правильный темп.' },
 
-  { t:'Pianissimo (pp)', c:'Динамика',   d:'Очень тихо.' },
-  { t:'Piano (p)',       c:'Динамика',   d:'Тихо.' },
-  { t:'Mezzo-piano (mp)',c:'Динамика',   d:'Умеренно тихо.' },
-  { t:'Mezzo-forte (mf)',c:'Динамика',   d:'Умеренно громко.' },
-  { t:'Forte (f)',       c:'Динамика',   d:'Громко.' },
-  { t:'Fortissimo (ff)', c:'Динамика',   d:'Очень громко.' },
-  { t:'Crescendo',       c:'Динамика',   d:'Постепенно усиливая звук.' },
-  { t:'Diminuendo',      c:'Динамика',   d:'Постепенно ослабляя звук.' },
-  { t:'Sforzando',       c:'Динамика',   d:'Внезапный сильный акцент на ноте или аккорде.' },
-  { t:'Morendo',         c:'Динамика',   d:'Замирая, угасая.' },
+  // Динамика
+  { t:'Pianissimo (pp)', pr:'пиани́ссимо', c:'Динамика', d:'Очень тихо.' },
+  { t:'Piano (p)', pr:'пиа́но', c:'Динамика', d:'Тихо.' },
+  { t:'Mezzo-piano (mp)', pr:'мэ́ццо-пиа́но', c:'Динамика', d:'Умеренно тихо.' },
+  { t:'Mezzo-forte (mf)', pr:'мэ́ццо-фо́ртэ', c:'Динамика', d:'Умеренно громко.' },
+  { t:'Forte (f)', pr:'фо́ртэ', c:'Динамика', d:'Громко.' },
+  { t:'Fortissimo (ff)', pr:'форти́ссимо', c:'Динамика', d:'Очень громко.' },
+  { t:'Crescendo', pr:'крешэ́ндо', c:'Динамика', d:'Постепенно усиливая звук.' },
+  { t:'Diminuendo', pr:'диминуэ́ндо', c:'Динамика', d:'Постепенно ослабляя звук.' },
+  { t:'Sforzando', pr:'сфорца́ндо', c:'Динамика', d:'Внезапный сильный акцент.' },
+  { t:'Morendo', pr:'морэ́ндо', c:'Динамика', d:'Замирая, угасая.' },
 
-  { t:'Legato',        c:'Артикуляция',  d:'Связно, без разрыва между нотами.' },
-  { t:'Staccato',      c:'Артикуляция',  d:'Отрывисто, коротко.' },
-  { t:'Marcato',       c:'Артикуляция',  d:'Подчёркнуто, акцентированно.' },
-  { t:'Portato',       c:'Артикуляция',  d:'Мягкое staccato под лигой — «выговаривая» каждую ноту.' },
-  { t:'Tenuto',        c:'Артикуляция',  d:'Выдерживая ноту полностью.' },
-  { t:'Glissando',     c:'Артикуляция',  d:'Скользя по нотам.' },
-  { t:'Pizzicato',     c:'Артикуляция',  d:'У струнных — щипком.' },
-  { t:'Arco',          c:'Артикуляция',  d:'У струнных — игра смычком (после pizzicato).' },
-  { t:'Con sordino',   c:'Артикуляция',  d:'С сурдиной (приглушение).' },
+  // Артикуляция
+  { t:'Legato', pr:'лега́то', c:'Артикуляция', d:'Связно, без разрыва между нотами.' },
+  { t:'Staccato', pr:'стакка́то', c:'Артикуляция', d:'Отрывисто, коротко.' },
+  { t:'Marcato', pr:'марка́то', c:'Артикуляция', d:'Подчёркнуто, акцентированно.' },
+  { t:'Portato', pr:'порта́то', c:'Артикуляция', d:'Мягкое staccato под лигой.' },
+  { t:'Tenuto', pr:'тэну́то', c:'Артикуляция', d:'Выдерживая ноту полностью.' },
+  { t:'Glissando', pr:'глисса́ндо', c:'Артикуляция', d:'Скользя по нотам.' },
+  { t:'Pizzicato', pr:'пиццика́то', c:'Артикуляция', d:'У струнных — щипком.' },
+  { t:'Arco', pr:'а́рко', c:'Артикуляция', d:'У струнных — игра смычком.' },
+  { t:'Con sordino', pr:'кон сорди́но', c:'Артикуляция', d:'С сурдиной (приглушение).' },
+  { t:'Acciaccatura', pr:'аччаккату́ра', c:'Артикуляция', d:'Форшлаг, очень быстро исполняемый.' },
 
-  { t:'Dolce',         c:'Характер',     d:'Нежно, мягко, ласково.' },
-  { t:'Cantabile',     c:'Характер',     d:'Певуче, как вокальная партия.' },
-  { t:'Espressivo',    c:'Характер',     d:'Выразительно.' },
-  { t:'Con brio',      c:'Характер',     d:'С огнём, с воодушевлением.' },
-  { t:'Maestoso',      c:'Характер',     d:'Торжественно, величаво.' },
-  { t:'Animato',       c:'Характер',     d:'Одушевлённо, оживлённо.' },
-  { t:'Giocoso',       c:'Характер',     d:'Игриво, шутливо.' },
-  { t:'Tranquillo',    c:'Характер',     d:'Спокойно, безмятежно.' },
-  { t:'Appassionato',  c:'Характер',     d:'Страстно.' },
-  { t:'Misterioso',    c:'Характер',     d:'Таинственно.' },
-  { t:'Doloroso',      c:'Характер',     d:'Скорбно, с болью.' },
-  { t:'Scherzando',    c:'Характер',     d:'Игриво, шутливо.' },
+  // Характер
+  { t:'Dolce', pr:'до́льче', c:'Характер', d:'Нежно, мягко, ласково.' },
+  { t:'Cantabile', pr:'канта́биле', c:'Характер', d:'Певуче, как вокальная партия.' },
+  { t:'Espressivo', pr:'эспрэсси́во', c:'Характер', d:'Выразительно.' },
+  { t:'Con brio', pr:'кон бри́о', c:'Характер', d:'С огнём, с воодушевлением.' },
+  { t:'Maestoso', pr:'маэсто́зо', c:'Характер', d:'Торжественно, величаво.' },
+  { t:'Animato', pr:'анима́то', c:'Характер', d:'Одушевлённо, оживлённо.' },
+  { t:'Giocoso', pr:'джоко́зо', c:'Характер', d:'Игриво, шутливо.' },
+  { t:'Tranquillo', pr:'транкуи́лло', c:'Характер', d:'Спокойно, безмятежно.' },
+  { t:'Appassionato', pr:'аппассиона́то', c:'Характер', d:'Страстно.' },
+  { t:'Misterioso', pr:'мистэрио́зо', c:'Характер', d:'Таинственно.' },
+  { t:'Doloroso', pr:'долоро́зо', c:'Характер', d:'Скорбно, с болью.' },
+  { t:'Affettuoso', pr:'аффэттуо́зо', c:'Характер', d:'Очень нежно, мягко, томно.' },
+  { t:'Agitato', pr:'аджита́то', c:'Характер', d:'Взволнованно, возбуждённо.' },
 
-  { t:'Fermata',       c:'Структура',    d:'Знак продления ноты или паузы по усмотрению исполнителя.' },
-  { t:'Da capo (D.C.)',c:'Структура',    d:'С начала, повторить сначала.' },
-  { t:'Dal segno (D.S.)',c:'Структура',  d:'С знака; повтор со специальной отметки.' },
-  { t:'Fine',          c:'Структура',    d:'Конец.' },
-  { t:'Coda',          c:'Структура',    d:'Заключительный раздел.' },
-  { t:'Attacca',       c:'Структура',    d:'Без паузы переходить к следующей части.' },
-  { t:'Ostinato',      c:'Структура',    d:'Настойчиво повторяющаяся фигура.' },
-  { t:'Cadenza',       c:'Структура',    d:'Виртуозный сольный эпизод, часто в конце части.' },
+  // Структура
+  { t:'Fermata', pr:'фэрма́та', c:'Структура', d:'Знак продления ноты или паузы.' },
+  { t:'Da capo (D.C.)', pr:'да ка́по', c:'Структура', d:'С начала, повторить сначала.' },
+  { t:'Dal segno (D.S.)', pr:'даль сэ́ньо', c:'Структура', d:'С знака; повтор со специальной отметки.' },
+  { t:'Fine', pr:'фи́нэ', c:'Структура', d:'Конец.' },
+  { t:'Coda', pr:'ко́да', c:'Структура', d:'Заключительный раздел.' },
+  { t:'Attacca', pr:'атта́кка', c:'Структура', d:'Без паузы переходить к следующей части.' },
+  { t:'Ostinato', pr:'остина́то', c:'Структура', d:'Настойчиво повторяющаяся фигура.' },
+  { t:'Cadenza', pr:'кадэ́нца', c:'Структура', d:'Виртуозный сольный эпизод.' },
+  { t:'Da capo al fine', pr:'да ка́по аль фи́нэ', c:'Структура', d:'С начала до слова Fine.' },
 ];
 
 const CATS = ['Все', 'Темп', 'Динамика', 'Артикуляция', 'Характер', 'Структура'];
@@ -1398,7 +1609,6 @@ function renderCats() {
 }
 
 function renderTerms() {
-  // ВАЖНО: всегда перезапрашиваем контейнер, потому что innerHTML может меняться
   const container = document.getElementById('termsList');
   if (!container) return;
 
@@ -1407,11 +1617,11 @@ function renderTerms() {
     const matchesCat = activeCat === 'Все' || t.c === activeCat;
     const matchesQ = !q ||
       t.t.toLowerCase().indexOf(q) !== -1 ||
+      (t.pr && t.pr.toLowerCase().indexOf(q) !== -1) ||
       t.d.toLowerCase().indexOf(q) !== -1;
     return matchesCat && matchesQ;
   });
 
-  // Контейнер всегда остаётся .terms-list — просто меняем содержимое
   container.className = 'terms-list';
 
   if (filtered.length === 0) {
@@ -1424,6 +1634,7 @@ function renderTerms() {
     html +=
       '<div class="term">' +
         '<div class="term-word">' + t.t + '</div>' +
+        (t.pr ? '<div class="term-pron">[' + t.pr + ']</div>' : '') +
         '<div class="term-cat">' + t.c + '</div>' +
         '<div class="term-def">' + t.d + '</div>' +
       '</div>';
