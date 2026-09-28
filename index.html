@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f4f1ea">
 <title>Maestro — всё для музыканта</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,8 +37,7 @@
   .brand {
     font-family: 'Cormorant Garamond', serif;
     font-size: 30px; font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 0 28px 4px;
+    letter-spacing: 0.02em; padding: 0 28px 4px;
   }
   .brand-sub {
     font-size: 11px; letter-spacing: 0.18em;
@@ -71,8 +69,7 @@
   }
   .sidebar-foot {
     margin-top: auto; padding: 20px 28px 0;
-    font-size: 11px; color: var(--muted);
-    letter-spacing: .04em;
+    font-size: 11px; color: var(--muted); letter-spacing: .04em;
   }
   main {
     flex: 1; overflow-y: auto;
@@ -102,7 +99,6 @@
     border-radius: 10px; padding: 32px;
   }
   .divider { height: 1px; background: var(--line); margin: 28px 0; }
-  /* METRONOME */
   .metro-display {
     display: flex; align-items: baseline; gap: 16px;
     margin-bottom: 28px; flex-wrap: wrap;
@@ -210,14 +206,16 @@
     display: flex; gap: 4px; flex-wrap: wrap;
   }
   .sub-btn {
-    font-family: inherit; font-size: 14px;
-    min-width: 36px; height: 32px; padding: 0 8px;
+    height: 46px; padding: 3px 8px;
     border: 1px solid var(--line); background: var(--surface);
-    border-radius: 5px; cursor: pointer;
+    border-radius: 6px; cursor: pointer;
     color: var(--muted);
+    display: inline-flex; align-items: center; justify-content: center;
     transition: all .12s;
-    line-height: 1;
+    -webkit-appearance: none; appearance: none;
+    font-family: inherit;
   }
+  .sub-btn svg { display: block; height: 36px; width: auto; }
   .sub-btn:hover { border-color: var(--accent-2); color: var(--ink); }
   .sub-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   .rhythm-dots {
@@ -227,13 +225,11 @@
   .rhythm-dot {
     width: 18px; height: 18px; border-radius: 50%;
     border: 1.5px solid var(--line); background: transparent;
-    cursor: pointer; padding: 0;
-    transition: all .12s;
+    cursor: pointer; padding: 0; transition: all .12s;
   }
   .rhythm-dot.on { background: var(--ink); border-color: var(--ink); }
   .rhythm-dot.accent { background: var(--accent); border-color: var(--accent); }
   .rhythm-dot.playing { transform: scale(1.4); box-shadow: 0 0 0 3px rgba(138,111,71,.25); }
-  /* TUNER */
   .tuner-stage {
     display: flex; flex-direction: column;
     align-items: center; padding: 24px 0 8px;
@@ -276,8 +272,7 @@
   .tuner-ticks {
     position: absolute; left: 0; right: 0; top: 30px;
     display: flex; justify-content: space-between;
-    font-size: 10px; color: var(--muted);
-    letter-spacing: .05em;
+    font-size: 10px; color: var(--muted); letter-spacing: .05em;
   }
   .tuner-status {
     margin-top: 20px; font-size: 12px;
@@ -299,8 +294,7 @@
     letter-spacing: .05em; text-transform: uppercase;
     padding: 10px 20px; border: 1px solid var(--line);
     background: var(--surface); border-radius: 6px;
-    cursor: pointer; color: var(--muted);
-    transition: all .15s;
+    cursor: pointer; color: var(--muted); transition: all .15s;
   }
   .mode-btn.active {
     background: var(--ink); color: var(--surface);
@@ -314,8 +308,7 @@
     padding: 24px 56px;
     border: 2px solid var(--accent);
     background: var(--surface); border-radius: 12px;
-    color: var(--ink); cursor: pointer;
-    transition: all .15s;
+    color: var(--ink); cursor: pointer; transition: all .15s;
     display: inline-flex; flex-direction: column;
     align-items: center; gap: 6px;
   }
@@ -342,7 +335,6 @@
   }
   .key-tone:hover { border-color: var(--accent); }
   .key-tone.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-  /* PIANO */
   .piano-scroll {
     overflow-x: auto; overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -353,8 +345,7 @@
     background: var(--ink); border-radius: 6px;
     padding: 6px; box-shadow: 0 12px 30px -18px rgba(0,0,0,.5);
     user-select: none; -webkit-user-select: none;
-    touch-action: pan-x;
-    -webkit-touch-callout: none;
+    touch-action: pan-x; -webkit-touch-callout: none;
   }
   .piano-inner { position: relative; width: 100%; height: 100%; }
   .key {
@@ -372,8 +363,7 @@
   .key.white {
     height: 100%;
     background: linear-gradient(to bottom, #fdfcf8 0%, #f2eee4 100%);
-    border: 1px solid #d8d1c2; z-index: 1;
-    color: #7a7263;
+    border: 1px solid #d8d1c2; z-index: 1; color: #7a7263;
   }
   .key.white:hover { background: #ffffff; }
   .key.white.active {
@@ -409,7 +399,6 @@
     text-align: center; font-size: 12px;
     color: var(--muted); margin-top: 10px; font-style: italic;
   }
-  /* TERMS */
   .search-bar { position: relative; margin-bottom: 24px; }
   .search-bar input {
     width: 100%; font-family: inherit; font-size: 16px;
@@ -426,8 +415,7 @@
     color: var(--muted); pointer-events: none;
   }
   .term-cats {
-    display: flex; gap: 8px; margin-bottom: 24px;
-    flex-wrap: wrap;
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
   }
   .cat {
     font-family: inherit; font-size: 12px;
@@ -521,7 +509,8 @@
     .placeholder { padding: 50px 22px; }
     .rhythm-item { padding: 10px; gap: 8px; }
     .rhythm-num { font-size: 16px; min-width: 20px; }
-    .sub-btn { min-width: 32px; height: 30px; font-size: 12px; padding: 0 6px; }
+    .sub-btn { height: 40px; padding: 2px 6px; }
+    .sub-btn svg { height: 30px; }
     .rhythm-dot { width: 16px; height: 16px; }
     .tone-a4-btn { font-size: 26px; padding: 20px 40px; }
     .scroll-arrow { width: 36px; height: 36px; font-size: 20px; }
@@ -542,28 +531,23 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.4 · прототип</div>
+  <div class="sidebar-foot">v0.5 · прототип</div>
 </aside>
 
 <main>
-
-  <!-- METRONOME -->
   <section id="panel-metronome" class="panel active">
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 01</div>
       <h1 class="panel-title">Метроном</h1>
       <p class="panel-desc">Точный тактовый пульс. Настройте темп, размер и ритмический рисунок каждой доли.</p>
     </div>
-
     <div class="card">
       <div class="metro-display">
         <div class="bpm-value" id="bpmValue">90</div>
         <div class="bpm-label">BPM</div>
         <div class="tempo-name" id="tempoName">Andante</div>
       </div>
-
       <input type="range" id="bpmSlider" min="30" max="240" value="90">
-
       <div class="metro-row">
         <button type="button" class="btn accent" id="metroToggle">Старт</button>
         <label class="switch">
@@ -589,18 +573,13 @@
           </select>
         </div>
       </div>
-
       <div class="divider"></div>
-
       <div class="rhythm-header">
         <span class="bpm-label">Ритмический рисунок</span>
         <button type="button" class="btn link" id="copyToAll">Применить долю 1 ко всем</button>
       </div>
-
       <div class="rhythm-grid" id="rhythmGrid"></div>
-
       <div class="divider"></div>
-
       <div class="metro-row">
         <button type="button" class="btn ghost" data-bpm="40">Grave 40</button>
         <button type="button" class="btn ghost" data-bpm="66">Adagio 66</button>
@@ -611,24 +590,20 @@
     </div>
   </section>
 
-  <!-- TUNER / TONE -->
   <section id="panel-tuner" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 02</div>
       <h1 class="panel-title">Тюнер и камертон</h1>
       <p class="panel-desc">Хроматический тюнер реального времени с широким диапазоном. Или воспроизводите эталонные ноты в режиме камертона.</p>
     </div>
-
     <div class="card">
       <div class="mode-switch">
         <button type="button" class="mode-btn active" data-mode="tuner">Тюнер</button>
         <button type="button" class="mode-btn" data-mode="tone">Камертон</button>
       </div>
-
       <div id="tunerMode" class="tuner-stage">
         <div class="tuner-note" id="tunerNote">—<span class="oct"></span></div>
         <div class="tuner-freq" id="tunerFreq">0.0 Hz</div>
-
         <div class="tuner-bar">
           <div class="tuner-track"></div>
           <div class="tuner-center"></div>
@@ -637,10 +612,8 @@
             <span>-50</span><span>-25</span><span>0</span><span>+25</span><span>+50</span>
           </div>
         </div>
-
         <div class="tuner-status" id="tunerStatus">Нажмите «Включить микрофон»</div>
       </div>
-
       <div id="toneMode" class="tone-fork" style="display:none;">
         <div class="tone-a4">
           <button type="button" class="tone-a4-btn" id="toneA4">
@@ -650,9 +623,7 @@
         </div>
         <div class="tone-keys" id="toneKeys"></div>
       </div>
-
       <div class="divider"></div>
-
       <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
         <button type="button" class="btn accent" id="tunerToggle">Включить микрофон</button>
         <select id="tunerRef" title="Эталонная частота">
@@ -664,14 +635,12 @@
     </div>
   </section>
 
-  <!-- PIANO -->
   <section id="panel-piano" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 03</div>
       <h1 class="panel-title">Пианино</h1>
       <p class="panel-desc">Четыре октавы: большая, малая, первая и вторая. Прокручивайте клавиатуру пальцем или стрелками по краям.</p>
     </div>
-
     <div class="piano-wrap">
       <button type="button" class="scroll-arrow left" id="scrollLeft">‹</button>
       <div class="piano-scroll" id="pianoScroll">
@@ -684,24 +653,20 @@
     <div class="scroll-hint">Также можно прокручивать клавиатуру двумя пальцами</div>
   </section>
 
-  <!-- TERMS -->
   <section id="panel-terms" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Справочник 04</div>
       <h1 class="panel-title">Музыкальные термины</h1>
-      <p class="panel-desc">Итальянские, немецкие, французские термины с русской транскрипцией и пояснением. Всё отсортировано по алфавиту.</p>
+      <p class="panel-desc">Итальянские, немецкие, французские термины с русской транскрипцией. Всё отсортировано по алфавиту.</p>
     </div>
-
     <div class="search-bar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input type="text" id="termSearch" placeholder="Найти термин, транскрипцию или значение…" autocomplete="off" autocorrect="off" autocapitalize="off">
     </div>
-
     <div class="term-cats" id="termCats"></div>
     <div class="terms-list" id="termsList"></div>
   </section>
 
-  <!-- COMPOSERS -->
   <section id="panel-composers" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Раздел 05</div>
@@ -715,7 +680,6 @@
     </div>
   </section>
 
-  <!-- SCORES -->
   <section id="panel-scores" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Раздел 06</div>
@@ -729,7 +693,6 @@
     </div>
   </section>
 
-  <!-- RECORDINGS -->
   <section id="panel-recordings" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Раздел 07</div>
@@ -742,14 +705,13 @@
       <p class="placeholder-desc">Кураторская подборка записей с режимом сравнения.</p>
     </div>
   </section>
-
 </main>
 
 <script>
 'use strict';
 
 /* ============================================================
-   1. АУДИО-КОНТЕКСТ
+   1. АУДИО
    ============================================================ */
 let audioCtx = null;
 let audioUnlocked = false;
@@ -827,7 +789,60 @@ navItems.forEach(item => {
 });
 
 /* ============================================================
-   3. МЕТРОНОМ
+   3. НОТНЫЕ SVG-ИКОНКИ
+   ============================================================ */
+function makeRhythmSVG(count) {
+  const noteSpacing = 10;
+  const padLeft = 9;
+  const padRight = 9;
+  const stemTop = 22;
+  const headY = 42;
+  const headRx = 3.6;
+  const headRy = 2.7;
+  const stemW = 1.5;
+  const beamH = 2.3;
+  const beamGap = 1.4;
+
+  const svgW = padLeft + (count - 1) * noteSpacing + padRight;
+  const svgH = 54;
+
+  let beams = 0;
+  if (count === 2 || count === 3) beams = 1;
+  else if (count === 4) beams = 2;
+  else if (count >= 5) beams = 3;
+
+  const hasNumber = (count === 3 || count === 5 || count === 6 || count === 7);
+
+  let svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">';
+
+  const positions = [];
+  for (let i = 0; i < count; i++) positions.push(padLeft + i * noteSpacing);
+
+  positions.forEach(x => {
+    svg += '<ellipse cx="' + x + '" cy="' + headY + '" rx="' + headRx + '" ry="' + headRy + '" transform="rotate(-22 ' + x + ' ' + headY + ')" fill="currentColor"/>';
+    svg += '<rect x="' + (x + headRx - 0.8) + '" y="' + stemTop + '" width="' + stemW + '" height="' + (headY - stemTop) + '" fill="currentColor"/>';
+  });
+
+  if (beams > 0) {
+    const xStart = positions[0] + headRx - 0.8;
+    const xEnd = positions[positions.length - 1] + headRx - 0.8 + stemW;
+    for (let b = 0; b < beams; b++) {
+      const yPos = stemTop + b * (beamH + beamGap);
+      svg += '<rect x="' + xStart + '" y="' + yPos + '" width="' + (xEnd - xStart) + '" height="' + beamH + '" fill="currentColor"/>';
+    }
+  }
+
+  if (hasNumber) {
+    const cx = svgW / 2;
+    svg += '<text x="' + cx + '" y="' + (stemTop - 5) + '" text-anchor="middle" font-size="11" font-weight="600" font-family="Inter, sans-serif" fill="currentColor">' + count + '</text>';
+  }
+
+  svg += '</svg>';
+  return svg;
+}
+
+/* ============================================================
+   4. МЕТРОНОМ
    ============================================================ */
 const bpmSlider  = document.getElementById('bpmSlider');
 const bpmValue   = document.getElementById('bpmValue');
@@ -870,10 +885,7 @@ document.querySelectorAll('[data-bpm]').forEach(b =>
 function initBeats(n) {
   beatsConfig = [];
   for (let i = 0; i < n; i++) {
-    beatsConfig.push({
-      subdivision: 1,
-      pattern: [i === 0]
-    });
+    beatsConfig.push({ subdivision: 1, pattern: [i === 0] });
   }
   renderRhythmGrid();
 }
@@ -903,19 +915,21 @@ function renderRhythmGrid() {
     subs.className = 'rhythm-subs';
 
     const subOptions = [
-      { v: 1, label: '♩', title: 'Четверти (1 на долю)' },
-      { v: 2, label: '♫', title: 'Восьмые (2 на долю)' },
-      { v: 3, label: '♪³', title: 'Триоли (3 на долю)' },
-      { v: 4, label: '𝅘𝅥𝅯', title: 'Шестнадцатые (4 на долю)' },
-      { v: 5, label: '♪⁵', title: 'Квинтоли (5 на долю)' },
-      { v: 6, label: '♪⁶', title: 'Секстоли (6 на долю)' },
+      { v: 1, title: 'Четверти (1 на долю)' },
+      { v: 2, title: 'Дуоли (2 на долю)' },
+      { v: 3, title: 'Триоли (3 на долю)' },
+      { v: 4, title: 'Квартоли — шестнадцатые (4 на долю)' },
+      { v: 5, title: 'Квинтоли (5 на долю)' },
+      { v: 6, title: 'Секстоли (6 на долю)' },
+      { v: 7, title: 'Септоли (7 на долю)' },
     ];
     subOptions.forEach(opt => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'sub-btn' + (beat.subdivision === opt.v ? ' active' : '');
-      btn.textContent = opt.label;
-      if (opt.title) btn.title = opt.title;
+      btn.innerHTML = makeRhythmSVG(opt.v);
+      btn.title = opt.title;
+      btn.setAttribute('aria-label', opt.title);
       btn.addEventListener('click', () => {
         if (beat.subdivision === opt.v) return;
         const wasAccent = beat.pattern[0];
@@ -974,10 +988,10 @@ function playClick(time, accent, subIndex, subCount) {
   const baseFreq = accent ? 1400 : (subIndex === 0 ? 900 : 700);
   osc.frequency.value = baseFreq;
 
-  const dur = accent ? 0.06 : (subCount >= 4 ? 0.02 : 0.035);
+  const dur = accent ? 0.06 : (subCount >= 4 ? 0.018 : 0.035);
 
   gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(accent ? 0.5 : 0.28, time + 0.002);
+  gain.gain.linearRampToValueAtTime(accent ? 0.5 : 0.26, time + 0.002);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
 
   osc.connect(gain).connect(ctx.destination);
@@ -1052,7 +1066,7 @@ updateBpm(90);
 initBeats(4);
 
 /* ============================================================
-   4. ТЮНЕР И КАМЕРТОН
+   5. ТЮНЕР И КАМЕРТОН
    ============================================================ */
 const tunerBtn    = document.getElementById('tunerToggle');
 const tunerNote   = document.getElementById('tunerNote');
@@ -1156,16 +1170,12 @@ async function startTuner() {
   }
   try {
     micStream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: false,
-        noiseSuppression: false,
-        autoGainControl: false
-      }
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
     });
   } catch (err) {
     let msg = 'Нет доступа к микрофону';
     if (err && err.name === 'NotAllowedError') {
-      msg = 'Доступ запрещён. Настройки iOS → Safari → Микрофон → разрешить для этого сайта. Или нажмите «аА» в адресной строке → Настройки веб-сайта → Микрофон → Разрешить.';
+      msg = 'Доступ запрещён. Настройки iOS → Safari → Микрофон → разрешить. Или нажмите «аА» в адресной строке → Настройки веб-сайта → Микрофон → Разрешить.';
     } else if (err && err.name === 'NotFoundError') {
       msg = 'Микрофон не найден';
     } else if (err && err.name === 'NotReadableError') {
@@ -1312,7 +1322,7 @@ function tickTuner() {
 buildToneKeys();
 
 /* ============================================================
-   5. ПИАНИНО (C2 - B5)
+   6. ПИАНИНО
    ============================================================ */
 const pianoInner = document.getElementById('pianoInner');
 const pianoEl = document.getElementById('piano');
@@ -1436,7 +1446,6 @@ function playPianoNote(freq) {
 
 buildPiano();
 
-// === Прокрутка клавиатуры ===
 const pianoScroll = document.getElementById('pianoScroll');
 const scrollLeftBtn = document.getElementById('scrollLeft');
 const scrollRightBtn = document.getElementById('scrollRight');
@@ -1448,7 +1457,6 @@ if (pianoScroll && scrollLeftBtn && scrollRightBtn) {
   scrollRightBtn.addEventListener('click', () => {
     pianoScroll.scrollBy({ left: 220, behavior: 'smooth' });
   });
-
   setTimeout(() => {
     const c4 = keyElements.get(60);
     if (c4) {
@@ -1459,10 +1467,9 @@ if (pianoScroll && scrollLeftBtn && scrollRightBtn) {
 }
 
 /* ============================================================
-   6. СЛОВАРЬ ТЕРМИНОВ (сортировка по алфавиту)
+   7. ТЕРМИНЫ
    ============================================================ */
 const TERMS = [
-  // ===== ТЕМП =====
   { t:'Grave', pr:'гра́вэ', c:'Темп', d:'Очень медленно и торжественно, тяжело.' },
   { t:'Largo', pr:'ля́рго', c:'Темп', d:'Широко, очень медленно.' },
   { t:'Larghetto', pr:'ляргэ́тто', c:'Темп', d:'Несколько быстрее, чем largo.' },
@@ -1492,8 +1499,6 @@ const TERMS = [
   { t:'Tempo giusto', pr:'тэ́мпо джу́сто', c:'Темп', d:'Точный, правильный темп.' },
   { t:'Comodo', pr:'ко́модо', c:'Темп', d:'Удобно, без спешки.' },
   { t:'Animando', pr:'анима́ндо', c:'Темп', d:'Воодушевляясь, оживляясь.' },
-
-  // ===== ДИНАМИКА =====
   { t:'Pianissimo (pp)', pr:'пиани́ссимо', c:'Динамика', d:'Очень тихо.' },
   { t:'Piano (p)', pr:'пиа́но', c:'Динамика', d:'Тихо.' },
   { t:'Mezzo-piano (mp)', pr:'мэ́ццо-пиа́но', c:'Динамика', d:'Умеренно тихо.' },
@@ -1507,8 +1512,6 @@ const TERMS = [
   { t:'Rinforzando', pr:'ринфорца́ндо', c:'Динамика', d:'Внезапное усиление.' },
   { t:'Morendo', pr:'морэ́ндо', c:'Динамика', d:'Замирая, угасая.' },
   { t:'Smorzando', pr:'сморца́ндо', c:'Динамика', d:'Замирая, приглушая.' },
-
-  // ===== АРТИКУЛЯЦИЯ =====
   { t:'Legato', pr:'лега́то', c:'Артикуляция', d:'Связно, без разрыва между нотами.' },
   { t:'Staccato', pr:'стакка́то', c:'Артикуляция', d:'Отрывисто, коротко.' },
   { t:'Marcato', pr:'марка́то', c:'Артикуляция', d:'Подчёркнуто, акцентированно.' },
@@ -1526,8 +1529,6 @@ const TERMS = [
   { t:'Détaché', pr:'дэташэ́', c:'Артикуляция', d:'Каждая нота отдельным движением смычка.' },
   { t:'Sul ponticello', pr:'суль понтиче́лло', c:'Артикуляция', d:'У подставки (звонкий, стеклянный звук).' },
   { t:'Sul tasto', pr:'суль та́сто', c:'Артикуляция', d:'Над грифом (мягкий, приглушённый звук).' },
-
-  // ===== ХАРАКТЕР =====
   { t:'Dolce', pr:'до́льче', c:'Характер', d:'Нежно, мягко, ласково.' },
   { t:'Cantabile', pr:'канта́биле', c:'Характер', d:'Певуче, как вокальная партия.' },
   { t:'Espressivo', pr:'эспрэсси́во', c:'Характер', d:'Выразительно.' },
@@ -1583,8 +1584,6 @@ const TERMS = [
   { t:'Sognando', pr:'соня́ндо', c:'Характер', d:'Мечтательно, как во сне.' },
   { t:'Tempestoso', pr:'тэмпэсто́зо', c:'Характер', d:'Бурно, как буря.' },
   { t:'Vigoroso', pr:'вигоро́зо', c:'Характер', d:'Мощно, энергично.' },
-
-  // ===== СТРУКТУРА =====
   { t:'Fermata', pr:'фэрма́та', c:'Структура', d:'Знак продления ноты или паузы.' },
   { t:'Da capo (D.C.)', pr:'да ка́по', c:'Структура', d:'С начала, повторить сначала.' },
   { t:'Dal segno (D.S.)', pr:'даль сэ́ньо', c:'Структура', d:'С знака; повтор со специальной отметки.' },
