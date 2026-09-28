@@ -29,7 +29,6 @@
     display: flex; min-height: 100vh; min-height: 100dvh;
     overflow: hidden; overscroll-behavior: none;
   }
-  /* SIDEBAR */
   .sidebar {
     width: 240px; flex-shrink: 0; background: var(--surface);
     border-right: 1px solid var(--line);
@@ -75,7 +74,6 @@
     font-size: 11px; color: var(--muted);
     letter-spacing: .04em;
   }
-  /* MAIN */
   main {
     flex: 1; overflow-y: auto;
     padding: 48px 56px 72px;
@@ -160,7 +158,6 @@
     text-decoration: underline; cursor: pointer;
     font-family: inherit;
   }
-  /* Switch */
   .switch {
     display: inline-flex; align-items: center;
     gap: 10px; cursor: pointer;
@@ -189,10 +186,10 @@
     color: var(--ink); cursor: pointer; outline: none;
   }
   select:focus { border-color: var(--accent); }
-  /* Rhythm grid */
   .rhythm-header {
     display: flex; justify-content: space-between;
     align-items: center; margin-bottom: 16px;
+    flex-wrap: wrap; gap: 8px;
   }
   .rhythm-grid {
     display: flex; flex-direction: column; gap: 10px;
@@ -210,14 +207,14 @@
     min-width: 24px; text-align: center;
   }
   .rhythm-subs {
-    display: flex; gap: 4px;
+    display: flex; gap: 4px; flex-wrap: wrap;
   }
   .sub-btn {
     font-family: inherit; font-size: 14px;
-    width: 36px; height: 32px;
+    min-width: 36px; height: 32px; padding: 0 8px;
     border: 1px solid var(--line); background: var(--surface);
     border-radius: 5px; cursor: pointer;
-    color: var(--muted); padding: 0;
+    color: var(--muted);
     transition: all .12s;
     line-height: 1;
   }
@@ -225,6 +222,7 @@
   .sub-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   .rhythm-dots {
     display: flex; gap: 8px; margin-left: auto;
+    flex-wrap: wrap;
   }
   .rhythm-dot {
     width: 18px; height: 18px; border-radius: 50%;
@@ -287,6 +285,11 @@
     color: var(--muted); min-height: 16px;
   }
   .tuner-status.on { color: var(--green); }
+  .tuner-status.error {
+    text-transform: none; color: var(--red);
+    font-size: 13px; letter-spacing: 0; line-height: 1.5;
+    max-width: 480px; text-align: center; margin-top: 16px;
+  }
   .mode-switch {
     display: flex; justify-content: center;
     gap: 8px; margin-bottom: 24px;
@@ -303,11 +306,8 @@
     background: var(--ink); color: var(--surface);
     border-color: var(--ink);
   }
-  /* Tuning fork */
   .tone-fork { padding: 8px 0; }
-  .tone-a4 {
-    text-align: center; margin-bottom: 28px;
-  }
+  .tone-a4 { text-align: center; margin-bottom: 28px; }
   .tone-a4-btn {
     font-family: 'Cormorant Garamond', serif;
     font-size: 32px; font-weight: 500;
@@ -353,7 +353,8 @@
     background: var(--ink); border-radius: 6px;
     padding: 6px; box-shadow: 0 12px 30px -18px rgba(0,0,0,.5);
     user-select: none; -webkit-user-select: none;
-    touch-action: none; -webkit-touch-callout: none;
+    touch-action: pan-x;
+    -webkit-touch-callout: none;
   }
   .piano-inner { position: relative; width: 100%; height: 100%; }
   .key {
@@ -364,7 +365,8 @@
     justify-content: center; padding-bottom: 8px;
     font-size: 11px; color: var(--muted);
     transition: background .05s, transform .05s;
-    touch-action: none; -webkit-touch-callout: none;
+    touch-action: pan-x;
+    -webkit-touch-callout: none;
     -webkit-user-select: none; user-select: none;
   }
   .key.white {
@@ -391,6 +393,22 @@
     transform: translateY(1px);
   }
   .key.octave-start.white { border-left: 2px solid #b8a888; }
+  .piano-wrap { position: relative; }
+  .scroll-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--line);
+    color: var(--ink); cursor: pointer; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; z-index: 10; line-height: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  .scroll-arrow.left { left: 6px; }
+  .scroll-arrow.right { right: 6px; }
+  .scroll-hint {
+    text-align: center; font-size: 12px;
+    color: var(--muted); margin-top: 10px; font-style: italic;
+  }
   /* TERMS */
   .search-bar { position: relative; margin-bottom: 24px; }
   .search-bar input {
@@ -455,7 +473,6 @@
     padding: 60px 20px; color: var(--muted);
     font-size: 14px; background: var(--surface);
   }
-  /* PLACEHOLDER */
   .placeholder {
     text-align: center; padding: 80px 40px;
     border: 1px dashed var(--line);
@@ -473,14 +490,6 @@
   .placeholder-desc {
     font-size: 14px; color: var(--muted);
     max-width: 460px; margin: 0 auto; line-height: 1.6;
-  }
-  .placeholder-list {
-    margin-top: 28px; display: inline-flex;
-    flex-direction: column; gap: 8px;
-    text-align: left; font-size: 13px; color: var(--muted);
-  }
-  .placeholder-list span::before {
-    content: '—'; color: var(--accent-2); margin-right: 10px;
   }
   @media (max-width: 860px) {
     body { flex-direction: column; overflow: auto; }
@@ -512,9 +521,10 @@
     .placeholder { padding: 50px 22px; }
     .rhythm-item { padding: 10px; gap: 8px; }
     .rhythm-num { font-size: 16px; min-width: 20px; }
-    .sub-btn { width: 32px; height: 30px; font-size: 13px; }
+    .sub-btn { min-width: 32px; height: 30px; font-size: 12px; padding: 0 6px; }
     .rhythm-dot { width: 16px; height: 16px; }
     .tone-a4-btn { font-size: 26px; padding: 20px 40px; }
+    .scroll-arrow { width: 36px; height: 36px; font-size: 20px; }
   }
 </style>
 </head>
@@ -532,7 +542,7 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.3 · прототип</div>
+  <div class="sidebar-foot">v0.4 · прототип</div>
 </aside>
 
 <main>
@@ -659,14 +669,19 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 03</div>
       <h1 class="panel-title">Пианино</h1>
-      <p class="panel-desc">Четыре октавы: большая, малая, первая и вторая. Прокручивайте клавиатуру пальцем, играйте касанием.</p>
+      <p class="panel-desc">Четыре октавы: большая, малая, первая и вторая. Прокручивайте клавиатуру пальцем или стрелками по краям.</p>
     </div>
 
-    <div class="piano-scroll">
-      <div class="piano" id="piano">
-        <div class="piano-inner" id="pianoInner"></div>
+    <div class="piano-wrap">
+      <button type="button" class="scroll-arrow left" id="scrollLeft">‹</button>
+      <div class="piano-scroll" id="pianoScroll">
+        <div class="piano" id="piano">
+          <div class="piano-inner" id="pianoInner"></div>
+        </div>
       </div>
+      <button type="button" class="scroll-arrow right" id="scrollRight">›</button>
     </div>
+    <div class="scroll-hint">Также можно прокручивать клавиатуру двумя пальцами</div>
   </section>
 
   <!-- TERMS -->
@@ -674,7 +689,7 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Справочник 04</div>
       <h1 class="panel-title">Музыкальные термины</h1>
-      <p class="panel-desc">Итальянские, немецкие, французские термины с русской транскрипцией и пояснением.</p>
+      <p class="panel-desc">Итальянские, немецкие, французские термины с русской транскрипцией и пояснением. Всё отсортировано по алфавиту.</p>
     </div>
 
     <div class="search-bar">
@@ -728,11 +743,13 @@
     </div>
   </section>
 
-</main><script>
+</main>
+
+<script>
 'use strict';
 
 /* ============================================================
-   1. АУДИО (с фиксами для iOS)
+   1. АУДИО-КОНТЕКСТ
    ============================================================ */
 let audioCtx = null;
 let audioUnlocked = false;
@@ -769,8 +786,22 @@ document.addEventListener('click', unlockAudio);
 document.addEventListener('keydown', unlockAudio);
 
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
+  if (document.hidden) {
+    if (metronomePlaying) toggleMetronome(false);
+    if (tunerRunning) toggleTuner(false);
+    if (tonePlaying) stopTone();
+  } else {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    audioUnlocked = false;
+  }
+});
+
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    audioUnlocked = false;
+    if (metronomePlaying) toggleMetronome(false);
+    if (tunerRunning) toggleTuner(false);
   }
 });
 
@@ -836,17 +867,12 @@ document.querySelectorAll('[data-bpm]').forEach(b =>
   b.addEventListener('click', () => updateBpm(+b.dataset.bpm))
 );
 
-function defaultPattern(beatIndex) {
-  // Первая доля — акцент, остальные — тише
-  return [beatIndex === 0];
-}
-
 function initBeats(n) {
   beatsConfig = [];
   for (let i = 0; i < n; i++) {
     beatsConfig.push({
       subdivision: 1,
-      pattern: defaultPattern(i)
+      pattern: [i === 0]
     });
   }
   renderRhythmGrid();
@@ -875,25 +901,27 @@ function renderRhythmGrid() {
 
     const subs = document.createElement('div');
     subs.className = 'rhythm-subs';
+
     const subOptions = [
-      { v: 1, label: '♩' },
-      { v: 2, label: '♫' },
-      { v: 3, label: '³' },
-      { v: 4, label: '♬' },
+      { v: 1, label: '♩', title: 'Четверти (1 на долю)' },
+      { v: 2, label: '♫', title: 'Восьмые (2 на долю)' },
+      { v: 3, label: '♪³', title: 'Триоли (3 на долю)' },
+      { v: 4, label: '𝅘𝅥𝅯', title: 'Шестнадцатые (4 на долю)' },
+      { v: 5, label: '♪⁵', title: 'Квинтоли (5 на долю)' },
+      { v: 6, label: '♪⁶', title: 'Секстоли (6 на долю)' },
     ];
     subOptions.forEach(opt => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'sub-btn' + (beat.subdivision === opt.v ? ' active' : '');
       btn.textContent = opt.label;
+      if (opt.title) btn.title = opt.title;
       btn.addEventListener('click', () => {
         if (beat.subdivision === opt.v) return;
-        beat.subdivision = opt.v;
-        // Сброс паттерна: первый суб-удар сохраняет свой акцент
         const wasAccent = beat.pattern[0];
+        beat.subdivision = opt.v;
         beat.pattern = new Array(opt.v).fill(false);
         beat.pattern[0] = wasAccent || i === 0;
-        // Если доля не первая — сбрасываем акцент первой доли
         if (i !== 0) beat.pattern[0] = false;
         renderRhythmGrid();
       });
@@ -928,7 +956,7 @@ copyToAll.addEventListener('click', () => {
     if (i === 0) return;
     b.subdivision = src.subdivision;
     b.pattern = src.pattern.slice();
-    b.pattern[0] = false; // у остальных долей акцент снимаем
+    b.pattern[0] = false;
   });
   renderRhythmGrid();
 });
@@ -943,11 +971,9 @@ function playClick(time, accent, subIndex, subCount) {
   const gain = ctx.createGain();
   osc.type = 'sine';
 
-  // Частота: акцент выше, обычные — в зависимости от саб-доли
   const baseFreq = accent ? 1400 : (subIndex === 0 ? 900 : 700);
   osc.frequency.value = baseFreq;
 
-  // Длительность
   const dur = accent ? 0.06 : (subCount >= 4 ? 0.02 : 0.035);
 
   gain.gain.setValueAtTime(0, time);
@@ -965,7 +991,7 @@ function scheduleVisual(beatIdx, subIdx, time) {
   const delayMs = (time - ctx.currentTime) * 1000;
   setTimeout(() => {
     document.querySelectorAll('.rhythm-dot').forEach(d => d.classList.remove('playing'));
-    const el = document.querySelector(`.rhythm-dot[data-beat="${beatIdx}"][data-sub="${subIdx}"]`);
+    const el = document.querySelector('.rhythm-dot[data-beat="' + beatIdx + '"][data-sub="' + subIdx + '"]');
     if (el) el.classList.add('playing');
   }, Math.max(0, delayMs));
 }
@@ -977,7 +1003,6 @@ function scheduler() {
     const beat = beatsConfig[currentBeat];
     if (!beat) break;
 
-    // Акцент — только если включён глобальный тумблер
     const patternAccent = beat.pattern[currentSub];
     const isDownbeat = currentBeat === 0 && currentSub === 0;
     const accent = accentToggle.checked && (patternAccent || isDownbeat);
@@ -1069,10 +1094,8 @@ modeBtns.forEach(btn => {
   });
 });
 
-// Кнопка Ля первой октавы
 toneA4.addEventListener('click', () => playTone(69));
 
-// Остальные ноты: C4 - B4
 function buildToneKeys() {
   toneKeys.innerHTML = '';
   for (let midi = 60; midi <= 71; midi++) {
@@ -1128,6 +1151,7 @@ function stopTone() {
 async function startTuner() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     tunerStatus.textContent = 'Микрофон не поддерживается';
+    tunerStatus.classList.add('error');
     return false;
   }
   try {
@@ -1139,7 +1163,16 @@ async function startTuner() {
       }
     });
   } catch (err) {
-    tunerStatus.textContent = 'Нет доступа к микрофону';
+    let msg = 'Нет доступа к микрофону';
+    if (err && err.name === 'NotAllowedError') {
+      msg = 'Доступ запрещён. Настройки iOS → Safari → Микрофон → разрешить для этого сайта. Или нажмите «аА» в адресной строке → Настройки веб-сайта → Микрофон → Разрешить.';
+    } else if (err && err.name === 'NotFoundError') {
+      msg = 'Микрофон не найден';
+    } else if (err && err.name === 'NotReadableError') {
+      msg = 'Микрофон занят другим приложением';
+    }
+    tunerStatus.textContent = msg;
+    tunerStatus.classList.add('error');
     tunerStatus.classList.remove('on');
     return false;
   }
@@ -1150,7 +1183,7 @@ async function startTuner() {
 
   sourceNode = ctx.createMediaStreamSource(micStream);
   analyser = ctx.createAnalyser();
-  analyser.fftSize = 2048; // больше для низких нот
+  analyser.fftSize = 2048;
   sourceNode.connect(analyser);
   buf = new Float32Array(analyser.fftSize);
 
@@ -1159,6 +1192,7 @@ async function startTuner() {
   tunerBtn.classList.remove('accent');
   tunerStatus.textContent = 'Слушаю…';
   tunerStatus.classList.remove('on');
+  tunerStatus.classList.remove('error');
   tickTuner();
   return true;
 }
@@ -1176,6 +1210,7 @@ function stopTuner() {
   tunerMarker.classList.remove('in-tune');
   tunerStatus.textContent = 'Нажмите «Включить микрофон»';
   tunerStatus.classList.remove('on');
+  tunerStatus.classList.remove('error');
   tunerBtn.textContent = 'Включить микрофон';
   tunerBtn.classList.add('accent');
 }
@@ -1187,7 +1222,6 @@ async function toggleTuner(force) {
 }
 tunerBtn.addEventListener('click', () => toggleTuner());
 
-// Автокорреляция
 function autoCorrelate(buffer, sampleRate) {
   let SIZE = buffer.length;
   let rms = 0;
@@ -1242,7 +1276,6 @@ function tickTuner() {
   const ref = +tunerRef.value;
   const freq = autoCorrelate(buf, ctx.sampleRate);
 
-  // Широкий диапазон: 40 Гц - 3500 Гц
   if (freq === -1 || freq < 40 || freq > 3500) {
     tunerStatus.textContent = 'Слушаю…';
     tunerStatus.classList.remove('on');
@@ -1279,7 +1312,7 @@ function tickTuner() {
 buildToneKeys();
 
 /* ============================================================
-   5. ПИАНИНО (C2 - B5, 4 октавы)
+   5. ПИАНИНО (C2 - B5)
    ============================================================ */
 const pianoInner = document.getElementById('pianoInner');
 const pianoEl = document.getElementById('piano');
@@ -1287,10 +1320,9 @@ const pianoEl = document.getElementById('piano');
 const BLACK_PCS = [1, 3, 6, 8, 10];
 const isBlackPc = pc => BLACK_PCS.indexOf(pc) !== -1;
 
-// C2 (MIDI 36) — B5 (MIDI 83) = 4 полных октавы
 const START_MIDI = 36;
 const END_MIDI   = 83;
-const WHITE_KEY_W = 42; // px
+const WHITE_KEY_W = 42;
 
 const keyElements = new Map();
 let pointerDown = false;
@@ -1327,7 +1359,6 @@ function buildPiano() {
       whiteIndex++;
     }
 
-    // Метка только на C (граница октавы)
     if (pc === 0 && !isBlack) {
       const label = document.createElement('span');
       const octave = Math.floor(midi / 12) - 1;
@@ -1405,8 +1436,30 @@ function playPianoNote(freq) {
 
 buildPiano();
 
+// === Прокрутка клавиатуры ===
+const pianoScroll = document.getElementById('pianoScroll');
+const scrollLeftBtn = document.getElementById('scrollLeft');
+const scrollRightBtn = document.getElementById('scrollRight');
+
+if (pianoScroll && scrollLeftBtn && scrollRightBtn) {
+  scrollLeftBtn.addEventListener('click', () => {
+    pianoScroll.scrollBy({ left: -220, behavior: 'smooth' });
+  });
+  scrollRightBtn.addEventListener('click', () => {
+    pianoScroll.scrollBy({ left: 220, behavior: 'smooth' });
+  });
+
+  setTimeout(() => {
+    const c4 = keyElements.get(60);
+    if (c4) {
+      const target = c4.offsetLeft - pianoScroll.clientWidth / 2 + WHITE_KEY_W / 2;
+      pianoScroll.scrollLeft = Math.max(0, target);
+    }
+  }, 150);
+}
+
 /* ============================================================
-   6. СЛОВАРЬ ТЕРМИНОВ
+   6. СЛОВАРЬ ТЕРМИНОВ (сортировка по алфавиту)
    ============================================================ */
 const TERMS = [
   // ===== ТЕМП =====
@@ -1586,7 +1639,7 @@ function renderTerms() {
       (t.pr && t.pr.toLowerCase().indexOf(q) !== -1) ||
       t.d.toLowerCase().indexOf(q) !== -1;
     return matchesCat && matchesQ;
-  });
+  }).sort((a, b) => a.t.toLowerCase().localeCompare(b.t.toLowerCase()));
 
   container.className = 'terms-list';
 
