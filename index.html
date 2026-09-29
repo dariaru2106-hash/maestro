@@ -1688,45 +1688,99 @@ function stopTone() {
 }
 
 async function startTuner() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    tunerStatus.textContent = 'Микрофон не поддерживается';
-    tunerStatus.classList.add('error');
-    return false;
-  }
-  try {
-    micStream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
-    });
-  } catch (err) {
-    let msg = 'Нет доступа к микрофону';
-    if (err && err.name === 'NotAllowedError') {
-      msg = 'Доступ запрещён. Нажмите «Как включить микрофон?» выше — там пошаговая инструкция. После разрешения перезагрузите сайт.';
-    } else if (err && err.name === 'NotFoundError') {
-      msg = 'Микрофон не найден';
-    } else if (err && err.name === 'NotReadableError') {
-      msg = 'Микрофон занят другим приложением. Закройте Zoom, диктофон и попробуйте снова.';
-    } else if (err && err.name === 'SecurityError') {
-      msg = 'Микрофон заблокирован. Проверьте, что сайт открыт по HTTPS и не в приватном режиме.';
-    }
-    tunerStatus.textContent = msg;
-    tunerStatus.classList.add('error');
-    tunerStatus.classList.remove('on');
+  tunerStatus.classList.remove('on');
+  tunerStatus.classList.add('error');
+
+  // Диагностика 1: доступен ли API
+  if (!navigator.mediaDevices) {
+    tunerStatus.textContent = 'navigator.mediaDevices недоступен. Возможно, сайт открыт не по HTTPS или в приватном режиме.';
     micHint.classList.add('visible');
     return false;
   }
+  if (!navigator.mediaDevices.getUserMedia) {
+    tunerStatus.textContent = 'getUserMedia не поддерживается этим браузером.';
+    micHint.classList.add('visible');
+    return false;
+  }
+
+  // Диагностика 2: перечислим доступные устройства
+  let micsCount = '?';
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    micsCount = devices.filter(d => d.kind === 'audioinput').length;
+  } catch(e) { micsCount = 'err'; }
+
+  // Пробуем разные наборы ограничений — от самых простых к сложным
+  const constraintOptions = [
+    { audio: true },
+    { audio: { echoCancellation: false, noiseSuppression: false } },
+    { audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }
+  ];
+
+  let stream = null;
+  let lastErr = null;
+  for (let i = 0; i < constraintOptions.length; i++) {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(constraintOptions[i]);
+      lastErr = null;
+      break;
+    } catch (e) {
+      lastErr = e;
+      // При отказе в доступе не пытаемся дальше — бессмысленно
+      if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) break;
+    }
+  }
+
+  if (!stream) {
+    let msg = 'Не удалось получить доступ';
+    const name = lastErr ? lastErr.name : 'unknown';
+    if (name === 'NotAllowedError') {
+      msg = 'Доступ запрещён. Проверьте: «аА» → Настройки веб-сайта → Микрофон → Разрешить. Затем — Настройки iPhone → Safari → Микрофон → Разрешить. После этого ЗАКРОЙТЕ Safari полностью и откройте заново.';
+    } else if (name === 'NotFoundError') {
+      msg = 'Микрофон не найден. Устройства ввода: ' + micsCount;
+    } else if (name === 'NotReadableError') {
+      msg = 'Микрофон занят другим приложением. Закройте Zoom, диктофон, мессенджеры.';
+    } else if (name === 'OverconstrainedError') {
+      msg = 'Параметры микрофона не поддерживаются устройством.';
+    } else if (name === 'SecurityError') {
+      msg = 'Заблокировано из соображений безопасности. Проверьте HTTPS и не в приватном режиме.';
+    } else if (lastErr && lastErr.message) {
+      msg = 'Ошибка: ' + name + ' — ' + lastErr.message;
+    }
+    tunerStatus.textContent = msg;
+    micHint.classList.add('visible');
+    return false;
+  }
+
+  micStream = stream;
   const ctx = getCtx();
-  if (!ctx) return false;
-  await ctx.resume();
-  sourceNode = ctx.createMediaStreamSource(micStream);
-  analyser = ctx.createAnalyser();
-  analyser.fftSize = 2048;
-  sourceNode.connect(analyser);
-  buf = new Float32Array(analyser.fftSize);
+  if (!ctx) {
+    try { micStream.getTracks().forEach(t => t.stop()); } catch(e) {}
+    micStream = null;
+    tunerStatus.textContent = 'Аудиоконтекст недоступен';
+    return false;
+  }
+  try { await ctx.resume(); } catch(e) {}
+
+  try {
+    sourceNode = ctx.createMediaStreamSource(micStream);
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 2048;
+    sourceNode.connect(analyser);
+    buf = new Float32Array(analyser.fftSize);
+  } catch (e) {
+    tunerStatus.textContent = 'Не удалось подключить микрофон к анализатору: ' + (e.message || e.name);
+    try { micStream.getTracks().forEach(t => t.stop()); } catch(err) {}
+    micStream = null;
+    return false;
+  }
+
   tunerRunning = true;
   tunerBtn.textContent = 'Выключить';
   tunerBtn.classList.remove('accent');
   tunerStatus.textContent = 'Слушаю…';
-  tunerStatus.classList.remove('on', 'error');
+  tunerStatus.classList.remove('error');
+  tunerStatus.classList.add('on');
   tickTuner();
   return true;
 }
