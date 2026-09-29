@@ -77,8 +77,6 @@
     border-radius: 50%; background: var(--ink); cursor: pointer;
     border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--ink);
   }
-  input[type=range].volume { width: 140px; margin: 0; height: 2px; }
-  input[type=range].volume::-webkit-slider-thumb { width: 14px; height: 14px; }
   .metro-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
   .btn {
     font-family: inherit; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
@@ -166,7 +164,6 @@
   .rhythm-dot.accent { background: var(--accent); border-color: var(--accent); }
   .rhythm-dot.playing { transform: scale(1.4); box-shadow: 0 0 0 3px rgba(138,111,71,.25); }
 
-  /* POLYRHYTHM */
   .poly-wrap { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 22px 20px 16px; margin-bottom: 16px; }
   .poly-selector { display: flex; gap: 8px; margin-bottom: 26px; justify-content: center; flex-wrap: wrap; }
   .poly-option {
@@ -178,9 +175,7 @@
   }
   .poly-option:hover { border-color: var(--accent); color: var(--ink); }
   .poly-option.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
   .poly-stage { position: relative; padding: 4px 0 8px; }
-
   .poly-axis { position: relative; height: 24px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
   .poly-axis-tick { position: absolute; bottom: 0; width: 1px; height: 5px; background: var(--line); transform: translateX(-50%); }
   .poly-axis-tick.major { height: 9px; background: var(--accent-2); }
@@ -189,12 +184,10 @@
     font-size: 9px; letter-spacing: .12em; color: var(--muted);
     text-transform: uppercase; font-family: 'Inter', sans-serif;
   }
-
   .poly-rows { position: relative; display: flex; flex-direction: column; gap: 40px; padding: 28px 0 4px; }
   .poly-line { position: relative; height: 56px; width: 100%; }
   .poly-line[data-row="a"] { color: var(--accent); }
   .poly-line[data-row="b"] { color: var(--ink); }
-
   .poly-beam {
     position: absolute; top: 16px; height: 2.5px;
     background: currentColor; border-radius: 1.5px;
@@ -220,14 +213,12 @@
     transform: rotate(-22deg) scale(1.85);
     filter: drop-shadow(0 0 12px currentColor);
   }
-
   .poly-line-label {
     position: absolute; top: -26px; left: 0;
     color: var(--muted); opacity: .6;
     height: 22px; display: flex; align-items: center;
   }
   .poly-line-label svg { height: 22px; width: auto; display: block; }
-
   .poly-sweep {
     position: absolute; top: 30px; bottom: 0;
     left: 0; width: 1.5px;
@@ -243,7 +234,6 @@
     border-radius: 50%; background: var(--accent);
     box-shadow: 0 0 10px rgba(138,111,71,.6);
   }
-
   .poly-controls { display: flex; justify-content: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
 
   .tuner-stage { display: flex; flex-direction: column; align-items: center; padding: 24px 0 8px; }
@@ -269,6 +259,39 @@
   .mic-hint strong { color: var(--accent); }
   .mic-hint ol { padding-left: 20px; margin-top: 8px; }
   .mic-hint li { margin-bottom: 4px; }
+
+  .instrument-row {
+    display: flex; gap: 8px; align-items: center; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .instrument-row select { min-width: 220px; }
+  .strings-row {
+    display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .string-chip {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 6px;
+    color: var(--muted);
+    min-width: 46px;
+    text-align: center;
+    transition: all .2s;
+  }
+  .string-chip.detected {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(138,111,71,.4);
+  }
+  .string-chip.tuned {
+    background: var(--green); color: #fff; border-color: var(--green);
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(90,122,90,.4);
+  }
+
   .mode-switch { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
   .mode-btn {
     font-family: inherit; font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
@@ -343,14 +366,12 @@
     height: 100%; background: linear-gradient(to bottom, #fdfcf8 0%, #f2eee4 100%);
     border: 1px solid #d8d1c2; z-index: 1; color: #7a7263;
   }
-  .key.white:hover { background: #ffffff; }
   .key.white.active { background: linear-gradient(to bottom, #e8dfcb 0%, #d9cfb6 100%); transform: translateY(1px); }
   .key.black {
     height: 62%; background: linear-gradient(to bottom, #2e2b26 0%, #14120f 100%);
     z-index: 2; color: #9a9284; border-radius: 0 0 3px 3px;
     box-shadow: 0 3px 6px -2px rgba(0,0,0,.6);
   }
-  .key.black:hover { background: linear-gradient(to bottom, #3a362f 0%, #1a1815 100%); }
   .key.black.active { background: linear-gradient(to bottom, #5a5142 0%, #3a352c 100%); transform: translateY(1px); }
   .key.octave-start.white { border-left: 2px solid #b8a888; }
   .piano-wrap { position: relative; }
@@ -405,6 +426,57 @@
   .term-cat { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
   .term-def { font-size: 13px; color: var(--muted); line-height: 1.55; }
   .empty-inner { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; background: var(--surface); }
+
+  /* COMPOSERS */
+  .composers-list { display: flex; flex-direction: column; gap: 16px; }
+  .composer {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 26px 26px 22px;
+    transition: border-color .15s;
+  }
+  .composer:hover { border-color: var(--accent-2); }
+  .composer-head { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
+  .composer-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-style: italic; font-weight: 500;
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+    letter-spacing: -.02em;
+  }
+  .composer-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; line-height: 1.15; margin-bottom: 4px; }
+  .composer-meta {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .composer-meta .dot { opacity: .5; margin: 0 6px; }
+  .composer-meta .epoch { color: var(--accent); }
+  .composer-bio { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 6px; }
+  .composer-section { margin-top: 18px; }
+  .composer-section-title {
+    font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .composer-list { list-style: none; padding: 0; margin: 0; }
+  .composer-list li {
+    font-size: 13px; line-height: 1.65; color: var(--ink);
+    padding-left: 18px; position: relative;
+    margin-bottom: 6px;
+  }
+  .composer-list li::before {
+    content: '—'; position: absolute; left: 0;
+    color: var(--accent-2);
+  }
+  .composer-works { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .work-chip {
+    font-size: 12px; padding: 5px 12px;
+    background: var(--bg); border: 1px solid var(--line);
+    border-radius: 20px; color: var(--ink);
+    font-style: italic;
+  }
+
   .placeholder { text-align: center; padding: 80px 40px; border: 1px dashed var(--line); border-radius: 10px; background: var(--surface); }
   .placeholder-mark { font-family: 'Cormorant Garamond', serif; font-size: 56px; color: var(--accent-2); line-height: 1; margin-bottom: 20px; }
   .placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; margin-bottom: 12px; }
@@ -416,10 +488,12 @@
     color: var(--muted); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 16px rgba(0,0,0,.12);
-    transition: all .25s ease; padding: 0;
+    transition: all .25s ease, opacity .25s ease, transform .25s ease;
+    padding: 0;
     -webkit-tap-highlight-color: transparent;
   }
   .audio-indicator:hover { transform: scale(1.05); }
+  .audio-indicator.hidden { opacity: 0; pointer-events: none; transform: scale(.8); }
   .audio-indicator svg { width: 22px; height: 22px; display: block; }
   .audio-indicator.active { color: var(--green); border-color: rgba(90,122,90,.4); }
   .audio-indicator.blocked { color: var(--red); border-color: rgba(160,85,85,.4); animation: audioPulse 2s infinite; }
@@ -467,7 +541,6 @@
     .fork-visual { width: 84px; height: 150px; }
     .fork-note { font-size: 36px; }
     .audio-indicator { width: 44px; height: 44px; bottom: 14px; right: 14px; }
-    input[type=range].volume { width: 100px; }
     .poly-wrap { padding: 18px 12px 12px; }
     .poly-option { font-size: 15px; padding: 8px 14px; }
     .poly-rows { gap: 34px; padding: 24px 0 4px; }
@@ -475,6 +548,13 @@
     .poly-note-head { width: 13px; height: 9.5px; }
     .poly-note-stem { height: 26px; }
     .poly-note { width: 13px; height: 38px; }
+    .composer { padding: 20px 18px; }
+    .composer-monogram { width: 64px; height: 64px; font-size: 34px; }
+    .composer-name { font-size: 22px; }
+    .composer-bio { font-size: 13px; }
+    .composer-list li { font-size: 12.5px; }
+    .string-chip { font-size: 13px; padding: 6px 11px; min-width: 40px; }
+    .instrument-row select { min-width: 0; flex: 1; }
   }
 </style>
 </head>
@@ -488,11 +568,11 @@
     <button type="button" class="nav-item" data-panel="tuner"><span class="num">02</span>Тюнер / Камертон</button>
     <button type="button" class="nav-item" data-panel="piano"><span class="num">03</span>Пианино</button>
     <button type="button" class="nav-item" data-panel="terms"><span class="num">04</span>Термины</button>
-    <button type="button" class="nav-item" data-panel="composers"><span class="num">05</span>Композиторы<span class="tag">soon</span></button>
+    <button type="button" class="nav-item" data-panel="composers"><span class="num">05</span>Композиторы</button>
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.9 · прототип</div>
+  <div class="sidebar-foot">v0.10 · прототип</div>
 </aside>
 
 <main>
@@ -500,7 +580,7 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 01</div>
       <h1 class="panel-title">Метроном</h1>
-      <p class="panel-desc">Точный тактовый пульс. Настройте темп, размер, громкость и ритм каждой доли.</p>
+      <p class="panel-desc">Точный тактовый пульс. Настройте темп, размер и ритм каждой доли.</p>
     </div>
     <div class="card">
       <div class="metro-display">
@@ -517,13 +597,6 @@
           <span class="switch-slider"></span>
           <span>Акцент на сильную долю</span>
         </label>
-      </div>
-      <div class="metro-row">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span class="bpm-label">Громкость</span>
-          <input type="range" class="volume" id="metroVolume" min="50" max="200" value="100">
-          <span style="font-size:12px;color:var(--muted);min-width:38px;font-variant-numeric:tabular-nums;" id="metroVolumeVal">100%</span>
-        </div>
         <div style="margin-left:auto;">
           <span class="bpm-label">Размер</span>
           <select id="timeSig" style="margin-left:10px;">
@@ -584,7 +657,7 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 02</div>
       <h1 class="panel-title">Тюнер и камертон</h1>
-      <p class="panel-desc">Хроматический тюнер реального времени или эталонные тоны для настройки на слух.</p>
+      <p class="panel-desc">Хроматический или инструментальный тюнер и эталонные тоны для настройки на слух.</p>
     </div>
     <div class="card">
       <div class="mode-switch">
@@ -599,6 +672,21 @@
             <li>Если окно не появилось — Safari помнит прошлый отказ. Нажмите <strong>«аА»</strong> в адресной строке → <strong>Настройки веб-сайта</strong> → <strong>Микрофон</strong> → <strong>Разрешить</strong>.</li>
           </ol>
         </div>
+        <div class="instrument-row">
+          <select id="instrumentSelect" title="Строй инструмента">
+            <option value="chromatic">Хроматический</option>
+            <option value="guitar">Гитара (EADGBE)</option>
+            <option value="guitarDropD">Гитара Drop D</option>
+            <option value="bass4">Бас 4-струн (EADG)</option>
+            <option value="bass5">Бас 5-струн (BEADG)</option>
+            <option value="ukulele">Укулеле (GCEA)</option>
+            <option value="violin">Скрипка (GDAE)</option>
+            <option value="viola">Альт (CGDA)</option>
+            <option value="cello">Виолончель (CGDA)</option>
+            <option value="mandolin">Мандолина (GDAE)</option>
+          </select>
+        </div>
+        <div class="strings-row" id="stringsRow" style="display:none;"></div>
         <div class="tuner-note" id="tunerNote">—<span class="oct"></span></div>
         <div class="tuner-freq" id="tunerFreq">0.0 Hz</div>
         <div class="tuner-bar">
@@ -627,9 +715,9 @@
           <button type="button" class="tone-a4-btn" id="toneA4">A4<small>Ля первой октавы · 440 Гц</small></button>
         </div>
         <div class="tone-keys" id="toneKeys"></div>
-        <div class="poly-controls" style="margin-top:20px;">
-          <button type="button" class="btn ghost small" id="toneStop" disabled>■ Остановить</button>
-        </div>
+        <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:18px;font-style:italic;">
+          Повторное нажатие на ту же ноту выключает звук
+        </p>
       </div>
       <div class="divider"></div>
       <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
@@ -679,13 +767,14 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Раздел 05</div>
       <h1 class="panel-title">Композиторы</h1>
-      <p class="panel-desc">Биографии, годы жизни и факты, важные для интерпретации.</p>
+      <p class="panel-desc">Биографии, ключевые факты и подсказки, важные для интерпретации их музыки.</p>
     </div>
-    <div class="placeholder">
-      <div class="placeholder-mark">♪</div>
-      <div class="placeholder-title">Скоро в этой версии</div>
-      <p class="placeholder-desc">Раздел в разработке.</p>
+    <div class="search-bar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" id="composerSearch" placeholder="Найти композитора, эпоху или произведение…" autocomplete="off" autocorrect="off" autocapitalize="off">
     </div>
+    <div class="term-cats" id="composerCats"></div>
+    <div class="composers-list" id="composersList"></div>
   </section>
 
   <section id="panel-scores" class="panel">
@@ -732,7 +821,6 @@
    ============================================================ */
 let audioCtx = null;
 let audioUnlocked = false;
-let metroVolume = 1.0;
 
 function getCtx() {
   if (!audioCtx) {
@@ -811,26 +899,18 @@ audioIndicator.addEventListener('click', async () => {
 setInterval(updateAudioIndicator, 800);
 updateAudioIndicator();
 
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    if (metronomePlaying) toggleMetronome(false);
-    if (tunerRunning) toggleTuner(false);
-    if (tonePlaying) stopTone();
-    if (polyPlaying) togglePoly(false);
-  } else {
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) {
     if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     audioUnlocked = false;
     updateAudioIndicator();
   }
 });
 
-window.addEventListener('pageshow', (e) => {
-  if (e.persisted) {
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
     if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     audioUnlocked = false;
-    if (metronomePlaying) toggleMetronome(false);
-    if (tunerRunning) toggleTuner(false);
-    if (polyPlaying) togglePoly(false);
     updateAudioIndicator();
   }
 });
@@ -844,15 +924,22 @@ const midiToFreq = (midi, ref = 440) => ref * Math.pow(2, (midi - 69) / 12);
 const navItems = document.querySelectorAll('.nav-item');
 const panels = document.querySelectorAll('.panel');
 const LS_PANEL_KEY = 'maestro-active-panel';
+const HIDE_INDICATOR_PANELS = ['terms', 'composers', 'scores', 'recordings'];
 
 function switchPanel(target, save) {
-  if (target !== 'metronome' && metronomePlaying) toggleMetronome(false);
+  // Останавливаем только тюнер и камертон при уходе с их вкладки.
+  // Метроном и полиритмия продолжают работать в фоне.
   if (target !== 'tuner' && tunerRunning) toggleTuner(false);
   if (target !== 'tuner' && tonePlaying) stopTone();
-  if (target !== 'metronome' && polyPlaying) togglePoly(false);
 
   navItems.forEach(i => i.classList.toggle('active', i.dataset.panel === target));
   panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + target));
+
+  if (HIDE_INDICATOR_PANELS.indexOf(target) !== -1) {
+    audioIndicator.classList.add('hidden');
+  } else {
+    audioIndicator.classList.remove('hidden');
+  }
 
   if (save !== false) {
     try { localStorage.setItem(LS_PANEL_KEY, target); } catch(e) {}
@@ -916,11 +1003,12 @@ const SYMBOLS = {
   mordent: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 10 26 q 7 -12 14 0 q 7 12 14 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="24" y1="12" x2="24" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
   mordentLower: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 10 22 q 7 12 14 0 q 7 -12 14 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="24" y1="12" x2="24" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="36" x2="36" y2="12" stroke="currentColor" stroke-width="2" opacity="0.55"/></svg>',
   gruppetto: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 8 28 C 8 14, 22 14, 24 24 C 26 34, 40 34, 40 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
-  appoggiatura: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="34" rx="5" ry="4" fill="currentColor" transform="rotate(-20 20 34)"/><line x1="24" y1="34" x2="24" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="22" x2="36" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  appoggiatura: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="22" cy="34" rx="5.5" ry="4.3" fill="currentColor" transform="rotate(-22 22 34)"/><line x1="26" y1="34" x2="26" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="34" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  acciaccatura: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="22" cy="34" rx="5" ry="4" fill="currentColor" transform="rotate(-22 22 34)"/><line x1="26" y1="34" x2="26" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="38" x2="30" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   arpeggio: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 24 8 q 6 6 0 12 q -6 6 0 12 q 6 6 0 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
   tie: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 6 32 Q 24 12 42 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
-  doubleSharp: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="10" x2="18" y2="38"/><line x1="30" y1="10" x2="30" y2="38"/><line x1="10" y1="20" x2="38" y2="20"/><line x1="10" y1="28" x2="38" y2="28"/></g></svg>',
-  doubleFlat: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><text x="4" y="42" font-size="38" font-family="Georgia, serif" font-weight="700" fill="currentColor">bb</text></svg>'
+  doubleSharp: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="14" y1="14" x2="34" y2="34"/><line x1="34" y1="14" x2="14" y2="34"/><line x1="10" y1="14" x2="18" y2="14"/><line x1="30" y1="14" x2="38" y2="14"/><line x1="10" y1="34" x2="18" y2="34"/><line x1="30" y1="34" x2="38" y2="34"/></g></svg>',
+  doubleFlat: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><line x1="14" y1="10" x2="14" y2="40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M 14 40 Q 14 27 19 27 Q 23 27 23 32 Q 23 40 14 40 Z"/><line x1="30" y1="10" x2="30" y2="40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M 30 40 Q 30 27 35 27 Q 39 27 39 32 Q 39 40 30 40 Z"/></g></svg>'
 };
 
 function symbolHtml(sym) {
@@ -940,8 +1028,6 @@ const metroBtn   = document.getElementById('metroToggle');
 const accentToggle = document.getElementById('accentToggle');
 const rhythmGrid = document.getElementById('rhythmGrid');
 const copyToAll  = document.getElementById('copyToAll');
-const metroVolumeInput = document.getElementById('metroVolume');
-const metroVolumeVal = document.getElementById('metroVolumeVal');
 
 let metronomePlaying = false;
 let currentBeat = 0, currentSub = 0, nextNoteTime = 0;
@@ -990,22 +1076,6 @@ bpmSlider.addEventListener('input', e => updateBpm(+e.target.value));
 document.querySelectorAll('[data-bpm]').forEach(b =>
   b.addEventListener('click', () => updateBpm(+b.dataset.bpm))
 );
-
-metroVolumeInput.addEventListener('input', e => {
-  metroVolume = +e.target.value / 100;
-  metroVolumeVal.textContent = e.target.value + '%';
-  try { localStorage.setItem('maestro-metro-volume', e.target.value); } catch(err) {}
-});
-(function loadVolume() {
-  try {
-    const v = localStorage.getItem('maestro-metro-volume');
-    if (v) {
-      metroVolumeInput.value = v;
-      metroVolume = +v / 100;
-      metroVolumeVal.textContent = v + '%';
-    }
-  } catch(e) {}
-})();
 
 function initBeats(n) {
   beatsConfig = [];
@@ -1118,20 +1188,35 @@ function playClick(time, accent, subIndex, subCount) {
   unlockAudio();
   if (ctx.state === 'suspended') ctx.resume();
 
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.value = accent ? 1400 : (subIndex === 0 ? 900 : 700);
-  const dur = accent ? 0.06 : (subCount >= 4 ? 0.018 : 0.035);
+  // Двойной клик — ярче и громче
+  const peak = accent ? 0.85 : 0.55;
+  const dur = accent ? 0.055 : 0.032;
+  const freq1 = accent ? 1600 : 1100;
+  const freq2 = accent ? 2400 : 1700;
 
-  const peak = (accent ? 0.6 : 0.35) * metroVolume;
-  gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(peak, time + 0.002);
-  gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0, time);
+  master.gain.linearRampToValueAtTime(peak, time + 0.001);
+  master.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+  master.connect(ctx.destination);
 
-  osc.connect(gain).connect(ctx.destination);
-  osc.start(time);
-  osc.stop(time + dur + 0.02);
+  // Основной тон — треугольный, ярче, чем синус
+  const osc1 = ctx.createOscillator();
+  osc1.type = 'triangle';
+  osc1.frequency.value = freq1;
+  osc1.connect(master);
+  osc1.start(time);
+  osc1.stop(time + dur + 0.03);
+
+  // Верхняя гармоника для «щелчка»
+  const osc2 = ctx.createOscillator();
+  osc2.type = 'sine';
+  osc2.frequency.value = freq2;
+  const g2 = ctx.createGain();
+  g2.gain.value = 0.55;
+  osc2.connect(g2).connect(master);
+  osc2.start(time);
+  osc2.stop(time + dur + 0.03);
 }
 
 function scheduleVisual(beatIdx, subIdx, time) {
@@ -1177,6 +1262,8 @@ function toggleMetronome(force) {
   const wantOn = (force !== undefined) ? force : !metronomePlaying;
 
   if (wantOn) {
+    // Полиритмия и ритмический рисунок не должны звучать одновременно
+    if (polyPlaying) togglePoly(false);
     unlockAudio();
     if (ctx.state === 'suspended') ctx.resume();
     metronomePlaying = true;
@@ -1197,7 +1284,7 @@ function toggleMetronome(force) {
 metroBtn.addEventListener('click', () => toggleMetronome());
 
 /* ============================================================
-   5. ПОЛИРИТМИЯ — визуализация по реальному времени
+   5. ПОЛИРИТМИЯ
    ============================================================ */
 const polyStage = document.getElementById('polyStage');
 const polyToggle = document.getElementById('polyToggle');
@@ -1284,12 +1371,11 @@ function playPolyClick(time) {
   if (!ctx) return;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.value = 1500;
-  const peak = 0.3 * metroVolume;
+  osc.type = 'triangle';
+  osc.frequency.value = 1600;
   gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(peak, time + 0.002);
-  gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+  gain.gain.linearRampToValueAtTime(0.5, time + 0.001);
+  gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.045);
   osc.connect(gain).connect(ctx.destination);
   osc.start(time);
   osc.stop(time + 0.06);
@@ -1300,13 +1386,13 @@ function playPolyNote(time, isFirst, rowId) {
   if (!ctx) return;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
-  osc.type = 'sine';
+  osc.type = 'triangle';
   if (isFirst) osc.frequency.value = 1100;
   else if (rowId === 'a') osc.frequency.value = 950;
   else osc.frequency.value = 720;
 
   const dur = isFirst ? 0.07 : 0.04;
-  const peak = (isFirst ? 0.45 : 0.3) * metroVolume;
+  const peak = isFirst ? 0.55 : 0.35;
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(peak, time + 0.002);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
@@ -1371,6 +1457,8 @@ function togglePoly(force) {
   if (!ctx) return;
   const wantOn = (force !== undefined) ? force : !polyPlaying;
   if (wantOn) {
+    // Останавливаем обычный метроном
+    if (metronomePlaying) toggleMetronome(false);
     unlockAudio();
     if (ctx.state === 'suspended') ctx.resume();
     polyPlaying = true;
@@ -1424,13 +1512,80 @@ const tunerMode = document.getElementById('tunerMode');
 const toneMode = document.getElementById('toneMode');
 const toneKeys = document.getElementById('toneKeys');
 const toneA4 = document.getElementById('toneA4');
-const toneStopBtn = document.getElementById('toneStop');
 const forkVisual = document.getElementById('forkVisual');
 const forkNote = document.getElementById('forkNote');
+const instrumentSelect = document.getElementById('instrumentSelect');
+const stringsRow = document.getElementById('stringsRow');
+
+const INSTRUMENTS = {
+  chromatic: { name: 'Хроматический', strings: [] },
+  guitar:      { name: 'Гитара (EADGBE)', strings: [40, 45, 50, 55, 59, 64] },
+  guitarDropD: { name: 'Гитара Drop D',   strings: [38, 45, 50, 55, 59, 64] },
+  bass4:       { name: 'Бас 4-струн',     strings: [28, 33, 38, 43] },
+  bass5:       { name: 'Бас 5-струн',     strings: [23, 28, 33, 38, 43] },
+  ukulele:     { name: 'Укулеле (GCEA)',  strings: [67, 60, 64, 69] },
+  violin:      { name: 'Скрипка (GDAE)',  strings: [55, 62, 69, 76] },
+  viola:       { name: 'Альт (CGDA)',     strings: [48, 55, 62, 69] },
+  cello:       { name: 'Виолончель',      strings: [36, 43, 50, 57] },
+  mandolin:    { name: 'Мандолина (GDAE)',strings: [55, 62, 69, 76] }
+};
 
 let tunerRunning = false, tonePlaying = false, currentToneMidi = null;
 let toneOsc = null, toneGain = null;
 let micStream = null, analyser = null, sourceNode = null, rafId = null, buf = null;
+let currentInstrument = 'chromatic';
+let currentDetectedMidi = null;
+
+function stringLabel(midi) {
+  const name = NOTE_NAMES[((midi % 12) + 12) % 12];
+  const oct = Math.floor(midi / 12) - 1;
+  return name + oct;
+}
+
+function renderStrings() {
+  const inst = INSTRUMENTS[currentInstrument];
+  if (!inst.strings.length) {
+    stringsRow.style.display = 'none';
+    stringsRow.innerHTML = '';
+    return;
+  }
+  stringsRow.style.display = 'flex';
+  stringsRow.innerHTML = '';
+  // Порядок от низкой струны к высокой (как на инструменте)
+  inst.strings.forEach(midi => {
+    const chip = document.createElement('div');
+    chip.className = 'string-chip';
+    chip.dataset.midi = midi;
+    chip.textContent = stringLabel(midi);
+    stringsRow.appendChild(chip);
+  });
+}
+
+function highlightString(midi) {
+  document.querySelectorAll('.string-chip').forEach(c => c.classList.remove('detected', 'tuned'));
+  if (midi === null) return;
+  const inst = INSTRUMENTS[currentInstrument];
+  if (!inst.strings.length) return;
+  // Ищем ближайшую струну
+  let best = null, bestDist = Infinity;
+  inst.strings.forEach(sm => {
+    const d = Math.abs(sm - midi);
+    if (d < bestDist) { bestDist = d; best = sm; }
+  });
+  if (best === null || bestDist > 2) return;
+  const chip = stringsRow.querySelector('.string-chip[data-midi="' + best + '"]');
+  if (!chip) return;
+  if (bestDist === 0) chip.classList.add('tuned');
+  else chip.classList.add('detected');
+}
+
+instrumentSelect.addEventListener('change', e => {
+  currentInstrument = e.target.value;
+  renderStrings();
+  highlightString(currentDetectedMidi);
+});
+
+renderStrings();
 
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1452,7 +1607,6 @@ modeBtns.forEach(btn => {
 });
 
 toneA4.addEventListener('click', () => toggleTone(69));
-toneStopBtn.addEventListener('click', () => stopTone());
 
 function buildToneKeys() {
   toneKeys.innerHTML = '';
@@ -1470,7 +1624,11 @@ function buildToneKeys() {
 }
 
 function toggleTone(midi) {
-  if (tonePlaying && currentToneMidi === midi) { stopTone(); return; }
+  // Камертон работает как переключатель — повторное нажатие выключает звук
+  if (tonePlaying && currentToneMidi === midi) {
+    stopTone();
+    return;
+  }
   playTone(midi);
 }
 
@@ -1497,7 +1655,6 @@ function playTone(midi) {
   const oct = Math.floor(midi / 12) - 1;
   forkNote.textContent = name + oct;
   forkVisual.classList.add('playing');
-  toneStopBtn.disabled = false;
 
   document.querySelectorAll('.key-tone').forEach(b =>
     b.classList.toggle('active', +b.dataset.midi === midi)
@@ -1514,7 +1671,6 @@ function stopTone() {
   toneA4.classList.remove('active');
   forkVisual.classList.remove('playing');
   forkNote.textContent = '—';
-  toneStopBtn.disabled = true;
 }
 
 async function startTuner() {
@@ -1569,6 +1725,7 @@ function stopTuner() {
   if (sourceNode) { try { sourceNode.disconnect(); } catch(e){} sourceNode = null; }
   if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
   analyser = null;
+  currentDetectedMidi = null;
   tunerNote.innerHTML = '—<span class="oct"></span>';
   tunerNote.style.color = 'var(--ink)';
   tunerFreq.textContent = '0.0 Hz';
@@ -1579,6 +1736,7 @@ function stopTuner() {
   tunerBtn.textContent = 'Включить микрофон';
   tunerBtn.classList.add('accent');
   micHint.classList.remove('visible');
+  highlightString(null);
 }
 
 async function toggleTuner(force) {
@@ -1641,6 +1799,8 @@ function tickTuner() {
   if (freq === -1 || freq < 40 || freq > 3500) {
     tunerStatus.textContent = 'Слушаю…';
     tunerStatus.classList.remove('on');
+    currentDetectedMidi = null;
+    highlightString(null);
     return;
   }
   const midiFloat = 69 + 12 * Math.log2(freq / ref);
@@ -1654,6 +1814,11 @@ function tickTuner() {
 
   const clamped = Math.max(-50, Math.min(50, cents));
   tunerMarker.style.left = (50 + (clamped / 50) * 50) + '%';
+
+  if (midi !== currentDetectedMidi) {
+    currentDetectedMidi = midi;
+    highlightString(midi);
+  }
 
   if (Math.abs(cents) <= 5) {
     tunerMarker.classList.add('in-tune');
@@ -1671,7 +1836,7 @@ function tickTuner() {
 buildToneKeys();
 
 /* ============================================================
-   7. ПИАНИНО (полифония)
+   7. ПИАНИНО — полифония с точной визуальной реакцией
    ============================================================ */
 const pianoInner = document.getElementById('pianoInner');
 const pianoEl = document.getElementById('piano');
@@ -1679,7 +1844,11 @@ const BLACK_PCS = [1, 3, 6, 8, 10];
 const isBlackPc = pc => BLACK_PCS.indexOf(pc) !== -1;
 const START_MIDI = 36, END_MIDI = 83, WHITE_KEY_W = 42;
 const keyElements = new Map();
-const activePointers = new Set();
+
+// Учёт пальцев: какой палец (pointerId) на какой клавише сейчас
+const pointerToMidi = new Map();
+// Учёт активных клавиш: миди → сколько пальцев её держат
+const midiHoldCount = new Map();
 
 function buildPiano() {
   pianoInner.innerHTML = '';
@@ -1723,12 +1892,13 @@ function buildPiano() {
 
     el.addEventListener('pointerdown', e => {
       e.preventDefault();
-      activePointers.add(e.pointerId);
-      playPiano(midi, el);
+      pressKey(e.pointerId, midi, el);
     });
     el.addEventListener('pointerenter', e => {
-      if (activePointers.has(e.pointerId)) {
-        playPiano(midi, el);
+      if (pointerToMidi.has(e.pointerId)) {
+        // Палец перетёк на другую клавишу (глиссандо)
+        releasePointer(e.pointerId, false);
+        pressKey(e.pointerId, midi, el);
       }
     });
 
@@ -1737,15 +1907,35 @@ function buildPiano() {
   });
 }
 
-document.addEventListener('pointerup', e => activePointers.delete(e.pointerId));
-document.addEventListener('pointercancel', e => activePointers.delete(e.pointerId));
-window.addEventListener('blur', () => activePointers.clear());
-
-function playPiano(midi, el) {
-  playPianoNote(midiToFreq(midi, 440));
+function pressKey(pointerId, midi, el) {
+  pointerToMidi.set(pointerId, midi);
+  const count = (midiHoldCount.get(midi) || 0) + 1;
+  midiHoldCount.set(midi, count);
   el.classList.add('active');
-  setTimeout(() => el.classList.remove('active'), 180);
+  playPianoNote(midiToFreq(midi, 440));
 }
+
+function releasePointer(pointerId, forceRemoveClass) {
+  const midi = pointerToMidi.get(pointerId);
+  if (midi === undefined) return;
+  pointerToMidi.delete(pointerId);
+  const count = (midiHoldCount.get(midi) || 0) - 1;
+  if (count <= 0) {
+    midiHoldCount.delete(midi);
+    const el = keyElements.get(midi);
+    if (el && forceRemoveClass !== false) el.classList.remove('active');
+  } else {
+    midiHoldCount.set(midi, count);
+  }
+}
+
+document.addEventListener('pointerup', e => releasePointer(e.pointerId));
+document.addEventListener('pointercancel', e => releasePointer(e.pointerId));
+window.addEventListener('blur', () => {
+  pointerToMidi.clear();
+  midiHoldCount.clear();
+  document.querySelectorAll('.key.active').forEach(k => k.classList.remove('active'));
+});
 
 function playPianoNote(freq) {
   const ctx = getCtx();
@@ -1861,8 +2051,8 @@ const TERMS = [
   { t:'Arco', pr:'а́рко', c:'Артикуляция', d:'У струнных — игра смычком.' },
   { t:'Con sordino', pr:'кон сорди́но', c:'Артикуляция', d:'С сурдиной (приглушение).' },
   { t:'Senza sordino', pr:'сэ́нца сорди́но', c:'Артикуляция', d:'Без сурдины.' },
-  { t:'Acciaccatura', pr:'аччаккату́ра', c:'Артикуляция', d:'Короткий форшлаг.' },
-  { t:'Appoggiatura', pr:'апподджату́ра', c:'Артикуляция', d:'Долгий форшлаг.' },
+  { t:'Acciaccatura', pr:'аччаккату́ра', c:'Артикуляция', d:'Короткий форшлаг (перечёркнутый).' },
+  { t:'Appoggiatura', pr:'апподджату́ра', c:'Артикуляция', d:'Долгий форшлаг (неперечёркнутый).' },
   { t:'Tremolo', pr:'трэ́моло', c:'Артикуляция', d:'Быстрое повторение звука.' },
   { t:'Spiccato', pr:'спикка́то', c:'Артикуляция', d:'Отскакивающий удар смычка.' },
   { t:'Sul ponticello', pr:'суль понтиче́лло', c:'Артикуляция', d:'У подставки — стеклянный звук.' },
@@ -1942,22 +2132,23 @@ const TERMS = [
   { t:'8vb', pr:'отта́ва ба́сса', c:'Структура', d:'Играть октавой ниже.' },
   { t:'Subito', pr:'су́бито', c:'Структура', d:'Внезапно, сразу.' },
 
-  { t:'Трель', sym:'trill', pr:'трель', c:'Нотация', d:'Быстрое чередование основной ноты и соседней верхней. Обозначается «tr» с волнистой линией.' },
-  { t:'Акцент', sym:'accent', pr:'акце́нт', c:'Нотация', d:'Знак «>» над или под нотой — подчёркнутое, усиленное исполнение.' },
-  { t:'Маркато', sym:'marcato', pr:'марка́то', c:'Нотация', d:'Клинышек «^» — резкий, отчётливый акцент, сильнее обычного.' },
-  { t:'Стаккато (точка)', sym:'staccato', pr:'стакка́то', c:'Нотация', d:'Точка над или под нотой — короткое, отрывистое исполнение.' },
-  { t:'Стаккатиссимо', sym:'staccatissimo', pr:'стаккати́ссимо', c:'Нотация', d:'Вертикальный клинышек — максимально короткое стаккато.' },
-  { t:'Тенуто', sym:'tenuto', pr:'тэну́то', c:'Нотация', d:'Чёрточка над или под нотой — выдержать полную длительность.' },
-  { t:'Фермата (знак)', sym:'fermata', pr:'фэрма́та', c:'Нотация', d:'Дуга с точкой — продлить ноту или паузу по усмотрению исполнителя.' },
-  { t:'Мордент', sym:'mordent', pr:'морде́нт', c:'Нотация', d:'Быстрое однократное чередование: основная — нижняя вспомогательная — основная.' },
-  { t:'Перечёркнутый мордент', sym:'mordentLower', pr:'морде́нт', c:'Нотация', d:'Быстрое однократное чередование: основная — верхняя вспомогательная — основная.' },
-  { t:'Группетто', sym:'gruppetto', pr:'группе́тто', c:'Нотация', d:'Оборот из 4–5 нот вокруг основной: верх — основная — низ — основная.' },
-  { t:'Форшлаг', sym:'appoggiatura', pr:'форшла́г', c:'Нотация', d:'Мелкая нота с перечёркнутым штилем — быстрый «подъезд» к основной ноте.' },
-  { t:'Арпеджио', sym:'arpeggio', pr:'арпэ́джио', c:'Нотация', d:'Волнистая вертикальная линия рядом с аккордом — играть ноты последовательно, а не одновременно.' },
-  { t:'Лига', sym:'tie', pr:'ли́га', c:'Нотация', d:'Дуга, объединяющая ноты — играть связно (legato) или продлить звук.' },
-  { t:'Двойной диез', sym:'doubleSharp', pr:'дубль-дие́з', c:'Нотация', d:'Повышение ноты на два полутона (целый тон).' },
-  { t:'Двойной бемоль', sym:'doubleFlat', pr:'дубль-бемо́ль', c:'Нотация', d:'Понижение ноты на два полутона (целый тон).' },
-  { t:'Бекар', sym:'♮', pr:'бэка́р', c:'Нотация', d:'Отмена ранее выставленного диеза или бемоля.' },
+  // НОТАЦИЯ — без транскрипции
+  { t:'Трель', sym:'trill', c:'Нотация', d:'Быстрое чередование основной ноты и соседней верхней. Обозначается «tr» с волнистой линией над нотой.' },
+  { t:'Акцент', sym:'accent', c:'Нотация', d:'Знак «>» над или под нотой — подчёркнутое, усиленное исполнение.' },
+  { t:'Маркато', sym:'marcato', c:'Нотация', d:'Клинышек «^» — резкий, отчётливый акцент, сильнее обычного.' },
+  { t:'Стаккато (точка)', sym:'staccato', c:'Нотация', d:'Точка над или под нотой — короткое, отрывистое исполнение.' },
+  { t:'Стаккатиссимо', sym:'staccatissimo', c:'Нотация', d:'Вертикальный клинышек — максимально короткое стаккато.' },
+  { t:'Тенуто', sym:'tenuto', c:'Нотация', d:'Чёрточка над или под нотой — выдержать полную длительность.' },
+  { t:'Фермата (знак)', sym:'fermata', c:'Нотация', d:'Дуга с точкой — продлить ноту или паузу по усмотрению исполнителя.' },
+  { t:'Мордент', sym:'mordent', c:'Нотация', d:'Быстрое однократное чередование: основная — нижняя вспомогательная — основная.' },
+  { t:'Перечёркнутый мордент', sym:'mordentLower', c:'Нотация', d:'Быстрое однократное чередование: основная — верхняя вспомогательная — основная.' },
+  { t:'Группетто', sym:'gruppetto', c:'Нотация', d:'Оборот из 4–5 нот вокруг основной: верх — основная — низ — основная.' },
+  { t:'Форшлаг', sym:'appoggiatura', c:'Нотация', d:'Мелкая нота-украшение, исполняемая перед основной нотой за счёт её длительности. Бывает коротким (перечёркнутым) и долгим (неперечёркнутым).' },
+  { t:'Арпеджио', sym:'arpeggio', c:'Нотация', d:'Волнистая вертикальная линия рядом с аккордом — играть ноты последовательно, а не одновременно.' },
+  { t:'Лига', sym:'tie', c:'Нотация', d:'Дуга, объединяющая ноты — играть связно (legato) или продлить звук.' },
+  { t:'Двойной диез', sym:'doubleSharp', c:'Нотация', d:'Повышение ноты на два полутона (целый тон).' },
+  { t:'Двойной бемоль', sym:'doubleFlat', c:'Нотация', d:'Понижение ноты на два полутона (целый тон).' },
+  { t:'Бекар', sym:'♮', c:'Нотация', d:'Отмена ранее выставленного диеза или бемоля.' },
 ];
 
 const CATS = ['Все', 'Темп', 'Динамика', 'Артикуляция', 'Характер', 'Структура', 'Нотация'];
@@ -2007,7 +2198,8 @@ function renderTerms() {
     html += '<div class="term">';
     if (t.sym) html += '<div class="term-symbol">' + symbolHtml(t.sym) + '</div>';
     html += '<div class="term-word">' + t.t + '</div>';
-    if (t.pr) html += '<div class="term-pron">[' + t.pr + ']</div>';
+    // Транскрипцию показываем везде, кроме Нотации
+    if (t.pr && t.c !== 'Нотация') html += '<div class="term-pron">[' + t.pr + ']</div>';
     html += '<div class="term-cat">' + t.c + '</div>';
     html += '<div class="term-def">' + t.d + '</div>';
     html += '</div>';
@@ -2024,7 +2216,176 @@ renderCats();
 renderTerms();
 
 /* ============================================================
-   9. ИНИЦИАЛИЗАЦИЯ
+   9. КОМПОЗИТОРЫ
+   ============================================================ */
+const COMPOSERS = [
+  {
+    monogram: 'И.С.Б.',
+    name: 'Иоганн Себастьян Бах',
+    years: '1685–1750',
+    epoch: 'Барокко',
+    country: 'Германия',
+    bio: 'Родился в Эйзенахе в семье потомственных музыкантов. Работал в Веймаре, Кётене и Лейпциге. Автор более 1000 сочинений — от крошечных прелюдий до грандиозных «Страстей по Матфею». К концу жизни ослеп, но продолжал диктовать музыку ученикам.',
+    interpretation: [
+      'Полифония требует ясного ведения каждого голоса — не «смазывайте» средние линии.',
+      'Не ускоряйте темпы сверх удобного: Бах писал для конкретной акустики и конкретных инструментов.',
+      'Артикуляция по регистрам: в нижнем — короткая и отчётливая, в верхнем — более певучая.',
+      'Динамика и штрихи в старых изданиях часто добавлены редакторами — сверяйтесь с Urtext.'
+    ],
+    works: ['Хорошо темперированный клавир', 'Гольдберг-вариации', 'Бранденбургские концерты', 'Месса си минор', 'Страсти по Матфею', 'Сюиты для виолончели']
+  },
+  {
+    monogram: 'В.А.М.',
+    name: 'Вольфганг Амадей Моцарт',
+    years: '1756–1791',
+    epoch: 'Классицизм',
+    country: 'Австрия',
+    bio: 'Вундеркинд: начал сочинять в пять лет, к десяти гастролировал по всей Европе. Прожил всего 35 лет, но оставил более 600 произведений — симфонии, оперы, концерты, сонаты, камерную музыку. Умер в Вене, работая над Реквиемом.',
+    interpretation: [
+      'Кажущаяся лёгкость обманчива: Моцарт требует точного ритма и ясной артикуляции.',
+      'Не сентиментальничайте — его печаль светлая, без надрыва. Никакой «романтической» тяжести.',
+      'Rubato минимальное: темп должен «дышать», но каркас остаётся строгим.',
+      'Обращайте внимание на динамические нюансы — у Моцарта даже тихая фраза имеет внутреннюю форму.'
+    ],
+    works: ['Симфонии № 40 и № 41', 'Реквием', 'Дон Жуан', 'Свадьба Фигаро', 'Волшебная флейта', 'Фортепианные концерты']
+  },
+  {
+    monogram: 'Л.Б.',
+    name: 'Людвиг ван Бетховен',
+    years: '1770–1827',
+    epoch: 'Классицизм → Романтизм',
+    country: 'Германия / Австрия',
+    bio: 'Родился в Бонне, с 22 лет жил в Вене. С 26 лет начал терять слух и к 44 годам стал полностью глухим — но продолжал сочинять, диктуя музыку через «разговорные тетради». Считается мостом между классицизмом и романтизмом.',
+    interpretation: [
+      'Не сглаживайте динамические контрасты: sforzando — визитная карточка Бетховена.',
+      'Метрономные указания автора часто быстрее привычных исполнений. К ним стоит относиться серьёзно.',
+      'Поздние сонаты и квартеты — медитативные, философские; играть их нужно вне «виртуозного» блеска.',
+      'Педаль у Бетховена — средство драматургии, а не «размытия» гармонии.'
+    ],
+    works: ['9 симфоний', '32 фортепианные сонаты', '5 концертов', 'Опера «Фиделио»', 'Поздние квартеты', 'Торжественная месса']
+  },
+  {
+    monogram: 'Ф.Ш.',
+    name: 'Фридерик Шопен',
+    years: '1810–1849',
+    epoch: 'Романтизм',
+    country: 'Польша / Франция',
+    bio: 'Родился под Варшавой, в двадцать лет переехал в Париж и остался там до конца жизни. Почти все его сочинения — фортепианные. Умер от туберкулёза в 39 лет; по завещанию его сердце было перевезено в Варшаву.',
+    interpretation: [
+      'Rubato — не «играю как хочу», а небольшое дыхание в рамках строгого левого аккомпанемента.',
+      'Никогда не форсируйте звук: Шопен не любил громкую игру. Его forte мягче, чем у Листа.',
+      'Cantabile в правой руке — как у итальянского певца. Фраза должна «петься».',
+      'Мазурки — три разные традиции: мазур, куявяк, оберек. Важно понимать ритмические различия.'
+    ],
+    works: ['Ноктюрны', 'Баллады', 'Этюды', 'Прелюдии', 'Мазурки', 'Полонезы', 'Сонаты № 2 и № 3']
+  },
+  {
+    monogram: 'П.Ч.',
+    name: 'Пётр Ильич Чайковский',
+    years: '1840–1893',
+    epoch: 'Романтизм',
+    country: 'Россия',
+    bio: 'Учился на юриста, музыку освоил поздно — в Петербургской консерватории у Антона Рубинштейна. Преподавал в Московской консерватории. Оставил шесть симфоний, три балета, десять опер. Умер через девять дней после премьеры Шестой симфонии.',
+    interpretation: [
+      'Баланс эмоции и структуры — главный вызов. Чайковский не только «плачет», он строит форму.',
+      'Не злоупотребляйте rubato в длинных мелодиях: там, где нужно, оно указано самим автором.',
+      'Балеты требуют танцевального пульса — иначе вальс «плывёт».',
+      'Финалы симфоний — с чёткой драматургией отчаяния и катарсиса.'
+    ],
+    works: ['6 симфоний', 'Лебединое озеро', 'Щелкунчик', 'Спящая красавица', 'Евгений Онегин', 'Пиковая дама', 'Концерт № 1 для фортепиано']
+  }
+];
+
+const COMPOSER_CATS = ['Все', 'Барокко', 'Классицизм', 'Романтизм'];
+let activeComposerCat = 'Все';
+let composerSearchQuery = '';
+
+const composerCats = document.getElementById('composerCats');
+const composerSearch = document.getElementById('composerSearch');
+const composersList = document.getElementById('composersList');
+
+function renderComposerCats() {
+  composerCats.innerHTML = '';
+  COMPOSER_CATS.forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cat' + (c === activeComposerCat ? ' active' : '');
+    b.textContent = c;
+    b.addEventListener('click', () => {
+      activeComposerCat = c;
+      renderComposerCats();
+      renderComposers();
+    });
+    composerCats.appendChild(b);
+  });
+}
+
+function renderComposers() {
+  const q = composerSearchQuery.trim().toLowerCase();
+  const filtered = COMPOSERS.filter(c => {
+    let matchesCat;
+    if (activeComposerCat === 'Все') matchesCat = true;
+    else if (activeComposerCat === 'Классицизм') {
+      matchesCat = c.epoch.indexOf('Классицизм') !== -1;
+    } else {
+      matchesCat = c.epoch.indexOf(activeComposerCat) !== -1;
+    }
+    const hay = (c.name + ' ' + c.epoch + ' ' + c.country + ' ' + c.bio + ' ' + c.works.join(' ')).toLowerCase();
+    const matchesQ = !q || hay.indexOf(q) !== -1;
+    return matchesCat && matchesQ;
+  });
+
+  if (filtered.length === 0) {
+    composersList.innerHTML = '<div class="empty-inner" style="border-radius:10px;">Ничего не найдено</div>';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(c => {
+    html += '<div class="composer">';
+    html += '<div class="composer-head">';
+    html += '<div class="composer-monogram">' + c.monogram + '</div>';
+    html += '<div>';
+    html += '<div class="composer-name">' + c.name + '</div>';
+    html += '<div class="composer-meta">' +
+      '<span class="epoch">' + c.epoch + '</span>' +
+      '<span class="dot">·</span>' + c.years +
+      '<span class="dot">·</span>' + c.country +
+      '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<p class="composer-bio">' + c.bio + '</p>';
+
+    html += '<div class="composer-section">';
+    html += '<div class="composer-section-title">Для интерпретации</div>';
+    html += '<ul class="composer-list">';
+    c.interpretation.forEach(x => { html += '<li>' + x + '</li>'; });
+    html += '</ul>';
+    html += '</div>';
+
+    html += '<div class="composer-section">';
+    html += '<div class="composer-section-title">Ключевые сочинения</div>';
+    html += '<div class="composer-works">';
+    c.works.forEach(w => { html += '<span class="work-chip">' + w + '</span>'; });
+    html += '</div>';
+    html += '</div>';
+
+    html += '</div>';
+  });
+  composersList.innerHTML = html;
+}
+
+composerSearch.addEventListener('input', e => {
+  composerSearchQuery = e.target.value;
+  renderComposers();
+});
+
+renderComposerCats();
+renderComposers();
+
+/* ============================================================
+   10. ИНИЦИАЛИЗАЦИЯ
    ============================================================ */
 updateBpm(90);
 initBeats(4);
@@ -2035,6 +2396,9 @@ renderPolyStage();
   try { saved = localStorage.getItem(LS_PANEL_KEY); } catch(e) {}
   if (saved && document.querySelector('.nav-item[data-panel="' + saved + '"]')) {
     switchPanel(saved, false);
+  } else {
+    // Применяем видимость индикатора для стартовой панели
+    switchPanel('metronome', false);
   }
 })();
 </script>
