@@ -55,9 +55,10 @@
   .panel-desc { font-size: 14px; color: var(--muted); max-width: 560px; line-height: 1.6; }
   .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 32px; }
   .divider { height: 1px; background: var(--line); margin: 28px 0; }
-  .metro-display { display: flex; align-items: baseline; gap: 16px; margin-top: -14px; margin-bottom: 0; flex-wrap: wrap; }
+  .metro-display { display: flex; align-items: baseline; gap: 16px; margin-top: 0; margin-bottom: 8px; flex-wrap: wrap; }
   .bpm-value {
-    font-family: 'Cormorant Garamond', serif; font-size: 84px; font-weight: 500; line-height: 0.9;
+    font-family: 'Cormorant Garamond', serif; font-size: 84px; font-weight: 500; line-height: 1;
+    position: relative; top: -10px;
     font-variant-numeric: tabular-nums; min-width: 140px;
     outline: none; border-radius: 6px; padding: 0 4px; margin: 0 -4px;
     transition: background .15s, box-shadow .15s; cursor: text;
@@ -165,7 +166,6 @@
   .rhythm-dot.on { background: var(--ink); border-color: var(--ink); }
   .rhythm-dot.accent { background: var(--accent); border-color: var(--accent); }
   .rhythm-dot.playing { transform: scale(1.4); box-shadow: 0 0 0 3px rgba(138,111,71,.25); }
-
   .poly-wrap { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 22px 20px 16px; margin-bottom: 16px; }
   .poly-selector { display: flex; gap: 8px; margin-bottom: 26px; justify-content: center; flex-wrap: wrap; }
   .poly-option {
@@ -237,7 +237,6 @@
     box-shadow: 0 0 10px rgba(138,111,71,.6);
   }
   .poly-controls { display: flex; justify-content: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
-
   .tuner-stage { display: flex; flex-direction: column; align-items: center; padding: 24px 0 8px; }
   .tuner-note { font-family: 'Cormorant Garamond', serif; font-size: 120px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; transition: color .2s; }
   .tuner-note .oct { font-size: 40px; vertical-align: super; color: var(--muted); margin-left: 4px; }
@@ -261,7 +260,6 @@
   .mic-hint strong { color: var(--accent); }
   .mic-hint ol { padding-left: 20px; margin-top: 8px; }
   .mic-hint li { margin-bottom: 4px; }
-
   .instrument-row {
     display: flex; gap: 8px; align-items: center; justify-content: center;
     flex-wrap: wrap; margin-bottom: 20px;
@@ -273,27 +271,19 @@
   }
   .string-chip {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    padding: 8px 14px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 6px;
-    color: var(--muted);
-    min-width: 46px;
-    text-align: center;
-    transition: all .2s;
+    font-size: 15px; padding: 8px 14px;
+    border: 1px solid var(--line); background: var(--surface);
+    border-radius: 6px; color: var(--muted);
+    min-width: 46px; text-align: center; transition: all .2s;
   }
   .string-chip.detected {
     background: var(--accent); color: #fff; border-color: var(--accent);
-    transform: scale(1.08);
-    box-shadow: 0 0 14px rgba(138,111,71,.4);
+    transform: scale(1.08); box-shadow: 0 0 14px rgba(138,111,71,.4);
   }
   .string-chip.tuned {
     background: var(--green); color: #fff; border-color: var(--green);
-    transform: scale(1.08);
-    box-shadow: 0 0 14px rgba(90,122,90,.4);
+    transform: scale(1.08); box-shadow: 0 0 14px rgba(90,122,90,.4);
   }
-
   .mode-switch { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
   .mode-btn {
     font-family: inherit; font-size: 12px; letter-spacing: .05em; text-transform: uppercase;
@@ -364,16 +354,9 @@
     touch-action: none; -webkit-touch-callout: none;
     -webkit-user-select: none; user-select: none;
   }
-  .key.white {
-    height: 100%; background: linear-gradient(to bottom, #fdfcf8 0%, #f2eee4 100%);
-    border: 1px solid #d8d1c2; z-index: 1; color: #7a7263;
-  }
+  .key.white { height: 100%; background: linear-gradient(to bottom, #fdfcf8 0%, #f2eee4 100%); border: 1px solid #d8d1c2; z-index: 1; color: #7a7263; }
   .key.white.active { background: linear-gradient(to bottom, #e8dfcb 0%, #d9cfb6 100%); transform: translateY(1px); }
-  .key.black {
-    height: 62%; background: linear-gradient(to bottom, #2e2b26 0%, #14120f 100%);
-    z-index: 2; color: #9a9284; border-radius: 0 0 3px 3px;
-    box-shadow: 0 3px 6px -2px rgba(0,0,0,.6);
-  }
+  .key.black { height: 62%; background: linear-gradient(to bottom, #2e2b26 0%, #14120f 100%); z-index: 2; color: #9a9284; border-radius: 0 0 3px 3px; box-shadow: 0 3px 6px -2px rgba(0,0,0,.6); }
   .key.black.active { background: linear-gradient(to bottom, #5a5142 0%, #3a352c 100%); transform: translateY(1px); }
   .key.octave-start.white { border-left: 2px solid #b8a888; }
   .piano-wrap { position: relative; }
@@ -444,15 +427,10 @@
     width: 76px; height: 76px; border-radius: 50%;
     background: var(--bg); border: 1px solid var(--line);
     display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-    flex-shrink: 0;
-    letter-spacing: -.02em;
+    color: var(--accent); flex-shrink: 0; letter-spacing: -.02em;
   }
   .composer-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; line-height: 1.15; margin-bottom: 4px; }
-  .composer-meta {
-    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--muted);
-  }
+  .composer-meta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   .composer-meta .dot { opacity: .5; margin: 0 6px; }
   .composer-meta .epoch { color: var(--accent); }
   .composer-bio { font-size: 14px; line-height: 1.7; color: var(--muted); margin-bottom: 6px; }
@@ -464,21 +442,15 @@
   .composer-list { list-style: none; padding: 0; margin: 0; }
   .composer-list li {
     font-size: 13px; line-height: 1.65; color: var(--ink);
-    padding-left: 18px; position: relative;
-    margin-bottom: 6px;
+    padding-left: 18px; position: relative; margin-bottom: 6px;
   }
-  .composer-list li::before {
-    content: '—'; position: absolute; left: 0;
-    color: var(--accent-2);
-  }
+  .composer-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent-2); }
   .composer-works { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .work-chip {
     font-size: 12px; padding: 5px 12px;
     background: var(--bg); border: 1px solid var(--line);
-    border-radius: 20px; color: var(--ink);
-    font-style: italic;
+    border-radius: 20px; color: var(--ink); font-style: italic;
   }
-
   .placeholder { text-align: center; padding: 80px 40px; border: 1px dashed var(--line); border-radius: 10px; background: var(--surface); }
   .placeholder-mark { font-family: 'Cormorant Garamond', serif; font-size: 56px; color: var(--accent-2); line-height: 1; margin-bottom: 20px; }
   .placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; margin-bottom: 12px; }
@@ -491,8 +463,7 @@
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 16px rgba(0,0,0,.12);
     transition: all .25s ease, opacity .25s ease, transform .25s ease;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
+    padding: 0; -webkit-tap-highlight-color: transparent;
   }
   .audio-indicator:hover { transform: scale(1.05); }
   .audio-indicator.hidden { opacity: 0; pointer-events: none; transform: scale(.8); }
@@ -575,7 +546,7 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.12 · прототип</div>
+  <div class="sidebar-foot">v0.13 · прототип</div>
 </aside>
 
 <main>
@@ -631,9 +602,7 @@
         <button type="button" class="btn link" id="copyToAll">Долю 1 → ко всем</button>
       </div>
       <div class="rhythm-grid" id="rhythmGrid"></div>
-
       <div class="divider"></div>
-
       <div class="rhythm-header">
         <span class="bpm-label">Полиритмия</span>
         <span style="font-size:11px;color:var(--muted);letter-spacing:.05em;">в пределах одной доли</span>
@@ -650,9 +619,7 @@
           <button type="button" class="btn accent" id="polyToggle">Играть</button>
         </div>
       </div>
-
       <div class="divider"></div>
-
       <div class="metro-row">
         <button type="button" class="btn ghost" data-bpm="40">Grave 40</button>
         <button type="button" class="btn ghost" data-bpm="66">Adagio 66</button>
@@ -779,7 +746,7 @@
     <div class="panel-head">
       <div class="panel-eyebrow">Раздел 05</div>
       <h1 class="panel-title">Композиторы</h1>
-      <p class="panel-desc">Биографии, интересные факты и ключевые сочинения.</p>
+      <p class="panel-desc">Биографии, историко-стилевой контекст и ключевые сочинения — от Ренессанса до XX века.</p>
     </div>
     <div class="search-bar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -852,9 +819,7 @@ function getCtx() {
 function unlockAudio() {
   const ctx = getCtx();
   if (!ctx) return;
-  if (ctx.state === 'suspended') {
-    ctx.resume().catch(() => {});
-  }
+  if (ctx.state === 'suspended') ctx.resume().catch(() => {});
   if (navigator.audioSession) {
     try { navigator.audioSession.type = 'playback'; } catch(e) {}
   }
@@ -987,22 +952,18 @@ function makeRhythmSVG(count) {
   const beamH = 2.3, beamGap = 1.4;
   const svgW = padL + (count - 1) * spacing + padR;
   const svgH = 54;
-
   let beams = 0;
   if (count === 2 || count === 3) beams = 1;
   else if (count === 4) beams = 2;
   else if (count >= 5) beams = 3;
-
   const hasNumber = (count === 3 || count === 5 || count === 6 || count === 7);
   let svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">';
   const positions = [];
   for (let i = 0; i < count; i++) positions.push(padL + i * spacing);
-
   positions.forEach(x => {
     svg += '<ellipse cx="' + x + '" cy="' + headY + '" rx="' + headRx + '" ry="' + headRy + '" transform="rotate(-22 ' + x + ' ' + headY + ')" fill="currentColor"/>';
     svg += '<rect x="' + (x + headRx - 0.8) + '" y="' + stemTop + '" width="' + stemW + '" height="' + (headY - stemTop) + '" fill="currentColor"/>';
   });
-
   if (beams > 0) {
     const xS = positions[0] + headRx - 0.8;
     const xE = positions[positions.length - 1] + headRx - 0.8 + stemW;
@@ -1129,9 +1090,7 @@ function initBeats(n) {
   }
   renderRhythmGrid();
 }
-
 function getBeatsCount(sig) { return parseInt(sig.split('/')[0], 10); }
-
 timeSig.addEventListener('change', e => {
   initBeats(getBeatsCount(e.target.value));
   currentBeat = 0; currentSub = 0;
@@ -1153,15 +1112,12 @@ function renderRhythmGrid() {
     const item = document.createElement('div');
     item.className = 'rhythm-item';
     if (beat.expanded) item.classList.add('expanded');
-
     const num = document.createElement('div');
     num.className = 'rhythm-num';
     num.textContent = i + 1;
     item.appendChild(num);
-
     const subs = document.createElement('div');
     subs.className = 'rhythm-subs';
-
     SUB_OPTIONS.forEach(opt => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -1180,7 +1136,6 @@ function renderRhythmGrid() {
       });
       subs.appendChild(btn);
     });
-
     const expandBtn = document.createElement('button');
     expandBtn.type = 'button';
     expandBtn.className = 'expand-btn';
@@ -1191,9 +1146,7 @@ function renderRhythmGrid() {
       renderRhythmGrid();
     });
     subs.appendChild(expandBtn);
-
     item.appendChild(subs);
-
     const dots = document.createElement('div');
     dots.className = 'rhythm-dots';
     for (let s = 0; s < beat.subdivision; s++) {
@@ -1209,7 +1162,6 @@ function renderRhythmGrid() {
       dots.appendChild(dot);
     }
     item.appendChild(dots);
-
     rhythmGrid.appendChild(item);
   });
 }
@@ -1232,25 +1184,21 @@ function playClick(time, accent, subIndex, subCount) {
   if (!ctx) return;
   unlockAudio();
   if (ctx.state === 'suspended') ctx.resume();
-
   const peak = (accent ? 0.85 : 0.55) * metroVolume;
   const dur = accent ? 0.055 : 0.032;
   const freq1 = accent ? 1600 : 1100;
   const freq2 = accent ? 2400 : 1700;
-
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, time);
   master.gain.linearRampToValueAtTime(peak, time + 0.001);
   master.gain.exponentialRampToValueAtTime(0.0001, time + dur);
   master.connect(ctx.destination);
-
   const osc1 = ctx.createOscillator();
   osc1.type = 'triangle';
   osc1.frequency.value = freq1;
   osc1.connect(master);
   osc1.start(time);
   osc1.stop(time + dur + 0.03);
-
   const osc2 = ctx.createOscillator();
   osc2.type = 'sine';
   osc2.frequency.value = freq2;
@@ -1278,18 +1226,14 @@ function scheduler() {
   while (nextNoteTime < ctx.currentTime + 0.1) {
     const beat = beatsConfig[currentBeat];
     if (!beat) break;
-
     const patternAccent = beat.pattern[currentSub];
     const isDownbeat = currentBeat === 0 && currentSub === 0;
     const accent = accentToggle.checked && (patternAccent || isDownbeat);
-
     playClick(nextNoteTime, accent, currentSub, beat.subdivision);
     scheduleVisual(currentBeat, currentSub, nextNoteTime);
-
     const secondsPerBeat = 60.0 / bpm;
     const subDur = secondsPerBeat / beat.subdivision;
     nextNoteTime += subDur;
-
     currentSub++;
     if (currentSub >= beat.subdivision) {
       currentSub = 0;
@@ -1302,7 +1246,6 @@ function toggleMetronome(force) {
   const ctx = getCtx();
   if (!ctx) return;
   const wantOn = (force !== undefined) ? force : !metronomePlaying;
-
   if (wantOn) {
     if (polyPlaying) togglePoly(false);
     unlockAudio();
@@ -1329,7 +1272,6 @@ metroBtn.addEventListener('click', () => toggleMetronome());
    ============================================================ */
 const polyStage = document.getElementById('polyStage');
 const polyToggle = document.getElementById('polyToggle');
-
 let polyPlaying = false, polyPattern = '2-3';
 let polySchedulerId = null, polySweepRaf = null;
 let polyNextTime = 0, polyCycleStart = 0;
@@ -1345,7 +1287,6 @@ const POLY_PATTERNS = {
 function renderPolyStage() {
   const pat = POLY_PATTERNS[polyPattern];
   polyStage.innerHTML = '';
-
   const axis = document.createElement('div');
   axis.className = 'poly-axis';
   [0, 25, 50, 75, 100].forEach(p => {
@@ -1365,28 +1306,23 @@ function renderPolyStage() {
   lblR.textContent = '2';
   axis.appendChild(lblR);
   polyStage.appendChild(axis);
-
   const rows = document.createElement('div');
   rows.className = 'poly-rows';
-
   ['a', 'b'].forEach(rowId => {
     const count = pat[rowId];
     const line = document.createElement('div');
     line.className = 'poly-line';
     line.dataset.row = rowId;
-
     const label = document.createElement('div');
     label.className = 'poly-line-label';
     label.innerHTML = makeRhythmSVG(count);
     line.appendChild(label);
-
     const lastPos = ((count - 1) / count) * 100;
     const beam = document.createElement('div');
     beam.className = 'poly-beam';
     beam.style.left = 'calc(0% + 7px)';
     beam.style.right = 'calc(' + (100 - lastPos) + '% - 9px)';
     line.appendChild(beam);
-
     for (let i = 0; i < count; i++) {
       const pos = (i / count) * 100;
       const note = document.createElement('div');
@@ -1399,9 +1335,7 @@ function renderPolyStage() {
     }
     rows.appendChild(line);
   });
-
   polyStage.appendChild(rows);
-
   polySweepEl = document.createElement('div');
   polySweepEl.className = 'poly-sweep';
   polyStage.appendChild(polySweepEl);
@@ -1432,7 +1366,6 @@ function playPolyNote(time, isFirst, rowId) {
   if (isFirst) osc.frequency.value = 1100;
   else if (rowId === 'a') osc.frequency.value = 950;
   else osc.frequency.value = 720;
-
   const dur = isFirst ? 0.07 : 0.04;
   const peak = (isFirst ? 0.55 : 0.35) * metroVolume;
   gain.gain.setValueAtTime(0, time);
@@ -1448,15 +1381,12 @@ function schedulePolyCycle(startTime) {
   if (!ctx) return;
   const pat = POLY_PATTERNS[polyPattern];
   const beatDur = 60.0 / bpm;
-
   playPolyClick(startTime);
-
   ['a', 'b'].forEach(rowId => {
     const count = pat[rowId];
     for (let i = 0; i < count; i++) {
       const t = startTime + (i * beatDur / count);
       playPolyNote(t, i === 0, rowId);
-
       const delayMs = (t - ctx.currentTime) * 1000;
       setTimeout(() => {
         const el = document.querySelector('.poly-note[data-row="' + rowId + '"][data-index="' + i + '"]');
@@ -1535,7 +1465,6 @@ document.querySelectorAll('.poly-option').forEach(btn => {
     renderPolyStage();
   });
 });
-
 polyToggle.addEventListener('click', () => togglePoly());
 
 /* ============================================================
@@ -1628,7 +1557,6 @@ instrumentSelect.addEventListener('change', e => {
   renderStrings();
   highlightString(currentDetectedMidi);
 });
-
 renderStrings();
 
 modeBtns.forEach(btn => {
@@ -1668,10 +1596,7 @@ function buildToneKeys() {
 }
 
 function toggleTone(midi) {
-  if (tonePlaying && currentToneMidi === midi) {
-    stopTone();
-    return;
-  }
+  if (tonePlaying && currentToneMidi === midi) { stopTone(); return; }
   playTone(midi);
 }
 
@@ -1681,7 +1606,6 @@ function playTone(midi) {
   if (!ctx) return;
   unlockAudio();
   if (ctx.state === 'suspended') ctx.resume();
-
   const freq = midiToFreq(midi, +tunerRef.value);
   toneOsc = ctx.createOscillator();
   toneGain = ctx.createGain();
@@ -1693,12 +1617,10 @@ function playTone(midi) {
   toneOsc.start();
   tonePlaying = true;
   currentToneMidi = midi;
-
   const name = NOTE_NAMES[midi % 12];
   const oct = Math.floor(midi / 12) - 1;
   forkNote.textContent = name + oct;
   forkVisual.classList.add('playing');
-
   document.querySelectorAll('.key-tone').forEach(b =>
     b.classList.toggle('active', +b.dataset.midi === midi)
   );
@@ -1743,13 +1665,11 @@ async function startTuner() {
   const ctx = getCtx();
   if (!ctx) return false;
   await ctx.resume();
-
   sourceNode = ctx.createMediaStreamSource(micStream);
   analyser = ctx.createAnalyser();
   analyser.fftSize = 2048;
   sourceNode.connect(analyser);
   buf = new Float32Array(analyser.fftSize);
-
   tunerRunning = true;
   tunerBtn.textContent = 'Выключить';
   tunerBtn.classList.remove('accent');
@@ -1791,23 +1711,19 @@ function autoCorrelate(buffer, sampleRate) {
   for (let i = 0; i < SIZE; i++) rms += buffer[i] * buffer[i];
   rms = Math.sqrt(rms / SIZE);
   if (rms < 0.008) return -1;
-
   let r1 = 0, r2 = SIZE - 1;
   const thres = 0.15;
   for (let i = 0; i < SIZE / 2; i++) if (Math.abs(buffer[i]) < thres) { r1 = i; break; }
   for (let i = 1; i < SIZE / 2; i++) if (Math.abs(buffer[SIZE - i]) < thres) { r2 = SIZE - i; break; }
-
   const trimmed = buffer.slice(r1, r2);
   SIZE = trimmed.length;
   if (SIZE < 128) return -1;
-
   const c = new Float32Array(SIZE);
   for (let i = 0; i < SIZE; i++) {
     for (let j = 0; j < SIZE - i; j++) {
       c[i] += trimmed[j] * trimmed[j + i];
     }
   }
-
   let d = 0;
   while (d < SIZE - 1 && c[d] > c[d + 1]) d++;
   let maxval = -1, maxpos = -1;
@@ -1834,7 +1750,6 @@ function tickTuner() {
   if (!ctx) return;
   const ref = +tunerRef.value;
   const freq = autoCorrelate(buf, ctx.sampleRate);
-
   if (freq === -1 || freq < 40 || freq > 3500) {
     tunerStatus.textContent = 'Слушаю…';
     tunerStatus.classList.remove('on');
@@ -1847,18 +1762,14 @@ function tickTuner() {
   const cents = Math.round((midiFloat - midi) * 100);
   const name = NOTE_NAMES[((midi % 12) + 12) % 12];
   const octave = Math.floor(midi / 12) - 1;
-
   tunerNote.innerHTML = name + '<span class="oct">' + octave + '</span>';
   tunerFreq.textContent = freq.toFixed(1) + ' Hz  ·  ' + (cents >= 0 ? '+' : '') + cents + ' ¢';
-
   const clamped = Math.max(-50, Math.min(50, cents));
   tunerMarker.style.left = (50 + (clamped / 50) * 50) + '%';
-
   if (midi !== currentDetectedMidi) {
     currentDetectedMidi = midi;
     highlightString(midi);
   }
-
   if (Math.abs(cents) <= 5) {
     tunerMarker.classList.add('in-tune');
     tunerNote.style.color = 'var(--green)';
@@ -1883,24 +1794,20 @@ const BLACK_PCS = [1, 3, 6, 8, 10];
 const isBlackPc = pc => BLACK_PCS.indexOf(pc) !== -1;
 const START_MIDI = 36, END_MIDI = 83, WHITE_KEY_W = 42;
 const keyElements = new Map();
-
 const pointerToMidi = new Map();
 const midiHoldCount = new Map();
 
 function buildPiano() {
   pianoInner.innerHTML = '';
   keyElements.clear();
-
   const allNotes = [];
   for (let m = START_MIDI; m <= END_MIDI; m++) allNotes.push(m);
   const whites = allNotes.filter(m => !isBlackPc(((m % 12) + 12) % 12));
   const totalWidth = whites.length * WHITE_KEY_W;
   pianoEl.style.width = totalWidth + 'px';
   pianoEl.style.minWidth = '100%';
-
   const blackW = WHITE_KEY_W * 0.62;
   let whiteIndex = 0;
-
   allNotes.forEach(midi => {
     const pc = ((midi % 12) + 12) % 12;
     const isBlack = isBlackPc(pc);
@@ -1908,7 +1815,6 @@ function buildPiano() {
     el.className = 'key ' + (isBlack ? 'black' : 'white');
     if (pc === 0) el.classList.add('octave-start');
     el.dataset.midi = midi;
-
     if (isBlack) {
       el.style.left = (whiteIndex * WHITE_KEY_W - blackW / 2) + 'px';
       el.style.width = blackW + 'px';
@@ -1917,7 +1823,6 @@ function buildPiano() {
       el.style.width = WHITE_KEY_W + 'px';
       whiteIndex++;
     }
-
     if (pc === 0 && !isBlack) {
       const label = document.createElement('span');
       const octave = Math.floor(midi / 12) - 1;
@@ -1926,7 +1831,6 @@ function buildPiano() {
       label.style.opacity = '0.7';
       el.appendChild(label);
     }
-
     el.addEventListener('pointerdown', e => {
       e.preventDefault();
       pressKey(e.pointerId, midi, el);
@@ -1937,7 +1841,6 @@ function buildPiano() {
         pressKey(e.pointerId, midi, el);
       }
     });
-
     pianoInner.appendChild(el);
     keyElements.set(midi, el);
   });
@@ -1978,20 +1881,17 @@ function playPianoNote(freq) {
   if (!ctx) return;
   unlockAudio();
   if (ctx.state === 'suspended') ctx.resume();
-
   const now = ctx.currentTime;
   const dur = 1.6;
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, now);
   master.gain.linearRampToValueAtTime(0.32, now + 0.008);
   master.gain.exponentialRampToValueAtTime(0.0001, now + dur);
-
   const filter = ctx.createBiquadFilter();
   filter.type = 'lowpass';
   filter.frequency.setValueAtTime(4200, now);
   filter.frequency.exponentialRampToValueAtTime(900, now + dur);
   filter.Q.value = 0.6;
-
   const partials = [
     { ratio: 1,    gain: 1.0,  type: 'triangle' },
     { ratio: 2,    gain: 0.32, type: 'sine' },
@@ -2216,9 +2116,7 @@ function renderTerms() {
       t.d.toLowerCase().indexOf(q) !== -1;
     return matchesCat && matchesQ;
   }).sort((a, b) => a.t.toLowerCase().localeCompare(b.t.toLowerCase()));
-
   container.className = 'terms-list';
-
   if (filtered.length === 0) {
     container.innerHTML = '<div class="empty-inner">Ничего не найдено</div>';
     return;
@@ -2240,7 +2138,6 @@ termSearch.addEventListener('input', e => {
   searchQuery = e.target.value;
   renderTerms();
 });
-
 renderCats();
 renderTerms();
 
@@ -2249,14 +2146,75 @@ renderTerms();
    ============================================================ */
 const COMPOSERS = [
   {
+    monogram: 'Ж.д.П.',
+    name: 'Жоскен де Пре',
+    years: 'ок. 1450–1521',
+    epoch: 'Ренессанс',
+    country: 'Франко-фламандская школа',
+    bio: 'Один из крупнейших мастеров нидерландской полифонической школы. Работал при дворах Италии и Франции, в конце жизни — в Кондэ. Автор месс, мотетов и шансон, соединивший строгую контрапунктическую технику с выразительной мелодикой.',
+    context: 'Творчество Жоскена — вершина франко-фламандской полифонии Возрождения. Он работал преимущественно в жанрах духовной музыки (месса, мотет), но его светские шансон также высоко ценились. Музыка Жоскена построена на имитационном контрапункте — приёме, при котором одна и та же тема проводится поочерёдно в разных голосах. Эта техника стала основой европейской композиции на два столетия вперёд.',
+    facts: [
+      'Мартин Лютер высоко ценил Жоскена и называл его музыку «владычицей над всеми композиторами».',
+      'Его мотет «Ave Maria… virgo serena» считается одной из вершин музыки Возрождения.',
+      'Работал в Италии при дворах Сфорца и д\'Эсте, что показывает международный статус музыканта.'
+    ],
+    works: ['Мессы (около 20)', 'Мотеты', 'Ave Maria… virgo serena', 'Шансон', 'Missa Pange lingua']
+  },
+  {
+    monogram: 'Дж.П.',
+    name: 'Джованни Пьерлуиджи да Палестрина',
+    years: 'ок. 1525–1594',
+    epoch: 'Ренессанс',
+    country: 'Италия',
+    bio: 'Работал преимущественно в Риме: певчим в Сикстинской капелле, капельмейстером в нескольких базиликах. Автор более 100 месс, около 300 мотетов и множества мадригалов. Его творчество — образец строгого стиля в церковной музыке.',
+    context: 'Палестрина — центральная фигура позднего Возрождения и один из главных реформаторов церковной музыки. В его эпоху Тридентский собор обсуждал вопрос о том, что полифония мешает разборчивости текста. Палестрина доказал, что полифония может сочетаться с ясной дикцией. Его месса «Missa Papae Marcelli» считается образцом, повлиявшим на решение сохранить полифонию в католическом богослужении.',
+    facts: [
+      'По легенде, «Missa Papae Marcelli» спасла полифонию от запрета в церкви.',
+      'Его музыкальные сочинения впервые были напечатаны при жизни — редкий случай для того времени.',
+      'Три сына Палестрины умерли от чумы в 1570-е годы.'
+    ],
+    works: ['Missa Papae Marcelli', 'Missa Assumpta est Maria', 'Stabat Mater', 'Более 100 месс', 'Мотеты и мадригалы']
+  },
+  {
+    monogram: 'К.М.',
+    name: 'Клаудио Монтеверди',
+    years: '1567–1643',
+    epoch: 'Позднее Возрождение / Раннее Барокко',
+    country: 'Италия',
+    bio: 'Работал при дворе герцогов Гонзага в Мантуе, затем — капельмейстером в Венеции, в соборе Святого Марка. Один из ключевых композиторов на переходе от Ренессанса к Барокко. Автор первых великих опер.',
+    context: 'Монтеверди считается «отцом оперы». Он развил вокальный стиль «seconda pratica», в котором главенство отдаётся выразительности текста, а не строгим правилам контрапункта. Он ввёл в оркестр конкретные инструменты для передачи эмоций, расширил роль оркестра и впервые использовал тремоло и пиццикато как выразительные средства. Его творчество — мост между двумя эпохами.',
+    facts: [
+      'Оперу «Орфей» (1607) называют первой полноценной оперой в истории.',
+      'Его «Вечерня» (1610) — монументальное духовное сочинение, сочетающее старую и новую технику.',
+      'Монтеверди пережил эпидемию чумы и потерю жены, что отразилось в мрачных тонах его музыки.'
+    ],
+    works: ['Орфей', 'Коронация Поппеи', 'Возвращение Улисса', 'Вечерня (1610)', 'Мадригалы (8 книг)']
+  },
+  {
+    monogram: 'Г.П.',
+    name: 'Генри Пёрселл',
+    years: 'ок. 1659–1695',
+    epoch: 'Раннее Барокко',
+    country: 'Англия',
+    bio: 'Работал органистом в Вестминстерском аббатстве и придворным композитором. Прожил всего 36 лет, но оставил множество произведений: оперу «Дидона и Эней», музыку к спектаклям, антемы, инструментальные сочинения.',
+    context: 'Пёрселл — крупнейший английский композитор эпохи Барокко. Он соединил английскую хоровую традицию с итальянскими и французскими влияниями. Его единственная настоящая опера, «Дидона и Эней», соединяет итальянскую выразительность и английскую декламацию. Ария «When I am laid in earth» считается одним из величайших музыкальных воплощений скорби.',
+    facts: [
+      'Умер в 36 лет, по одной из версий — от пневмонии, простудившись после ночной прогулки.',
+      'Похоронен в Вестминстерском аббатстве рядом с органом.',
+      '«Дидона и Эней» была написана для пансиона благородных девиц и впервые исполнена ученицами.'
+    ],
+    works: ['Дидона и Эней', 'Королева фей', 'Антемы', 'Музыка к «Буре»', 'Сонаты']
+  },
+  {
     monogram: 'А.В.',
     name: 'Антонио Вивальди',
     years: '1678–1741',
     epoch: 'Барокко',
     country: 'Италия',
-    bio: 'Родился в Венеции, был священником (прозван «рыжим попом» из-за цвета волос). Большую часть жизни преподавал музыку в венецианском приюте для девочек-сирот. Оставил более 500 концертов, из которых самый известный — цикл «Времена года». Умер в Вене в бедности.',
+    bio: 'Родился в Венеции, был священником (прозван «рыжим попом» из-за цвета волос). Много лет преподавал музыку в венецианском приюте для девочек-сирот. Оставил более 500 концертов. Умер в Вене в бедности.',
+    context: 'Вивальди — один из главных представителей итальянского инструментального Барокко. Он закрепил трёхчастную форму концерта (быстро — медленно — быстро) и развил технику солирующего инструмента. Цикл «Времена года» — ранний пример программной музыки: в нём каждый концерт сопровождается сонетами и изображает конкретные сцены природы. Он оказал влияние на Баха, который переложил ряд его концертов для клавира.',
     facts: [
-      'Мог написать концерт быстрее, чем его переписчик успевал копировать ноты.',
+      'Мог написать концерт быстрее, чем переписчик успевал копировать ноты.',
       'Его музыка была забыта почти на 200 лет — возродилась только в XX веке.',
       'Оркестр приюта, которым он руководил, состоял только из женщин и славился на всю Европу.'
     ],
@@ -2268,12 +2226,13 @@ const COMPOSERS = [
     years: '1685–1750',
     epoch: 'Барокко',
     country: 'Германия',
-    bio: 'Родился в Эйзенахе в семье потомственных музыкантов. Работал в Веймаре, Кётене и Лейпциге. Автор более 1000 сочинений — от крошечных прелюдий до грандиозных «Страстей по Матфею». К концу жизни ослеп, но продолжал диктовать музыку ученикам.',
+    bio: 'Родился в Эйзенахе в семье потомственных музыкантов. Работал в Веймаре, Кётене и Лейпциге. Автор более 1000 сочинений. К концу жизни ослеп, но продолжал диктовать музыку ученикам.',
+    context: 'Бах — центральная фигура немецкого Барокко и один из самых значительных композиторов в истории. Он работал преимущественно в жанрах, освящённых традицией: кантата, месса, мотет, фуга, хоральная прелюдия. Его композиционная техника — полифония и имитационный контрапункт — достигла систематической полноты в «Хорошо темперированном клавире», где он продемонстрировал все 24 тональности. После смерти был почти забыт; его возрождение в XIX веке — заслуга Мендельсона и романтиков.',
     facts: [
       'Был известен как виртуозный органист и импровизатор больше, чем как композитор.',
       'Отсидел месяц в тюрьме за то, что самовольно ушёл от герцога Веймарского.',
       'Дважды был женат, всего у него родилось 20 детей.',
-      'Его музыка была забыта после смерти и открыта заново Мендельсоном в 1829 году.'
+      'Его музыка была открыта заново Мендельсоном в 1829 году — исполнением «Страстей по Матфею».'
     ],
     works: ['Хорошо темперированный клавир', 'Гольдберг-вариации', 'Бранденбургские концерты', 'Месса си минор', 'Страсти по Матфею', 'Сюиты для виолончели']
   },
@@ -2283,13 +2242,29 @@ const COMPOSERS = [
     years: '1685–1759',
     epoch: 'Барокко',
     country: 'Германия / Англия',
-    bio: 'Родился в один год с Бахом в немецком Галле. Большую часть жизни провёл в Лондоне, где стал придворным композитором. Автор более 40 опер и 30 ораторий. Похоронен в Вестминстерском аббатстве.',
+    bio: 'Родился в один год с Бахом. Большую часть жизни провёл в Лондоне, где стал придворным композитором. Автор более 40 опер и 30 ораторий. Похоронен в Вестминстерском аббатстве.',
+    context: 'Гендель — ключевая фигура позднего Барокко и один из крупнейших мастеров оратории. Он работал в жанрах, рассчитанных на публику, а не на церковь: итальянская опера, английская оратория, инструментальный концерт. Его оратория «Мессия» утвердила новую форму духовного сочинения — с солистами, хором и оркестром на концертной сцене. В Англии XVIII века он стал национальным композитором, а его «Музыка на воде» и «Музыка для королевского фейерверка» — образцом придворной музыки.',
     facts: [
       'Ораторию «Мессия» написал всего за 24 дня.',
-      'Когда король Георг II впервые услышал «Аллилуйя», он встал — и с тех пор весь зал встаёт на этом месте.',
+      'Когда король Георг II услышал «Аллилуйя», он встал — с тех пор эта традиция сохраняется.',
       'После инсульта в 1737 году частично потерял подвижность, но продолжал сочинять.'
     ],
     works: ['Мессия', 'Музыка на воде', 'Музыка для королевского фейерверка', 'Оперы «Юлий Цезарь», «Ксеркс»', 'Кончерти гросси']
+  },
+  {
+    monogram: 'К.В.Г.',
+    name: 'Кристоф Виллибальд Глюк',
+    years: '1714–1787',
+    epoch: 'Классицизм',
+    country: 'Германия / Австрия',
+    bio: 'Работал в Милане, Лондоне, Вене и Париже. Один из реформаторов оперы XVIII века. Автор более 40 опер, из которых самыми значительными считаются «Орфей и Эвридика» и «Альцеста».',
+    context: 'Глюк провёл оперную реформу, отказавшись от условностей итальянской оперы-seria: убрал длинные виртуозные арии-«выходы», подчинил музыку драме, усилил роль хора и оркестра. Его «Орфей и Эвридика» (1762) считается первой реформаторской оперой. Позднее его идеи повлияли на Моцарта, Берлиоза и Вагнера.',
+    facts: [
+      'Реформу он начал уже в зрелом возрасте, будучи известным композитором.',
+      'В Париже его оперы вызвали «войну глюкистов и пиччинистов» — публичный спор о том, какая опера лучше.',
+      'Его «Орфей» породил традицию, что главную партию может петь и мужчина (контратенор), и женщина (меццо).'
+    ],
+    works: ['Орфей и Эвридика', 'Альцеста', 'Ифигения в Авлиде', 'Ифигения в Тавриде', 'Парис и Елена']
   },
   {
     monogram: 'Й.Г.',
@@ -2297,11 +2272,12 @@ const COMPOSERS = [
     years: '1732–1809',
     epoch: 'Классицизм',
     country: 'Австрия',
-    bio: 'Родился в деревне Рорау в семье каретника. Почти 30 лет служил капельмейстером у князей Эстергази. Считается «отцом» симфонии и струнного квартета: закрепил их классическую форму. Дружил с Моцартом, был учителем Бетховена.',
+    bio: 'Родился в деревне Рорау в семье каретника. Почти 30 лет служил капельмейстером у князей Эстергази. Дружил с Моцартом, был учителем Бетховена.',
+    context: 'Гайдн считается «отцом» классической симфонии и струнного квартета: он закрепил их четырёхчастную форму и разработал принципы сонатного allegro. Его музыка соединяет ясность формы с богатством тематизма и юмором. Значительная часть его симфоний была написана для капеллы Эстергази, что давало ему постоянный оркестр и возможность экспериментировать.',
     facts: [
       'Написал 104 симфонии — его называют «папой симфонии».',
-      'Симфония № 94 «Сюрприз» получила название из-за внезапного громкого аккорда, который будит засыпающих слушателей.',
-      'В старости на вопрос, почему он не пишет церковную музыку, отвечал, что пишет её ежедневно, глядя в небо.'
+      'Симфония № 94 «Сюрприз» получила название из-за внезапного громкого аккорда.',
+      'В старости говорил, что пишет церковную музыку «ежедневно, глядя в небо».'
     ],
     works: ['104 симфонии', 'Симфония «Сюрприз»', 'Оратории «Сотворение мира», «Времена года»', '68 струнных квартетов']
   },
@@ -2311,12 +2287,13 @@ const COMPOSERS = [
     years: '1756–1791',
     epoch: 'Классицизм',
     country: 'Австрия',
-    bio: 'Вундеркинд: начал сочинять в пять лет, к десяти гастролировал по всей Европе. Прожил всего 35 лет, но оставил более 600 произведений — симфонии, оперы, концерты, сонаты, камерную музыку. Умер в Вене, работая над Реквиемом.',
+    bio: 'Вундеркинд: начал сочинять в пять лет, к десяти гастролировал по всей Европе. Прожил всего 35 лет, но оставил более 600 произведений. Умер в Вене, работая над Реквиемом.',
+    context: 'Моцарт — центральная фигура венской классической школы и один из самых универсальных композиторов в истории. Он работал во всех жанрах своего времени: опера (включая новый для того времени жанр зингшпиль), симфония, концерт, соната, камерная музыка. В его музыке ясность формы сочетается с богатством гармонии и мелодической изобретательностью. Его поздние оперы («Свадьба Фигаро», «Дон Жуан», «Волшебная флейта») — вехи в истории музыкального театра.',
     facts: [
-      'В 6 лет уже давал концерты для императрицы Марии Терезии.',
-      'Знал наизусть всё, что слышал — однажды по слуху записал сложное произведение Аллегри из Сикстинской капеллы.',
-      'Считается, что Реквием он не закончил — его дописал ученик Зюсмайр.',
-      'Был похоронен в общей могиле для бедных — точное место захоронения неизвестно.'
+      'В 6 лет давал концерты для императрицы Марии Терезии.',
+      'По слуху записал сложное произведение Аллегри из Сикстинской капеллы, услышав его один раз.',
+      'Реквием не закончил — его дописал ученик Зюсмайр.',
+      'Похоронен в общей могиле для бедных — точное место неизвестно.'
     ],
     works: ['Симфонии № 40 и № 41', 'Реквием', 'Дон Жуан', 'Свадьба Фигаро', 'Волшебная флейта', 'Фортепианные концерты']
   },
@@ -2326,12 +2303,12 @@ const COMPOSERS = [
     years: '1770–1827',
     epoch: 'Классицизм → Романтизм',
     country: 'Германия / Австрия',
-    bio: 'Родился в Бонне, с 22 лет жил в Вене. С 26 лет начал терять слух и к 44 годам стал полностью глухим — но продолжал сочинять, диктуя музыку через «разговорные тетради». Считается мостом между классицизмом и романтизмом.',
+    bio: 'Родился в Бонне, с 22 лет жил в Вене. С 26 лет начал терять слух и к 44 годам стал полностью глухим, но продолжал сочинять. Считается мостом между классицизмом и романтизмом.',
+    context: 'Бетховен завершил венскую классическую традицию и открыл путь романтизму. Он расширил масштаб симфонии, сонаты и квартета, усилил роль разработки, ввёл вокальный хор в финал симфонии (Девятая). В его творчестве отчётливо видны три периода: ранний (до 1802) — классицистский; средний (1803–1814) — героический, с «Героической» и Пятой симфониями; поздний (с 1815) — медитативный, философский, с поздними квартетами и Девятой симфонией.',
     facts: [
       'Девятую симфонию написал, будучи полностью глухим.',
       'На премьере Девятой его пришлось разворачивать лицом к публике — он не слышал оваций.',
-      'Однажды, узнав о смерти Наполеона, сказал: «Я уже написал музыку для этого печального события».',
-      'Оставил знаменитое «Письмо к бессмертной возлюбленной», но имя адресата так и не установлено.'
+      'Оставил «Письмо к бессмертной возлюбленной», но имя адресата не установлено.'
     ],
     works: ['9 симфоний', '32 фортепианные сонаты', '5 концертов', 'Опера «Фиделио»', 'Поздние квартеты', 'Торжественная месса']
   },
@@ -2341,14 +2318,45 @@ const COMPOSERS = [
     years: '1797–1828',
     epoch: 'Романтизм',
     country: 'Австрия',
-    bio: 'Родился в Вене в семье школьного учителя. Прожил всего 31 год, но оставил более 600 песен, 9 симфоний, множество камерных и фортепианных сочинений. При жизни был известен в основном как автор песен, а его симфонии прозвучали только после смерти.',
+    bio: 'Родился в Вене в семье школьного учителя. Прожил всего 31 год, но оставил более 600 песен, 9 симфоний, множество камерных и фортепианных сочинений. При жизни был известен в основном как автор песен.',
+    context: 'Шуберт — один из основоположников романтической песни (Lied). Он превратил песню из салонного жанра в самостоятельную музыкальную форму, в которой музыка взаимодействует с поэтическим текстом на равных. Он расширил гармонию, введя неожиданные модуляции, которые станут характерны для всей романтической музыки. Его песенные циклы («Прекрасная мельничиха», «Зимний путь») — образцы музыкально-поэтического единства.',
     facts: [
       'За один 1823 год сочинил более 100 песен.',
       'Устраивал «шубертиады» — домашние вечера, где сам пел и играл свои песни.',
-      'Незаконченная симфония (№ 8) так и осталась в двух частях — почему, неизвестно.',
-      'Умер через год после Бетховена и был похоронен рядом с ним, как сам завещал.'
+      'Незаконченная симфония (№ 8) так и осталась в двух частях.',
+      'Завещал похоронить себя рядом с Бетховеном — и был похоронен рядом.'
     ],
     works: ['Незаконченная симфония', 'Большая симфония до мажор', 'Лесной царь', 'Зимний путь', 'Прекрасная мельничиха', 'Фортепианные сонаты']
+  },
+  {
+    monogram: 'Г.Б.',
+    name: 'Гектор Берлиоз',
+    years: '1803–1869',
+    epoch: 'Романтизм',
+    country: 'Франция',
+    bio: 'Родился в семье врача, учился медицине, но бросил её ради музыки. Один из крупнейших французских композиторов XIX века. Автор «Фантастической симфонии», «Реквиема», опер «Троянцы» и «Бенвенуто Челлини».',
+    context: 'Берлиоз — создатель программного симфонизма и один из главных реформаторов оркестра XIX века. Он расширил состав оркестра, ввёл новые инструменты (английский рожок, корнет, арфа в больших количествах, увеличенные группы ударных) и написал «Трактат об инструментовке», который до сих пор изучают. Его «Фантастическая симфония» (1830) — программная симфония с сюжетом, где герой принимает опиум и видит сны. Идея «idée fixe» — повторяющейся темы, символизирующей возлюбленную, — предвосхитила лейтмотивную технику Вагнера.',
+    facts: [
+      'Сжег партитуру своей первой оперы после провала.',
+      'Его «Реквием» требует огромного состава — в том числе четырёх групп медных инструментов, расположенных по углам зала.',
+      'Был также музыкальным критиком и писателем; его мемуары — яркий документ эпохи.'
+    ],
+    works: ['Фантастическая симфония', 'Гарольд в Италии', 'Реквием', 'Осуждение Фауста', 'Опера «Троянцы»', 'Ромео и Джульетта']
+  },
+  {
+    monogram: 'Ф.М.',
+    name: 'Феликс Мендельсон',
+    years: '1809–1847',
+    epoch: 'Романтизм',
+    country: 'Германия',
+    bio: 'Родился в богатой семье банкира. Уже в детстве сочинял и выступал как пианист. Работал в Лейпциге, основал там консерваторию. Автор симфоний, концертов, ораторий, «Песен без слов».',
+    context: 'Мендельсон соединил романтическую выразительность с классической ясностью формы. Он ценил музыку Баха и Генделя и способствовал их возрождению. Его «Скрипичный концерт ми минор» — один из самых исполняемых концертов в репертуаре. В отличие от Листа и Берлиоза, Мендельсон не тяготел к программности и грандиозным масштабам — его музыка отличается сдержанностью и изяществом.',
+    facts: [
+      'В 20 лет дирижировал возрождением «Страстей по Матфею» Баха — событие, открывшее Баха для XIX века.',
+      'Написал увертюру «Сон в летнюю ночь» в 17 лет.',
+      'Его «Свадебный марш» из этой увертюры стал традиционным в свадебных церемониях.'
+    ],
+    works: ['Сон в летнюю ночь', 'Итальянская симфония', 'Шотландская симфония', 'Скрипичный концерт', 'Песни без слов', 'Оратория «Илия»']
   },
   {
     monogram: 'Ф.Ш.',
@@ -2356,11 +2364,12 @@ const COMPOSERS = [
     years: '1810–1849',
     epoch: 'Романтизм',
     country: 'Польша / Франция',
-    bio: 'Родился под Варшавой, в двадцать лет переехал в Париж и остался там до конца жизни. Почти все его сочинения — фортепианные. Умер от туберкулёза в 39 лет; по завещанию его сердце было перевезено в Варшаву.',
+    bio: 'Родился под Варшавой, в двадцать лет переехал в Париж и остался там до конца жизни. Почти все его сочинения — фортепианные. Умер от туберкулёза в 39 лет.',
+    context: 'Шопен — центральная фигура фортепианной музыки XIX века. Он расширил технические и выразительные возможности инструмента: ввёл новые аппликатурные принципы, разработал технику rubato, создал развёрнутые формы на основе малых жанров (баллады, скерцо). Он сохранил национальные польские жанры — мазурку, полонез — и поднял их до уровня концертной музыки. Значительная часть его произведений написана в Париже, где он вращался в кругу Листа, Берлиоза, Делакруа и Жорж Санд.',
     facts: [
-      'В 8 лет уже выступал публично как пианист и сочинял полонезы.',
+      'В 8 лет уже выступал публично и сочинял полонезы.',
       'Почти не давал концертов — предпочитал играть в салонах.',
-      'Его роман с писательницей Жорж Санд длился почти 10 лет.',
+      'Его роман с Жорж Санд длился почти 10 лет.',
       'Сердце Шопена хранится в Варшаве, в костёле Святого Креста.'
     ],
     works: ['Ноктюрны', 'Баллады', 'Этюды', 'Прелюдии', 'Мазурки', 'Полонезы', 'Сонаты № 2 и № 3']
@@ -2371,10 +2380,11 @@ const COMPOSERS = [
     years: '1810–1856',
     epoch: 'Романтизм',
     country: 'Германия',
-    bio: 'Родился в Цвиккау, сначала изучал право, но бросил ради музыки. Повредил руку, занимаясь на тренажёре, и стал композитором и музыкальным критиком. В его творчестве — фортепианные миниатюры, песни, симфонии. Последние годы страдал от психического расстройства.',
+    bio: 'Родился в Цвиккау, сначала изучал право, но бросил ради музыки. Повредил руку и стал композитором и музыкальным критиком. В его творчестве — фортепианные миниатюры, песни, симфонии. Последние годы страдал от психического расстройства.',
+    context: 'Шуман — один из главных представителей романтизма в музыке. Он работал преимущественно в малых формах: фортепианная миниатюра, песня. Его циклы («Карнавал», «Крейслериана», «Детские сцены») построены на контрасте настроений, персонажей, характеров. Он ввёл в музыку литературные образы — часто через программные названия. Как критик, он поддерживал молодых композиторов (в частности, Шопена и Брамса).',
     facts: [
-      'Основал влиятельный музыкальный журнал, где писал под вымышленными псевдонимами «Флорестан» и «Эвзебий».',
-      'Был влюблён в Клару Вик, дочь своего учителя, и женился на ней после суда с её отцом.',
+      'Основал влиятельный музыкальный журнал и писал под псевдонимами «Флорестан» и «Эвзебий».',
+      'Женился на Кларе Вик после суда с её отцом.',
       'Клара Шуман стала одной из величайших пианисток XIX века.',
       'Добровольно лёг в психиатрическую лечебницу, где и умер.'
     ],
@@ -2386,29 +2396,61 @@ const COMPOSERS = [
     years: '1811–1886',
     epoch: 'Романтизм',
     country: 'Венгрия / Германия',
-    bio: 'Родился в Венгрии, учился у Черни и Сальери в Вене. Стал первым в истории пианистом-«звездой»: гастролировал по всей Европе с сольными концертами, ввёл «листаниаду» — игру по памяти и на весь зал. Позже принял сан аббата.',
+    bio: 'Родился в Венгрии, учился у Черни и Сальери в Вене. Стал первым в истории пианистом-«звездой»: гастролировал по всей Европе с сольными концертами. Позже принял сан аббата.',
+    context: 'Лист — центральная фигура романтического пианизма и один из главных новаторов музыкальной формы XIX века. Он изобрёл жанр симфонической поэмы — одночастного программного сочинения для оркестра. Он ввёл практику сольных концертов по памяти на весь зал, до него это не было принято. Как пианист, он расширил технические возможности инструмента. Он также много транскрибировал — перекладывал для фортепиано симфонии Бетховена, песни Шуберта, оперы Вагнера, что способствовало распространению этих произведений.',
     facts: [
       'Изобрёл жанр симфонической поэмы.',
-      'Придумал играть концерты наизусть — до него это не было принято.',
+      'Придумал играть концерты наизусть и на весь зал.',
       'Его мастерство было настолько феноменальным, что соперники отказывались выступать после него.',
       'В последние годы принимал сан аббата и вёл почти монашеский образ жизни.'
     ],
     works: ['Венгерские рапсодии', 'Соната си минор', 'Трансцендентные этюды', 'Симфонические поэмы', 'Годы странствий']
   },
   {
-    monogram: 'И.Б.',
-    name: 'Иоганнес Брамс',
-    years: '1833–1897',
+    monogram: 'Р.В.',
+    name: 'Рихард Вагнер',
+    years: '1813–1883',
     epoch: 'Романтизм',
     country: 'Германия',
-    bio: 'Родился в Гамбурге в бедной семье, зарабатывал игрой в портовых кабаках. Настоящую славу ему принёс Шуман, который написал о нём статью. Работал в Вене. Долго не решался написать симфонию — боялся сравнения с Бетховеном.',
+    bio: 'Родился в Лейпциге. Работал дирижёром в разных городах Германии и в Риге, затем в Дрездене, Цюрихе и Байройте. Автор опер «Летучий голландец», «Тангейзер», «Лоэнгрин», «Тристан и Изольда», «Парсифаль» и тетралогии «Кольцо нибелунга».',
+    context: 'Вагнер — реформатор оперы и один из самых влиятельных композиторов XIX века. Он стремился к синтезу искусств — «Gesamtkunstwerk», в котором музыка, поэзия, драма и сцена образуют единое целое. Он ввёл систему лейтмотивов — повторяющихся музыкальных тем, связанных с персонажами, предметами или идеями. Он расширил гармонию хроматизмом, что привело к кризису тональности в начале XX века. Для исполнения «Кольца нибелунга» он построил в Байройте специальный театр.',
     facts: [
-      'Первую симфонию писал 21 год — премьера состоялась, когда ему было 43.',
-      'Был влюблён в Клару Шуман, но после смерти Роберта не решился на брак.',
-      'Страдал от приступов ярости и не всегда терпел нападки критиков.',
-      'Похоронен в Вене рядом с Бетховеном и Шубертом.'
+      'Для постановки «Кольца» построил в Байройте собственный оперный театр.',
+      'Написал либретто всех своих опер сам.',
+      'Его музыка была высоко оценена Гитлером, что надолго сделало её предметом споров.',
+      'Умер в Венеции в 1883 году.'
     ],
-    works: ['4 симфонии', 'Немецкий реквием', 'Венгерские танцы', '2 фортепианных концерта', 'Скрипичный концерт', 'Камерная музыка']
+    works: ['Кольцо нибелунга', 'Тристан и Изольда', 'Парсифаль', 'Лоэнгрин', 'Нюрнбергские мейстерзингеры']
+  },
+  {
+    monogram: 'Дж.В.',
+    name: 'Джузеппе Верди',
+    years: '1813–1901',
+    epoch: 'Романтизм',
+    country: 'Италия',
+    bio: 'Родился в деревне под Пармой в бедной семье. Работал в Милане, затем — в Париже. Автор 26 опер, среди которых «Риголетто», «Травиата», «Аида», «Отелло», «Фальстаф».',
+    context: 'Верди — центральная фигура итальянской оперы XIX века. В отличие от Вагнера, он сохранил традиционную структуру оперы — с ариями, ансамблями, хорами, — но усилил роль драмы и характера. Он работал с либреттистами, чтобы усилить драматическую логику. Его поздние оперы — «Аида», «Отелло», «Фальстаф» — вершина итальянской оперной традиции. Верди также был символом Рисорджименто — движения за объединение Италии.',
+    facts: [
+      'Его имя стало символом объединения Италии: «Viva VERDI» расшифровывалось как «Viva Vittorio Emanuele Re D\'Italia».',
+      'В 1840 году потерял жену и двоих детей в течение двух лет — это время он называл «годами каторги».',
+      '«Фальстаф» написал в 79 лет — редкий пример позднего творческого расцвета.'
+    ],
+    works: ['Аида', 'Риголетто', 'Травиата', 'Отелло', 'Фальстаф', 'Реквием']
+  },
+  {
+    monogram: 'М.М.',
+    name: 'Модест Мусоргский',
+    years: '1839–1881',
+    epoch: 'Романтизм / Русская школа',
+    country: 'Россия',
+    bio: 'Родился в Псковской губернии. Служил в гвардии, затем вышел в отставку ради музыки. Был членом «Могучей кучки» — содружества русских композиторов. Автор опер «Борис Годунов», «Хованщина», фортепианного цикла «Картинки с выставки».',
+    context: 'Мусоргский — один из самых самобытных русских композиторов XIX века. Он стремился к музыкальному воплощению русской речи — так называемому «речитативу-мелодии», основанному на интонациях живого разговора. Его гармония часто выходит за рамки классических правил — что предвосхищает музыку XX века. При жизни был признан лишь частично; его оперы были закончены и оркестрованы другими композиторами (Римским-Корсаковым).',
+    facts: [
+      'Не получил систематического музыкального образования — учился в основном на практике.',
+      '«Картинки с выставки» при жизни не были изданы; всемирную славу они получили после оркестровки Равеля.',
+      'Страдал от алкоголизма и умер в нищете в военном госпитале.'
+    ],
+    works: ['Борис Годунов', 'Хованщина', 'Картинки с выставки', 'Песни и пляски смерти', 'Рассвет на Москве-реке']
   },
   {
     monogram: 'П.Ч.',
@@ -2416,14 +2458,30 @@ const COMPOSERS = [
     years: '1840–1893',
     epoch: 'Романтизм',
     country: 'Россия',
-    bio: 'Учился на юриста, музыку освоил поздно — в Петербургской консерватории у Антона Рубинштейна. Преподавал в Московской консерватории. Оставил шесть симфоний, три балета, десять опер. Умер через девять дней после премьеры Шестой симфонии.',
+    bio: 'Учился на юриста, музыку освоил поздно — в Петербургской консерватории. Преподавал в Московской консерватории. Оставил шесть симфоний, три балета, десять опер. Умер через девять дней после премьеры Шестой симфонии.',
+    context: 'Чайковский — крупнейший русский композитор XIX века, соединивший европейскую симфоническую традицию с русской национальной мелодикой. В его музыке драматическое напряжение соединяется с лиризмом, а классические формы — с романтической выразительностью. Он работал во всех главных жанрах: симфония, опера, балет, концерт, камерная музыка. Его балеты — «Лебединое озеро», «Щелкунчик», «Спящая красавица» — определили развитие жанра на десятилетия вперёд.',
     facts: [
       'Балет «Щелкунчик» сначала считался неудачным — успех пришёл позже.',
       'Премьера Шестой симфонии прошла за 9 дней до его смерти.',
-      'Был очень мнителен и боялся, что его голова отвалится во время дирижирования — придерживал её рукой.',
+      'Был мнителен и боялся, что голова отвалится во время дирижирования — придерживал её рукой.',
       'Тайно финансировала его баронесса фон Мекк — они никогда не встречались лично.'
     ],
     works: ['6 симфоний', 'Лебединое озеро', 'Щелкунчик', 'Спящая красавица', 'Евгений Онегин', 'Пиковая дама', 'Концерт № 1 для фортепиано']
+  },
+  {
+    monogram: 'Н.Р.-К.',
+    name: 'Николай Римский-Корсаков',
+    years: '1844–1908',
+    epoch: 'Романтизм / Русская школа',
+    country: 'Россия',
+    bio: 'Родился в Тихвине. Учился в Морском кадетском корпусе, служил в военно-морском флоте, но вышел в отставку ради музыки. Профессор Петербургской консерватории. Автор 15 опер, симфонических сюит, романсов, учебников по гармонии и оркестровке.',
+    context: 'Римский-Корсаков — крупнейший мастер оркестровки в русской музыке. Он создал систему преподавания оркестровки, которая используется до сих пор. Его оперы — «Садко», «Сказка о царе Салтане», «Золотой петушок» — часто построены на русских сказках и былинах. Он также завершил и оркестровал произведения Мусоргского, Бородина и других. Как педагог, он воспитал целое поколение композиторов, включая Стравинского и Прокофьева.',
+    facts: [
+      'Начал карьеру как морской офицер — участвовал в кругосветном плавании.',
+      'Сочинил «Полёт шмеля» как интермедию между актами оперы «Сказка о царе Салтане».',
+      'В 1905 году был уволен из консерватории за поддержку студентов в период революции, но затем восстановлен.'
+    ],
+    works: ['Садко', 'Сказка о царе Салтане', 'Шехеразада', 'Золотой петушок', 'Царская невеста', 'Испанское каприччио']
   },
   {
     monogram: 'С.Р.',
@@ -2432,10 +2490,11 @@ const COMPOSERS = [
     epoch: 'Романтизм / XX век',
     country: 'Россия / США',
     bio: 'Родился в Новгородской губернии, учился в Петербургской и Московской консерваториях. Был выдающимся пианистом и дирижёром. После революции эмигрировал, жил в США. Оставил фортепианные концерты, симфонии, романсы, духовные сочинения.',
+    context: 'Рахманинов — один из последних крупных представителей романтической традиции в музыке. Он сохранил тональную гармонию и мелодическую основу в то время, когда европейская музыка двигалась к атональности. Его фортепианные концерты и «Рапсодия на тему Паганини» — одни из самых исполняемых произведений XX века. Его духовные сочинения — «Всенощное бдение» и «Литургия Иоанна Златоуста» — соединяют традиции русской церковной музыки с романтической выразительностью.',
     facts: [
-      'У него были огромные руки — свободно брал интервал в 12-ю, а некоторые аккорды писал именно под свою растяжку.',
+      'У него были огромные руки — свободно брал интервал в 12-ю.',
       'После провала Первой симфонии впал в депрессию, лечился у доктора Даля (в том числе гипнозом).',
-      'В эмиграции зарабатывал в основном концертами как пианист — сочинял уже меньше.',
+      'В эмиграции зарабатывал в основном концертами как пианист.',
       'Похоронен под Нью-Йорком, в местечке Валгалла.'
     ],
     works: ['4 фортепианных концерта', 'Рапсодия на тему Паганини', '3 симфонии', 'Всенощное бдение', 'Литургия Иоанна Златоуста', 'Прелюдии']
@@ -2444,29 +2503,60 @@ const COMPOSERS = [
     monogram: 'К.Д.',
     name: 'Клод Дебюсси',
     years: '1862–1918',
-    epoch: 'XX век',
+    epoch: 'XX век / Импрессионизм',
     country: 'Франция',
-    bio: 'Родился под Парижем, учился в Парижской консерватории. Считается основоположником музыкального импрессионизма. Отошёл от классической гармонии в сторону красочных, «зыбких» звучаний. Работал с оркестром, фортепиано, писал романсы.',
+    bio: 'Родился под Парижем, учился в Парижской консерватории. Считается основоположником музыкального импрессионизма. Отошёл от классической гармонии в сторону красочных, «зыбких» звучаний.',
+    context: 'Дебюсси — один из главных композиторов рубежа XIX–XX веков, основоположник музыкального импрессионизма (термин условен). Он отказался от классической функциональной гармонии в пользу красочных созвучий — целотонных, пентатонических ладов, параллельных аккордов. Он работал с «тембром» как с главным средством выразительности: оркестровка «Моря» или «Ноктюрнов» — образец звукописи. Его музыка — мост от позднего романтизма к XX веку. Он оказал огромное влияние на Равеля, Мессиана, Булеза.',
     facts: [
       'На вопрос, что он любит больше всего, отвечал: «Море и женщин».',
-      'Получил Римскую премию, но в Риме почти не работал — не прижился.',
+      'Получил Римскую премию, но в Риме почти не работал.',
       'В его музыке критики сначала видели «отсутствие формы» — теперь это классика.',
       'Умер в Париже во время немецких бомбардировок Первой мировой.'
     ],
     works: ['Послеполуденный отдых фавна', 'Море', 'Ноктюрны', 'Прелюдии для фортепиано', 'Образы', 'Опера «Пеллеас и Мелизанда»']
   },
   {
+    monogram: 'А.Ш.',
+    name: 'Арнольд Шёнберг',
+    years: '1874–1951',
+    epoch: 'XX век',
+    country: 'Австрия / США',
+    bio: 'Родился в Вене, начинал как поздний романтик. В 1908–1923 годах разработал додекафонию — метод композиции, основанный на 12 равноправных тонах. После 1933 года эмигрировал в США. Преподавал в Берлине и Лос-Анджелесе.',
+    context: 'Шёнберг — одна из ключевых фигур музыки XX века. Он совершил «эмансипацию диссонанса»: отказался от тональности как организующего принципа и предложил новую систему — додекафонию (серийную технику). В его системе ни одна из 12 нот хроматической гаммы не повторяется до тех пор, пока не прозвучат все остальные. Это дало возможность композиторам сохранять структурную логику без тонального центра. Додекафония стала основой для Второй венской школы (Берг, Веберн) и повлияла на всю музыку XX века.',
+    facts: [
+      'Число 13 считал роковым — и родился 13 сентября 1874 года, и умер 13 июля 1951 года.',
+      'Его додекафония вызвала ожесточённые споры в музыкальном мире.',
+      'В США преподавал в UCLA, среди его учеников — Джон Кейдж.'
+    ],
+    works: ['Лунный Пьеро', 'Просветлённая ночь', 'Вариации для оркестра', 'Опера «Моисей и Аарон»', 'Пять пьес для оркестра']
+  },
+  {
+    monogram: 'Б.Б.',
+    name: 'Бела Барток',
+    years: '1881–1945',
+    epoch: 'XX век',
+    country: 'Венгрия',
+    bio: 'Родился в Венгрии (тогда — Австро-Венгрия). Композитор, пианист и один из первых этномузыкологов: вместе с Золтаном Кодаем записывал народную музыку на фонограф в деревнях Венгрии, Румынии, Словакии. Эмигрировал в США в 1940 году.',
+    context: 'Барток соединил венгерскую, румынскую и болгарскую народную музыку с современной композиционной техникой. Он изучал народные лады, ритмы (в том числе асимметричные — 7/8, 5/8), использовал их в своих произведениях. Его гармония — сочетание модальности, хроматизма и политональности. Как пианист, он написал множество педагогических сочинений («Микрокосмос»). Его струнные квартеты (6) — одна из вершин жанра в XX веке.',
+    facts: [
+      'Записывал народную музыку на фонограф в деревнях Центральной Европы — один из первых этномузыкологов.',
+      'В 1940 году эмигрировал в США, где умер в бедности от лейкемии.',
+      'Его «Концерт для оркестра» был заказан Кусевицким и стал одним из самых исполняемых произведений XX века.'
+    ],
+    works: ['Концерт для оркестра', '6 струнных квартетов', 'Микрокосмос', 'Музыка для струнных, ударных и челесты', 'Опера «Замок герцога Синяя Борода»']
+  },
+  {
     monogram: 'И.С.',
     name: 'Игорь Стравинский',
     years: '1882–1971',
     epoch: 'XX век',
-    country: 'Россия / США',
+    country: 'Россия / Франция / США',
     bio: 'Родился под Петербургом, учился у Римского-Корсакова. Прославился «Русскими сезонами» Дягилева в Париже. Трижды менял стиль: русский период, неоклассицизм, серийная техника. Жил во Франции и США.',
+    context: 'Стравинский — один из самых влиятельных композиторов XX века. Его ранние балеты («Жар-птица», «Петрушка», «Весна священная») произвели революцию в ритме и гармонии: он ввёл полиритмию, политональность, резкие диссонансы и примитивистскую энергию, которые изменили представление о возможностях музыки. В 1920-е годы он обратился к неоклассицизму — переосмыслению музыки XVIII века. В поздние годы использовал серийную технику Шёнберга. Его творчество — один из главных маршрутов музыки XX века.',
     facts: [
       'Премьера «Весны священной» в 1913 году закончилась скандалом и дракой в зале.',
-      'В юности изучал право, а не музыку — на юридическом факультете Петербургского университета.',
-      'Любил говорить: «Весна священная» была понята через 50 лет после премьеры.',
-      'Прожил 88 лет и был знаком с тремя эпохами музыки.'
+      'В юности изучал право, а не музыку.',
+      'Прожил 88 лет и был свидетелем трёх эпох музыки — от позднего романтизма до послевоенного авангарда.'
     ],
     works: ['Весна священная', 'Жар-птица', 'Петрушка', 'Симфония псалмов', 'Похождения повесы', 'Пульчинелла']
   },
@@ -2476,12 +2566,13 @@ const COMPOSERS = [
     years: '1891–1953',
     epoch: 'XX век',
     country: 'Россия / СССР',
-    bio: 'Родился в Екатеринославской губернии, в пять лет сочинил первую пьесу. Учился в Петербургской консерватории, был известен как «enfant terrible» — дерзкий и насмешливый. В 1918 году уехал за границу, в 1936 вернулся в СССР.',
+    bio: 'Родился в Екатеринославской губернии, в пять лет сочинил первую пьесу. Учился в Петербургской консерватории, был известен как «enfant terrible». В 1918 году уехал за границу, в 1936 вернулся в СССР.',
+    context: 'Прокофьев — один из крупнейших композиторов XX века. Его музыка соединяет классическую ясность формы с резкой, моторной ритмикой, диссонантной гармонией и гротескной образностью. Он работал во всех жанрах: симфония, концерт, опера, балет, музыка к кино. Его балеты «Ромео и Джульетта» и «Золушка» — классика XX века. Возвращение в СССР в 1936 году совпало с началом репрессий против «формализма» — его музыка была официально раскритикована, и последние годы он работал с оглядкой на цензуру.',
     facts: [
-      'Современники описывали его как блестящего шахматиста и любителя сложных интеллектуальных игр.',
-      'В 1936 году его оперу «Леди Макбет Мценского уезда» раскритиковали в «Правде» — карьера резко изменилась.',
-      'Умер 5 марта 1953 года — в один день со Сталиным, из-за чего о его смерти почти не сообщали.',
-      'Работал до последних дней — «Скифская сюита» и «Ромео и Джульетта» стали классикой XX века.'
+      'Был блестящим шахматистом и играл партии с чемпионами мира.',
+      'В 1936 году его оперу «Леди Макбет Мценского уезда» раскритиковали в «Правде».',
+      'Умер 5 марта 1953 года — в один день со Сталиным.',
+      'Работал до последних дней — «Скифская сюита» и «Ромео и Джульетта» стали классикой.'
     ],
     works: ['Ромео и Джульетта', 'Петя и волк', 'Золушка', 'Александр Невский', '5 симфоний', 'Классическая симфония']
   },
@@ -2491,18 +2582,19 @@ const COMPOSERS = [
     years: '1906–1975',
     epoch: 'XX век',
     country: 'СССР',
-    bio: 'Родился в Петербурге, в 13 лет поступил в консерваторию. Всю жизнь работал в СССР, был в сложных отношениях с властью. Автор 15 симфоний, 15 струнных квартетов, опер, балетов, музыки к кино. Считается крупнейшим симфонистом XX века.',
+    bio: 'Родился в Петербурге, в 13 лет поступил в консерваторию. Всю жизнь работал в СССР, был в сложных отношениях с властью. Автор 15 симфоний, 15 струнных квартетов, опер, балетов, музыки к кино.',
+    context: 'Шостакович — крупнейший симфонист XX века. Его музыка соединяет традиции русской симфонической школы (Чайковский, Малер) с острым, порой гротескным языком XX столетия. Он писал в условиях советской цензуры: его музыка часто содержала двойные смыслы, иронию, скрытые цитаты. Седьмая («Ленинградская») симфония, написанная в блокадном Ленинграде, стала символом сопротивления. Пятнадцать струнных квартетов — исповедальная сторона его творчества, где он мог быть более откровенным, чем в симфониях.',
     facts: [
       'Первую симфонию написал в 19 лет — её сразу играли в Европе и США.',
-      'В 1936 году «Правда» разгромила его оперу «Леди Макбет» — он был на грани ареста и уничтожения.',
-      'Седьмую симфонию («Ленинградскую») написал в блокадном Ленинграде.',
-      'Был заядлым футбольным болельщиком и любил «Зенит».'
+      'В 1936 году «Правда» разгромила его оперу «Леди Макбет» — он был на грани ареста.',
+      'Седьмую симфонию написал в блокадном Ленинграде.',
+      'Был заядлым футбольным болельщиком.'
     ],
     works: ['15 симфоний', '15 струнных квартетов', 'Опера «Леди Макбет Мценского уезда»', 'Симфония № 7 «Ленинградская»', 'Прелюдии и фуги']
   }
 ];
 
-const COMPOSER_CATS = ['Все', 'Барокко', 'Классицизм', 'Романтизм', 'XX век'];
+const COMPOSER_CATS = ['Все', 'Ренессанс', 'Барокко', 'Классицизм', 'Романтизм', 'XX век'];
 let activeComposerCat = 'Все';
 let composerSearchQuery = '';
 
@@ -2531,14 +2623,10 @@ function renderComposers() {
   const filtered = COMPOSERS.filter(c => {
     let matchesCat;
     if (activeComposerCat === 'Все') matchesCat = true;
-    else if (activeComposerCat === 'Классицизм') {
-      matchesCat = c.epoch.indexOf('Классицизм') !== -1;
-    } else if (activeComposerCat === 'XX век') {
-      matchesCat = c.epoch.indexOf('XX век') !== -1;
-    } else {
-      matchesCat = c.epoch.indexOf(activeComposerCat) !== -1;
-    }
-    const hay = (c.name + ' ' + c.epoch + ' ' + c.country + ' ' + c.bio + ' ' + c.works.join(' ')).toLowerCase();
+    else if (activeComposerCat === 'Классицизм') matchesCat = c.epoch.indexOf('Классицизм') !== -1;
+    else if (activeComposerCat === 'XX век') matchesCat = c.epoch.indexOf('XX век') !== -1;
+    else matchesCat = c.epoch.indexOf(activeComposerCat) !== -1;
+    const hay = (c.name + ' ' + c.epoch + ' ' + c.country + ' ' + c.bio + ' ' + c.context + ' ' + c.works.join(' ')).toLowerCase();
     const matchesQ = !q || hay.indexOf(q) !== -1;
     return matchesCat && matchesQ;
   });
@@ -2564,6 +2652,11 @@ function renderComposers() {
     html += '</div>';
 
     html += '<p class="composer-bio">' + c.bio + '</p>';
+
+    html += '<div class="composer-section">';
+    html += '<div class="composer-section-title">Историко-стилевой контекст</div>';
+    html += '<p class="composer-bio">' + c.context + '</p>';
+    html += '</div>';
 
     html += '<div class="composer-section">';
     html += '<div class="composer-section-title">Интересные факты</div>';
