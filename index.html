@@ -525,7 +525,7 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.14 · прототип</div>
+  <div class="sidebar-foot">v0.15 · прототип</div>
 </aside>
 
 <main>
@@ -628,7 +628,7 @@
             <li>Если сайт открыт <strong>в Safari</strong>: нажмите <strong>«аА»</strong> → <strong>Настройки веб-сайта</strong> → <strong>Микрофон</strong> → <strong>Разрешить</strong>. Также: <strong>Настройки iPhone → Safari → Микрофон</strong>.</li>
             <li>Если сайт добавлен <strong>на экран «Домой»</strong> (иконкой): настройки Safari не действуют! Нужно <strong>Настройки iPhone → Maestro → Микрофон</strong> (или название иконки). Если раздела нет — удалите иконку, зайдите в Safari, дайте доступ, потом снова добавьте на экран.</li>
             <li>После выдачи разрешения <strong>обязательно закройте Safari полностью</strong> (свайп вверх в переключателе приложений) и откройте заново.</li>
-            <li>Если ничего не помогает — удалите данные сайта: <strong>Настройки → Safari → Дополнения → Данные сайтов → найти dariaru2106-hash.github.io → удалить</strong>. После этого откройте сайт заново и дайте разрешение.</li>
+            <li>Если ничего не помогает — удалите данные сайта: <strong>Настройки → Safari → Дополнения → Данные сайтов → найти formusician.github.io → удалить</strong>. После этого откройте сайт заново и дайте разрешение.</li>
           </ol>
           <button type="button" class="btn small" id="micReload" style="margin-top:12px;">Перезагрузить сайт</button>
         </div>
@@ -785,14 +785,21 @@ let metroVolume = 1.0;
 let silentLoopSource = null;
 let silentLoopGain = null;
 
+function setAudioSessionType(type) {
+  if (!navigator.audioSession) return;
+  try {
+    if (navigator.audioSession.type !== type) {
+      navigator.audioSession.type = type;
+    }
+  } catch(e) {}
+}
+
 function getCtx() {
   if (!audioCtx) {
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return null;
     audioCtx = new AC();
-    if (navigator.audioSession) {
-      try { navigator.audioSession.type = 'playback'; } catch(e) {}
-    }
+    setAudioSessionType('playback');
   }
   if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
   return audioCtx;
@@ -811,6 +818,7 @@ function killSilentLoop() {
 }
 
 function startSilentLoop(ctx) {
+  if (tunerRunning) return;
   killSilentLoop();
   try {
     const sr = ctx.sampleRate;
@@ -834,13 +842,13 @@ function startSilentLoop(ctx) {
 function ensureAudioAlive() {
   const ctx = getCtx();
   if (!ctx) return null;
-  if (navigator.audioSession) {
-    try { navigator.audioSession.type = 'playback'; } catch(e) {}
+  if (!tunerRunning) {
+    setAudioSessionType('playback');
   }
   if (ctx.state === 'suspended') {
     ctx.resume().catch(() => {});
   }
-  if (ctx.state === 'running') {
+  if (ctx.state === 'running' && !tunerRunning) {
     startSilentLoop(ctx);
   }
   return ctx;
@@ -869,9 +877,7 @@ function updateAudioIndicator() {
   if (!audioIndicator) return;
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume().catch(() => {});
-    if (navigator.audioSession) {
-      try { navigator.audioSession.type = 'playback'; } catch(e) {}
-    }
+    if (!tunerRunning) setAudioSessionType('playback');
   }
   if (!audioCtx || audioCtx.state === 'suspended') {
     audioIndicator.classList.remove('active');
@@ -924,6 +930,7 @@ setInterval(updateAudioIndicator, 800);
 updateAudioIndicator();
 
 function reawaken() {
+  if (tunerRunning) return;
   ensureAudioAlive();
   audioUnlocked = false;
   updateAudioIndicator();
@@ -932,7 +939,7 @@ function reawaken() {
 window.addEventListener('pageshow', reawaken);
 window.addEventListener('focus', reawaken);
 window.addEventListener('pagehide', () => {
-  if (audioCtx && audioCtx.state === 'running') {
+  if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
     startSilentLoop(audioCtx);
   }
 });
@@ -941,7 +948,7 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     reawaken();
   } else {
-    if (audioCtx && audioCtx.state === 'running') {
+    if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
       startSilentLoop(audioCtx);
     }
   }
@@ -1691,7 +1698,6 @@ async function startTuner() {
   tunerStatus.classList.remove('on');
   tunerStatus.classList.add('error');
 
-  // Диагностика 1: доступен ли API
   if (!navigator.mediaDevices) {
     tunerStatus.textContent = 'navigator.mediaDevices недоступен. Возможно, сайт открыт не по HTTPS или в приватном режиме.';
     micHint.classList.add('visible');
@@ -1703,14 +1709,17 @@ async function startTuner() {
     return false;
   }
 
-  // Диагностика 2: перечислим доступные устройства
   let micsCount = '?';
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     micsCount = devices.filter(d => d.kind === 'audioinput').length;
   } catch(e) { micsCount = 'err'; }
 
-  // Пробуем разные наборы ограничений — от самых простых к сложным
+  // КЛЮЧЕВОЕ: переключаем тип аудио-сессии до запроса микрофона
+  setAudioSessionType('play-and-record');
+  killSilentLoop();
+  await new Promise(r => setTimeout(r, 50));
+
   const constraintOptions = [
     { audio: true },
     { audio: { echoCancellation: false, noiseSuppression: false } },
@@ -1726,7 +1735,6 @@ async function startTuner() {
       break;
     } catch (e) {
       lastErr = e;
-      // При отказе в доступе не пытаемся дальше — бессмысленно
       if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) break;
     }
   }
@@ -1744,11 +1752,15 @@ async function startTuner() {
       msg = 'Параметры микрофона не поддерживаются устройством.';
     } else if (name === 'SecurityError') {
       msg = 'Заблокировано из соображений безопасности. Проверьте HTTPS и не в приватном режиме.';
+    } else if (name === 'InvalidStateError') {
+      msg = 'Конфликт аудио-сессии. Попробуйте ещё раз или перезагрузите страницу.';
     } else if (lastErr && lastErr.message) {
       msg = 'Ошибка: ' + name + ' — ' + lastErr.message;
     }
     tunerStatus.textContent = msg;
     micHint.classList.add('visible');
+    // Возвращаем playback, чтобы метроном работал
+    setAudioSessionType('playback');
     return false;
   }
 
@@ -1757,6 +1769,7 @@ async function startTuner() {
   if (!ctx) {
     try { micStream.getTracks().forEach(t => t.stop()); } catch(e) {}
     micStream = null;
+    setAudioSessionType('playback');
     tunerStatus.textContent = 'Аудиоконтекст недоступен';
     return false;
   }
@@ -1772,6 +1785,7 @@ async function startTuner() {
     tunerStatus.textContent = 'Не удалось подключить микрофон к анализатору: ' + (e.message || e.name);
     try { micStream.getTracks().forEach(t => t.stop()); } catch(err) {}
     micStream = null;
+    setAudioSessionType('playback');
     return false;
   }
 
@@ -1791,6 +1805,11 @@ function stopTuner() {
   if (sourceNode) { try { sourceNode.disconnect(); } catch(e){} sourceNode = null; }
   if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
   analyser = null;
+  // Возвращаем режим playback
+  setAudioSessionType('playback');
+  if (audioCtx && audioCtx.state === 'running') {
+    startSilentLoop(audioCtx);
+  }
   currentDetectedMidi = null;
   tunerNote.innerHTML = '—<span class="oct"></span>';
   tunerNote.style.color = 'var(--ink)';
@@ -2261,7 +2280,7 @@ const COMPOSERS = [
     context: 'Хильдегарда — одна из немногих известных женщин-композиторов Средневековья. Её музыка — монодия (одноголосие) с широкими мелодическими скачками, не похожая на григорианский хорал. Она писала не по канону, а свободно, как её вдохновляли видения. Её наследие — свидетельство того, что в Средневековье женщины могли занимать высокое положение в церкви и создавать музыку, но очень мало таких свидетельств сохранилось.',
     facts: [
       'Церковь официально причислила её к лику святых в 2012 году — через 833 года после смерти.',
-      'Писала богословские трактаты, медицинские сочинения и музыку — редкое сочетание.',
+      'Писала богословские трактаты, медицинские сочинения и музыку.',
       'Переписывалась с папами и императорами, что было немыслимо для женщины того времени.'
     ],
     works: ['Ordo Virtutum', 'Symphonia armonie celestium revelationum', 'Около 80 песнопений']
@@ -2742,21 +2761,6 @@ const COMPOSERS = [
       'Был заядлым футбольным болельщиком.'
     ],
     works: ['15 симфоний', '15 струнных квартетов', 'Опера «Леди Макбет Мценского уезда»', 'Симфония № 7 «Ленинградская»', 'Прелюдии и фуги']
-  },
-  {
-    monogram: 'Х.Б.',
-    name: 'Хильдегарда Бингенская',
-    years: '1098–1179',
-    epoch: 'Средневековье',
-    country: 'Германия',
-    bio: 'Аббатиса, мистик, поэтесса и композитор. Основала монастырь в Рупертсберге. Оставила около 80 литургических песнопений — редчайший случай, когда в Средневековье сохранилось авторство женщины-композитора.',
-    context: 'Хильдегарда — одна из немногих известных женщин-композиторов Средневековья. Её музыка — монодия (одноголосие) с широкими мелодическими скачками, не похожая на григорианский хорал. Она писала не по канону, а свободно, как её вдохновляли видения. Её наследие — свидетельство того, что в Средневековье женщины могли занимать высокое положение в церкви и создавать музыку, но очень мало таких свидетельств сохранилось.',
-    facts: [
-      'Церковь официально причислила её к лику святых в 2012 году — через 833 года после смерти.',
-      'Писала богословские трактаты, медицинские сочинения и музыку.',
-      'Переписывалась с папами и императорами, что было немыслимо для женщины того времени.'
-    ],
-    works: ['Ordo Virtutum', 'Symphonia armonie celestium revelationum', 'Около 80 песнопений']
   },
   {
     monogram: 'К.Ш.',
