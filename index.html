@@ -819,7 +819,7 @@ function killSilentLoop() {
 
 function startSilentLoop(ctx) {
   if (tunerRunning) return;
-  killSilentLoop();
+  if (silentLoopSource) return;
   try {
     const sr = ctx.sampleRate;
     const buf = ctx.createBuffer(1, sr, sr);
@@ -839,6 +839,19 @@ function startSilentLoop(ctx) {
   }
 }
 
+// Silent loop запускается ТОЛЬКО когда что-то играет.
+// Если ничего не играет — иконка звука в статус-баре iPhone пропадает.
+function updateSilentLoop() {
+  const ctx = audioCtx;
+  if (!ctx) return;
+  const anyPlaying = metronomePlaying || polyPlaying || tonePlaying;
+  if (anyPlaying && ctx.state === 'running' && !tunerRunning) {
+    startSilentLoop(ctx);
+  } else {
+    killSilentLoop();
+  }
+}
+
 function ensureAudioAlive() {
   const ctx = getCtx();
   if (!ctx) return null;
@@ -848,9 +861,7 @@ function ensureAudioAlive() {
   if (ctx.state === 'suspended') {
     ctx.resume().catch(() => {});
   }
-  if (ctx.state === 'running' && !tunerRunning) {
-    startSilentLoop(ctx);
-  }
+  updateSilentLoop();
   return ctx;
 }
 
@@ -926,7 +937,13 @@ if ('mediaSession' in navigator) {
   } catch(e) {}
 }
 
-setInterval(updateAudioIndicator, 800);
+// Проверяем состояние звука и silent loop каждые 400 мс.
+// Так silent loop запустится почти сразу после старта метронома
+// и погаснет максимум через 400 мс после остановки.
+setInterval(() => {
+  updateAudioIndicator();
+  updateSilentLoop();
+}, 400);
 updateAudioIndicator();
 
 function reawaken() {
@@ -934,38 +951,33 @@ function reawaken() {
   ensureAudioAlive();
   audioUnlocked = false;
   updateAudioIndicator();
+  updateSilentLoop();
 }
 
 window.addEventListener('pageshow', reawaken);
 window.addEventListener('focus', reawaken);
+
 window.addEventListener('pagehide', () => {
-  // Освобождаем микрофон при выходе с сайта —
-  // тогда iOS уберёт зелёный/оранжевый индикатор без закрытия Safari
+  // Освобождаем микрофон — тогда iOS уберёт индикатор без закрытия Safari
   if (tunerRunning) {
     stopTuner();
   }
-  if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
-    startSilentLoop(audioCtx);
-  }
+  updateSilentLoop();
 });
 
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     reawaken();
   } else {
-    // То же при сворачивании вкладки или переходе в другое приложение
+    // То же при сворачивании
     if (tunerRunning) {
       stopTuner();
     }
-    if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
-      startSilentLoop(audioCtx);
-    }
+    updateSilentLoop();
   }
   updateAudioIndicator();
 });
 
-const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-const midiToFreq = (midi, ref = 440) => ref * Math.pow(2, (midi - 69) / 12);
 
 /* ============================================================
    2. НАВИГАЦИЯ
