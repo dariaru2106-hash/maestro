@@ -939,6 +939,11 @@ function reawaken() {
 window.addEventListener('pageshow', reawaken);
 window.addEventListener('focus', reawaken);
 window.addEventListener('pagehide', () => {
+  // Освобождаем микрофон при выходе с сайта —
+  // тогда iOS уберёт зелёный/оранжевый индикатор без закрытия Safari
+  if (tunerRunning) {
+    stopTuner();
+  }
   if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
     startSilentLoop(audioCtx);
   }
@@ -948,6 +953,10 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     reawaken();
   } else {
+    // То же при сворачивании вкладки или переходе в другое приложение
+    if (tunerRunning) {
+      stopTuner();
+    }
     if (audioCtx && audioCtx.state === 'running' && !tunerRunning) {
       startSilentLoop(audioCtx);
     }
