@@ -77,6 +77,8 @@
     border-radius: 50%; background: var(--ink); cursor: pointer;
     border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--ink);
   }
+  input[type=range].volume { width: 140px; margin: 0; height: 2px; }
+  input[type=range].volume::-webkit-slider-thumb { width: 14px; height: 14px; }
   .metro-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
   .btn {
     font-family: inherit; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
@@ -541,6 +543,7 @@
     .fork-visual { width: 84px; height: 150px; }
     .fork-note { font-size: 36px; }
     .audio-indicator { width: 44px; height: 44px; bottom: 14px; right: 14px; }
+    input[type=range].volume { width: 100px; }
     .poly-wrap { padding: 18px 12px 12px; }
     .poly-option { font-size: 15px; padding: 8px 14px; }
     .poly-rows { gap: 34px; padding: 24px 0 4px; }
@@ -572,7 +575,7 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.10 · прототип</div>
+  <div class="sidebar-foot">v0.11 · прототип</div>
 </aside>
 
 <main>
@@ -597,6 +600,13 @@
           <span class="switch-slider"></span>
           <span>Акцент на сильную долю</span>
         </label>
+        <div style="display:flex; align-items:center; gap:10px; margin-left:auto;">
+          <span class="bpm-label">Громкость</span>
+          <input type="range" class="volume" id="metroVolume" min="30" max="100" value="100">
+          <span style="font-size:12px;color:var(--muted);min-width:38px;font-variant-numeric:tabular-nums;" id="metroVolumeVal">100%</span>
+        </div>
+      </div>
+      <div class="metro-row">
         <div style="margin-left:auto;">
           <span class="bpm-label">Размер</span>
           <select id="timeSig" style="margin-left:10px;">
@@ -821,6 +831,7 @@
    ============================================================ */
 let audioCtx = null;
 let audioUnlocked = false;
+let metroVolume = 1.0;
 
 function getCtx() {
   if (!audioCtx) {
@@ -902,17 +913,16 @@ updateAudioIndicator();
 window.addEventListener('pageshow', (e) => {
   if (e.persisted) {
     if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-    audioUnlocked = false;
     updateAudioIndicator();
   }
 });
 
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) {
-    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-    audioUnlocked = false;
-    updateAudioIndicator();
+  // Звук продолжает работать в фоне — только подстраховываем контекст
+  if (!document.hidden && audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
   }
+  updateAudioIndicator();
 });
 
 const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
@@ -927,10 +937,7 @@ const LS_PANEL_KEY = 'maestro-active-panel';
 const HIDE_INDICATOR_PANELS = ['terms', 'composers', 'scores', 'recordings'];
 
 function switchPanel(target, save) {
-  // Останавливаем только тюнер и камертон при уходе с их вкладки.
-  // Метроном и полиритмия продолжают работать в фоне.
-  if (target !== 'tuner' && tunerRunning) toggleTuner(false);
-  if (target !== 'tuner' && tonePlaying) stopTone();
+  // Ничего не останавливаем — весь звук продолжает работать в фоне.
 
   navItems.forEach(i => i.classList.toggle('active', i.dataset.panel === target));
   panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + target));
@@ -1004,7 +1011,6 @@ const SYMBOLS = {
   mordentLower: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 10 22 q 7 12 14 0 q 7 -12 14 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="24" y1="12" x2="24" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="36" x2="36" y2="12" stroke="currentColor" stroke-width="2" opacity="0.55"/></svg>',
   gruppetto: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 8 28 C 8 14, 22 14, 24 24 C 26 34, 40 34, 40 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
   appoggiatura: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="22" cy="34" rx="5.5" ry="4.3" fill="currentColor" transform="rotate(-22 22 34)"/><line x1="26" y1="34" x2="26" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="34" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  acciaccatura: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><ellipse cx="22" cy="34" rx="5" ry="4" fill="currentColor" transform="rotate(-22 22 34)"/><line x1="26" y1="34" x2="26" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="38" x2="30" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   arpeggio: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 24 8 q 6 6 0 12 q -6 6 0 12 q 6 6 0 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
   tie: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 6 32 Q 24 12 42 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>',
   doubleSharp: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="14" y1="14" x2="34" y2="34"/><line x1="34" y1="14" x2="14" y2="34"/><line x1="10" y1="14" x2="18" y2="14"/><line x1="30" y1="14" x2="38" y2="14"/><line x1="10" y1="34" x2="18" y2="34"/><line x1="30" y1="34" x2="38" y2="34"/></g></svg>',
@@ -1028,6 +1034,8 @@ const metroBtn   = document.getElementById('metroToggle');
 const accentToggle = document.getElementById('accentToggle');
 const rhythmGrid = document.getElementById('rhythmGrid');
 const copyToAll  = document.getElementById('copyToAll');
+const metroVolumeInput = document.getElementById('metroVolume');
+const metroVolumeVal = document.getElementById('metroVolumeVal');
 
 let metronomePlaying = false;
 let currentBeat = 0, currentSub = 0, nextNoteTime = 0;
@@ -1076,6 +1084,22 @@ bpmSlider.addEventListener('input', e => updateBpm(+e.target.value));
 document.querySelectorAll('[data-bpm]').forEach(b =>
   b.addEventListener('click', () => updateBpm(+b.dataset.bpm))
 );
+
+metroVolumeInput.addEventListener('input', e => {
+  metroVolume = +e.target.value / 100;
+  metroVolumeVal.textContent = e.target.value + '%';
+  try { localStorage.setItem('maestro-metro-volume', e.target.value); } catch(err) {}
+});
+(function loadVolume() {
+  try {
+    const v = localStorage.getItem('maestro-metro-volume');
+    if (v) {
+      metroVolumeInput.value = v;
+      metroVolume = +v / 100;
+      metroVolumeVal.textContent = v + '%';
+    }
+  } catch(e) {}
+})();
 
 function initBeats(n) {
   beatsConfig = [];
@@ -1189,7 +1213,7 @@ function playClick(time, accent, subIndex, subCount) {
   if (ctx.state === 'suspended') ctx.resume();
 
   // Двойной клик — ярче и громче
-  const peak = accent ? 0.85 : 0.55;
+  const peak = (accent ? 0.85 : 0.55) * metroVolume;
   const dur = accent ? 0.055 : 0.032;
   const freq1 = accent ? 1600 : 1100;
   const freq2 = accent ? 2400 : 1700;
@@ -1200,7 +1224,6 @@ function playClick(time, accent, subIndex, subCount) {
   master.gain.exponentialRampToValueAtTime(0.0001, time + dur);
   master.connect(ctx.destination);
 
-  // Основной тон — треугольный, ярче, чем синус
   const osc1 = ctx.createOscillator();
   osc1.type = 'triangle';
   osc1.frequency.value = freq1;
@@ -1208,7 +1231,6 @@ function playClick(time, accent, subIndex, subCount) {
   osc1.start(time);
   osc1.stop(time + dur + 0.03);
 
-  // Верхняя гармоника для «щелчка»
   const osc2 = ctx.createOscillator();
   osc2.type = 'sine';
   osc2.frequency.value = freq2;
@@ -1373,8 +1395,9 @@ function playPolyClick(time) {
   const gain = ctx.createGain();
   osc.type = 'triangle';
   osc.frequency.value = 1600;
+  const peak = 0.5 * metroVolume;
   gain.gain.setValueAtTime(0, time);
-  gain.gain.linearRampToValueAtTime(0.5, time + 0.001);
+  gain.gain.linearRampToValueAtTime(peak, time + 0.001);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.045);
   osc.connect(gain).connect(ctx.destination);
   osc.start(time);
@@ -1392,7 +1415,7 @@ function playPolyNote(time, isFirst, rowId) {
   else osc.frequency.value = 720;
 
   const dur = isFirst ? 0.07 : 0.04;
-  const peak = isFirst ? 0.55 : 0.35;
+  const peak = (isFirst ? 0.55 : 0.35) * metroVolume;
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(peak, time + 0.002);
   gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
@@ -1457,7 +1480,6 @@ function togglePoly(force) {
   if (!ctx) return;
   const wantOn = (force !== undefined) ? force : !polyPlaying;
   if (wantOn) {
-    // Останавливаем обычный метроном
     if (metronomePlaying) toggleMetronome(false);
     unlockAudio();
     if (ctx.state === 'suspended') ctx.resume();
@@ -1551,7 +1573,6 @@ function renderStrings() {
   }
   stringsRow.style.display = 'flex';
   stringsRow.innerHTML = '';
-  // Порядок от низкой струны к высокой (как на инструменте)
   inst.strings.forEach(midi => {
     const chip = document.createElement('div');
     chip.className = 'string-chip';
@@ -1566,7 +1587,6 @@ function highlightString(midi) {
   if (midi === null) return;
   const inst = INSTRUMENTS[currentInstrument];
   if (!inst.strings.length) return;
-  // Ищем ближайшую струну
   let best = null, bestDist = Infinity;
   inst.strings.forEach(sm => {
     const d = Math.abs(sm - midi);
@@ -1624,7 +1644,6 @@ function buildToneKeys() {
 }
 
 function toggleTone(midi) {
-  // Камертон работает как переключатель — повторное нажатие выключает звук
   if (tonePlaying && currentToneMidi === midi) {
     stopTone();
     return;
@@ -1836,7 +1855,7 @@ function tickTuner() {
 buildToneKeys();
 
 /* ============================================================
-   7. ПИАНИНО — полифония с точной визуальной реакцией
+   7. ПИАНИНО — полифония
    ============================================================ */
 const pianoInner = document.getElementById('pianoInner');
 const pianoEl = document.getElementById('piano');
@@ -1845,9 +1864,7 @@ const isBlackPc = pc => BLACK_PCS.indexOf(pc) !== -1;
 const START_MIDI = 36, END_MIDI = 83, WHITE_KEY_W = 42;
 const keyElements = new Map();
 
-// Учёт пальцев: какой палец (pointerId) на какой клавише сейчас
 const pointerToMidi = new Map();
-// Учёт активных клавиш: миди → сколько пальцев её держат
 const midiHoldCount = new Map();
 
 function buildPiano() {
@@ -1896,7 +1913,6 @@ function buildPiano() {
     });
     el.addEventListener('pointerenter', e => {
       if (pointerToMidi.has(e.pointerId)) {
-        // Палец перетёк на другую клавишу (глиссандо)
         releasePointer(e.pointerId, false);
         pressKey(e.pointerId, midi, el);
       }
@@ -2132,7 +2148,6 @@ const TERMS = [
   { t:'8vb', pr:'отта́ва ба́сса', c:'Структура', d:'Играть октавой ниже.' },
   { t:'Subito', pr:'су́бито', c:'Структура', d:'Внезапно, сразу.' },
 
-  // НОТАЦИЯ — без транскрипции
   { t:'Трель', sym:'trill', c:'Нотация', d:'Быстрое чередование основной ноты и соседней верхней. Обозначается «tr» с волнистой линией над нотой.' },
   { t:'Акцент', sym:'accent', c:'Нотация', d:'Знак «>» над или под нотой — подчёркнутое, усиленное исполнение.' },
   { t:'Маркато', sym:'marcato', c:'Нотация', d:'Клинышек «^» — резкий, отчётливый акцент, сильнее обычного.' },
@@ -2198,7 +2213,6 @@ function renderTerms() {
     html += '<div class="term">';
     if (t.sym) html += '<div class="term-symbol">' + symbolHtml(t.sym) + '</div>';
     html += '<div class="term-word">' + t.t + '</div>';
-    // Транскрипцию показываем везде, кроме Нотации
     if (t.pr && t.c !== 'Нотация') html += '<div class="term-pron">[' + t.pr + ']</div>';
     html += '<div class="term-cat">' + t.c + '</div>';
     html += '<div class="term-def">' + t.d + '</div>';
@@ -2397,7 +2411,6 @@ renderPolyStage();
   if (saved && document.querySelector('.nav-item[data-panel="' + saved + '"]')) {
     switchPanel(saved, false);
   } else {
-    // Применяем видимость индикатора для стартовой панели
     switchPanel('metronome', false);
   }
 })();
