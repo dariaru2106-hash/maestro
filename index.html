@@ -705,6 +705,59 @@ mark.hl {
       <h1 class="panel-title">Пианино</h1>
       <p class="panel-desc">Четыре октавы. Играйте несколькими пальцами — можно брать аккорды и интервалы одновременно.</p>
     </div>
+
+    <div class="piano-toolbar">
+      <div class="piano-toolbar-group">
+        <span class="bpm-label">Тембр</span>
+        <select id="timbreSelect">
+          <option value="piano" selected>Фортепиано</option>
+          <option value="organ">Орган</option>
+          <option value="strings">Струнные</option>
+          <option value="bell">Колокольчик</option>
+          <option value="marimba">Маримба</option>
+          <option value="synth">Синтезатор</option>
+        </select>
+      </div>
+      <div class="piano-toolbar-group">
+        <span class="bpm-label">Тоника</span>
+        <select id="scaleRoot">
+          <option value="0" selected>C</option>
+          <option value="1">C# / Db</option>
+          <option value="2">D</option>
+          <option value="3">D# / Eb</option>
+          <option value="4">E</option>
+          <option value="5">F</option>
+          <option value="6">F# / Gb</option>
+          <option value="7">G</option>
+          <option value="8">G# / Ab</option>
+          <option value="9">A</option>
+          <option value="10">A# / Bb</option>
+          <option value="11">B</option>
+        </select>
+      </div>
+      <div class="piano-toolbar-group">
+        <span class="bpm-label">Лад</span>
+        <select id="scaleSelect">
+          <option value="none" selected>— без лада —</option>
+          <option value="ionian">Ионийский (мажор)</option>
+          <option value="dorian">Дорийский</option>
+          <option value="phrygian">Фригийский</option>
+          <option value="lydian">Лидийский</option>
+          <option value="mixolydian">Миксолидийский</option>
+          <option value="aeolian">Эолийский (минор)</option>
+          <option value="locrian">Локрийский</option>
+          <option value="harmMinor">Гармонический минор</option>
+          <option value="melMinor">Мелодический минор</option>
+          <option value="pentMaj">Пентатоника мажор</option>
+          <option value="pentMin">Пентатоника минор</option>
+          <option value="blues">Блюзовая</option>
+          <option value="wholeTone">Целотонная</option>
+          <option value="diminished">Уменьшенная</option>
+        </select>
+      </div>
+      <button type="button" class="btn ghost small" id="scalePlayBtn">Проиграть гамму</button>
+    </div>
+
     <div class="piano-wrap">
       <button type="button" class="scroll-arrow left" id="scrollLeft">‹</button>
       <div class="piano-scroll" id="pianoScroll">
