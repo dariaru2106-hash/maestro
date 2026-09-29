@@ -2135,29 +2135,159 @@ window.addEventListener('blur', () => {
   document.querySelectorAll('.key.active').forEach(k => k.classList.remove('active'));
 });
 
+let currentTimbre = 'piano';
+let currentScale = 'none';
+let currentScaleRoot = 0;
+
+const TIMBRES = {
+  piano: {
+    dur: 1.6,
+    attack: 0.008,
+    peak: 0.32,
+    filterStart: 4200,
+    filterEnd: 900,
+    partials: [
+      { ratio: 1,    gain: 1.0,  type: 'triangle' },
+      { ratio: 2,    gain: 0.32, type: 'sine' },
+      { ratio: 3,    gain: 0.14, type: 'sine' },
+      { ratio: 4.01, gain: 0.06, type: 'sine' },
+    ]
+  },
+  organ: {
+    dur: 1.4,
+    attack: 0.02,
+    peak: 0.24,
+    filterStart: 3000,
+    filterEnd: 3000,
+    partials: [
+      { ratio: 1,    gain: 1.0,  type: 'sine' },
+      { ratio: 2,    gain: 0.7,  type: 'sine' },
+      { ratio: 3,    gain: 0.4,  type: 'sine' },
+      { ratio: 4,    gain: 0.25, type: 'sine' },
+      { ratio: 6,    gain: 0.12, type: 'sine' },
+      { ratio: 8,    gain: 0.06, type: 'sine' },
+    ]
+  },
+  strings: {
+    dur: 1.8,
+    attack: 0.18,
+    peak: 0.22,
+    filterStart: 2200,
+    filterEnd: 1800,
+    partials: [
+      { ratio: 1,    gain: 1.0,  type: 'sawtooth' },
+      { ratio: 1.005, gain: 0.5, type: 'sawtooth' },
+      { ratio: 2,    gain: 0.2,  type: 'sawtooth' },
+    ]
+  },
+  bell: {
+    dur: 2.4,
+    attack: 0.003,
+    peak: 0.22,
+    filterStart: 8000,
+    filterEnd: 4000,
+    partials: [
+      { ratio: 1,     gain: 1.0,  type: 'sine' },
+      { ratio: 2.76,  gain: 0.5,  type: 'sine' },
+      { ratio: 5.4,   gain: 0.3,  type: 'sine' },
+      { ratio: 8.9,   gain: 0.15, type: 'sine' },
+    ]
+  },
+  marimba: {
+    dur: 0.9,
+    attack: 0.003,
+    peak: 0.32,
+    filterStart: 4000,
+    filterEnd: 1200,
+    partials: [
+      { ratio: 1,   gain: 1.0,  type: 'sine' },
+      { ratio: 4,   gain: 0.4,  type: 'sine' },
+      { ratio: 9.2, gain: 0.12, type: 'sine' },
+    ]
+  },
+  synth: {
+    dur: 1.2,
+    attack: 0.01,
+    peak: 0.22,
+    filterStart: 1600,
+    filterEnd: 3200,
+    partials: [
+      { ratio: 1,    gain: 1.0,  type: 'square' },
+      { ratio: 1.5,  gain: 0.25, type: 'square' },
+      { ratio: 2.01, gain: 0.15, type: 'sawtooth' },
+    ]
+  }
+};
+
+const SCALES = {
+  none:        null,
+  ionian:      [0, 2, 4, 5, 7, 9, 11],
+  dorian:      [0, 2, 3, 5, 7, 9, 10],
+  phrygian:    [0, 1, 3, 5, 7, 8, 10],
+  lydian:      [0, 2, 4, 6, 7, 9, 11],
+  mixolydian:  [0, 2, 4, 5, 7, 9, 10],
+  aeolian:     [0, 2, 3, 5, 7, 8, 10],
+  locrian:     [0, 1, 3, 5, 6, 8, 10],
+  harmMinor:   [0, 2, 3, 5, 7, 8, 11],
+  melMinor:    [0, 2, 3, 5, 7, 9, 11],
+  pentMaj:     [0, 2, 4, 7, 9],
+  pentMin:     [0, 3, 5, 7, 10],
+  blues:       [0, 3, 5, 6, 7, 10],
+  wholeTone:   [0, 2, 4, 6, 8, 10],
+  diminished:  [0, 2, 3, 5, 6, 8, 9, 11]
+};
+
+function applyScaleHighlight() {
+  // Снимаем старую подсветку
+  document.querySelectorAll('.key.scale-note, .key.scale-root').forEach(k => {
+    k.classList.remove('scale-note', 'scale-root');
+  });
+  if (currentScale === 'none' || !SCALES[currentScale]) return;
+
+  const degrees = SCALES[currentScale];
+  const rootPc = ((currentScaleRoot % 12) + 12) % 12;
+
+  keyElements.forEach((el, midi) => {
+    const pc = ((midi % 12) + 12) % 12;
+    // сдвиг относительно тоники
+    const interval = ((pc - rootPc) % 12 + 12) % 12;
+    if (interval === 0) {
+      el.classList.add('scale-root');
+    } else if (degrees.indexOf(interval) !== -1) {
+      el.classList.add('scale-note');
+    }
+  });
+}
+
+function updateTimbre() {
+  const sel = document.getElementById('timbreSelect');
+  if (sel) currentTimbre = sel.value;
+}
+
 function playPianoNote(freq) {
   const ctx = getCtx();
   if (!ctx) return;
   if (ctx.state === 'suspended') ctx.resume();
   ensureAudioAlive();
+
+  const cfg = TIMBRES[currentTimbre] || TIMBRES.piano;
   const now = ctx.currentTime;
-  const dur = 1.6;
+  const dur = cfg.dur;
+
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, now);
-  master.gain.linearRampToValueAtTime(0.32, now + 0.008);
+  master.gain.linearRampToValueAtTime(cfg.peak, now + cfg.attack);
   master.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
   const filter = ctx.createBiquadFilter();
   filter.type = 'lowpass';
-  filter.frequency.setValueAtTime(4200, now);
-  filter.frequency.exponentialRampToValueAtTime(900, now + dur);
+  filter.frequency.setValueAtTime(cfg.filterStart, now);
+  if (cfg.filterEnd !== cfg.filterStart) {
+    filter.frequency.exponentialRampToValueAtTime(cfg.filterEnd, now + dur);
+  }
   filter.Q.value = 0.6;
-  const partials = [
-    { ratio: 1,    gain: 1.0,  type: 'triangle' },
-    { ratio: 2,    gain: 0.32, type: 'sine' },
-    { ratio: 3,    gain: 0.14, type: 'sine' },
-    { ratio: 4.01, gain: 0.06, type: 'sine' },
-  ];
-  partials.forEach(p => {
+
+  cfg.partials.forEach(p => {
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
     osc.type = p.type;
@@ -2169,6 +2299,62 @@ function playPianoNote(freq) {
   });
   filter.connect(master).connect(ctx.destination);
 }
+
+function playScaleSequence() {
+  if (currentScale === 'none' || !SCALES[currentScale]) return;
+  const degrees = SCALES[currentScale];
+  const rootPc = ((currentScaleRoot % 12) + 12) % 12;
+
+  // Найдём MIDI ноты от C4 = 60, начиная с ближайшей к 60 ноты с нужным pc
+  let startMidi = 60;
+  while (((startMidi % 12) + 12) % 12 !== rootPc) startMidi++;
+
+  const notes = [];
+  degrees.forEach(d => {
+    notes.push(startMidi + d);
+  });
+  // Добавим октаву сверху
+  notes.push(startMidi + 12);
+
+  const ctx = getCtx();
+  if (!ctx) return;
+  if (ctx.state === 'suspended') ctx.resume();
+  ensureAudioAlive();
+
+  notes.forEach((midi, idx) => {
+    setTimeout(() => {
+      playPianoNote(midiToFreq(midi, 440));
+      // подсветка клавиши
+      const el = keyElements.get(midi);
+      if (el) {
+        el.classList.add('active');
+        setTimeout(() => el.classList.remove('active'), 200);
+      }
+    }, idx * 320);
+  });
+}
+
+// Инициализация
+(function initPianoControls() {
+  const timbreSel = document.getElementById('timbreSelect');
+  const scaleSel = document.getElementById('scaleSelect');
+  const rootSel = document.getElementById('scaleRoot');
+  const playBtn = document.getElementById('scalePlayBtn');
+  if (!timbreSel || !scaleSel || !rootSel || !playBtn) return;
+
+  timbreSel.addEventListener('change', () => {
+    currentTimbre = timbreSel.value;
+  });
+  scaleSel.addEventListener('change', () => {
+    currentScale = scaleSel.value;
+    applyScaleHighlight();
+  });
+  rootSel.addEventListener('change', () => {
+    currentScaleRoot = parseInt(rootSel.value, 10) || 0;
+    applyScaleHighlight();
+  });
+  playBtn.addEventListener('click', playScaleSequence);
+})();
 
 buildPiano();
 
