@@ -1165,7 +1165,15 @@ const SYMBOLS = {
   doubleSharp: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"><line x1="14" y1="14" x2="34" y2="34"/><line x1="34" y1="14" x2="14" y2="34"/><line x1="10" y1="14" x2="18" y2="14"/><line x1="30" y1="14" x2="38" y2="14"/><line x1="10" y1="34" x2="18" y2="34"/><line x1="30" y1="34" x2="38" y2="34"/></g></svg>',
   doubleFlat: '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><line x1="14" y1="10" x2="14" y2="40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M 14 40 Q 14 27 19 27 Q 23 27 23 32 Q 23 40 14 40 Z"/><line x1="30" y1="10" x2="30" y2="40" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M 30 40 Q 30 27 35 27 Q 39 27 39 32 Q 39 40 30 40 Z"/></g></svg>'
 };
-
+// SVG для нотных ключей
+SYMBOLS.trebleClef = '<svg viewBox="0 0 40 100" xmlns="http://www.w3.org/2000/svg"><path d="M 20 95 Q 8 90 10 78 Q 12 68 20 62 Q 28 55 28 42 Q 28 30 20 22 Q 12 15 12 30 L 12 82 Q 12 88 18 88 Q 24 88 24 82 Q 24 76 18 74" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="19" y1="74" x2="19" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>';
+SYMBOLS.bassClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><path d="M 25 12 Q 10 12 10 28 Q 10 42 25 42 Q 32 42 32 34 Q 32 26 22 26 Q 15 26 15 34" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="28" r="2.5" fill="currentColor"/><circle cx="33" cy="18" r="2" fill="currentColor"/><circle cx="33" cy="36" r="2" fill="currentColor"/></svg>';
+SYMBOLS.altoClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="2.5" height="44" fill="currentColor"/><rect x="22" y="8" width="2.5" height="44" fill="currentColor"/><path d="M 16 18 L 8 18 L 8 42 L 16 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M 25 18 L 33 18 L 33 42 L 25 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="13" y="27" width="14" height="2.5" fill="currentColor"/></svg>';
+SYMBOLS.tenorClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="2.5" height="44" fill="currentColor"/><rect x="22" y="8" width="2.5" height="44" fill="currentColor"/><path d="M 16 18 L 8 18 L 8 42 L 16 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M 25 18 L 33 18 L 33 42 L 25 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="13" y="36" width="14" height="2.5" fill="currentColor"/></svg>';
+SYMBOLS.sopranoClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="2.5" height="44" fill="currentColor"/><rect x="22" y="8" width="2.5" height="44" fill="currentColor"/><path d="M 16 18 L 8 18 L 8 42 L 16 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M 25 18 L 33 18 L 33 42 L 25 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="13" y="18" width="14" height="2.5" fill="currentColor"/></svg>';
+SYMBOLS.mezzoClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="2.5" height="44" fill="currentColor"/><rect x="22" y="8" width="2.5" height="44" fill="currentColor"/><path d="M 16 18 L 8 18 L 8 42 L 16 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M 25 18 L 33 18 L 33 42 L 25 42" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="13" y="22" width="14" height="2.5" fill="currentColor"/></svg>';
+SYMBOLS.baritoneClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><path d="M 25 20 Q 10 20 10 32 Q 10 44 25 44 Q 32 44 32 38 Q 32 30 22 30 Q 15 30 15 38" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="32" r="2.5" fill="currentColor"/><circle cx="33" cy="24" r="2" fill="currentColor"/><circle cx="33" cy="40" r="2" fill="currentColor"/></svg>';
+SYMBOLS.percClef = '<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="20" width="24" height="3" fill="currentColor"/><rect x="8" y="36" width="24" height="3" fill="currentColor"/></svg>';
 function symbolHtml(sym) {
   if (!sym) return '';
   if (SYMBOLS[sym]) return SYMBOLS[sym];
@@ -2544,10 +2552,56 @@ const TERMS = [
   { t:'Лига', sym:'tie', c:'Нотация', d:'Дуга, объединяющая ноты — играть связно (legato) или продлить звук.' },
   { t:'Двойной диез', sym:'doubleSharp', c:'Нотация', d:'Повышение ноты на два полутона (целый тон).' },
   { t:'Двойной бемоль', sym:'doubleFlat', c:'Нотация', d:'Понижение ноты на два полутона (целый тон).' },
-  { t:'Бекар', sym:'♮', c:'Нотация', d:'Отмена ранее выставленного диеза или бемоля.' },
+ { t:'Бекар', sym:'♮', c:'Нотация', d:'Отмена ранее выставленного диеза или бемоля.' },
+
+  // ===== МАЛОИЗВЕСТНЫЕ ТЕРМИНЫ =====
+  { t:'Bisbigliando', pr:'бизбилья́ндо', c:'Артикуляция', d:'У арфы — быстрое повторение одной ноты для эффекта мерцающего, дрожащего тембра («тембровая трель»). На других инструментах — очень тихое, вкрадчивое звучание.' },
+  { t:'Flautando', pr:'флаута́ндо', c:'Артикуляция', d:'У струнных — игра смычком над грифом (или очень лёгким штрихом), дающая мягкий, «флейтовый» звук без резких обертонов.' },
+  { t:'Col legno', pr:'коль ле́ньо', c:'Артикуляция', d:'У струнных — удар древком смычка по струнам. Звук сухой, деревянный, почти шумовой. Один из приёмов XX века.' },
+  { t:'Sautillé', pr:'сотийэ́', c:'Артикуляция', d:'Прыгающий штрих у струнных: смычок отскакивает от струны. Быстрее, чем spiccato.' },
+  { t:'Martelé', pr:'мартелэ́', c:'Артикуляция', d:'«Молотковый» штрих у струнных: резкий, акцентированный, с чёткой атакой и остановкой.' },
+  { t:'Bariolage', pr:'бариоля́ж', c:'Артикуляция', d:'У струнных — чередование одной и той же ноты на разных струнах, дающее характерный «пёстрый» тембр.' },
+  { t:'Frullato', pr:'фрулла́то', c:'Артикуляция', d:'У духовых — тремоло языком (то же, что Flatterzunge). Быстрое чередование звука и паузы.' },
+  { t:'Flatterzunge', pr:'флаттерцу́нгэ', c:'Артикуляция', d:'У духовых — «дрожащий язык», быстрое рычащее тремоло. Немецкое название того же приёма, что frullato.' },
+  { t:'Cuivré', pr:'кюиврэ́', c:'Артикуляция', d:'У валторны и медных — «медный», резкий, гудящий звук с избыточным давлением. Характерный приём в музыке XX века.' },
+  { t:'Sons étouffés', pr:'сон зэтуфэ́', c:'Артикуляция', d:'«Задушенные» звуки — приглушённые, заглушённые. Применяется у духовых и ударных.' },
+  { t:'Au talon', pr:'о тало́н', c:'Артикуляция', d:'У струнных — играть у колодки смычка. Звук тяжёлый, массивный.' },
+  { t:'Sur la touche', pr:'сюр ля туш', c:'Артикуляция', d:'У струнных — играть у грифа. Мягкий, приглушённый звук (то же, что sul tasto).' },
+  { t:'Portamento', pr:'портаме́нто', c:'Артикуляция', d:'Плавное скольжение от одной ноты к другой — слышимый «подъезд». В отличие от glissando, подчёркивает не все промежуточные ноты, а выразительный переход.' },
+  { t:'Louré', pr:'лурэ́', c:'Артикуляция', d:'У струнных — мягкое portato, каждая нота слегка отделена, но под общей лигой.' },
+
+  // Характер — редкие
+  { t:'Sospirando', pr:'соспира́ндо', c:'Характер', d:'Вздыхая, томно. Один из самых выразительных «вздыхательных» характеров в музыке.' },
+  { t:'Lacrimoso', pr:'лакримо́зо', c:'Характер', d:'Со слезами, плача. Скорбно и жалобно.' },
+  { t:'Gemendo', pr:'джэмэ́ндо', c:'Характер', d:'Стеная, с жалобой. Глубокая печаль.' },
+  { t:'Perdendosi', pr:'пэрдэ́ндоси', c:'Характер', d:'Теряясь, постепенно затихая и замедляясь. Как будто музыка уходит вдаль.' },
+  { t:'Misterioso', pr:'мистэрио́зо', c:'Характер', d:'Таинственно, загадочно, с оттенком недосказанности.' },
+  { t:'Risentito', pr:'ризэнти́то', c:'Характер', d:'С негодованием, с обидой.' },
+  { t:'Smaniante', pr:'зманиа́нтэ', c:'Характер', d:'Исступлённо, в состоянии аффекта. Крайняя степень возбуждения.' },
+  { t:'Sognando', pr:'соня́ндо', c:'Характер', d:'Мечтательно, как во сне. Грёзы, отстранённость.' },
+  { t:'Vago', pr:'ва́го', c:'Характер', d:'Неясно, неопределённо, томно. Как что-то ускользающее.' },
+  { t:'Ansioso', pr:'ансьо́зо', c:'Характер', d:'Тревожно, с беспокойством, ожиданием.' },
+  { t:'Minaccioso', pr:'миначчо́зо', c:'Характер', d:'Угрожающе, зловеще.' },
+  { t:'Querulo', pr:'квэ́руло', c:'Характер', d:'Жалобно, хныча, с капризной нотой.' },
+  { t:'Soave', pr:'соа́вэ', c:'Характер', d:'Нежно, сладко, мягко. Один из самых «нежных» терминов в музыке.' },
+  { t:'Tumultuoso', pr:'тумултуо́зо', c:'Характер', d:'Бурно, шумно, в смятении. Как набат или народная сцена.' },
+  { t:'Ondeggiando', pr:'ондэджа́ндо', c:'Характер', d:'Волнообразно, колыхаясь. Звук идёт как бы волнами.' },
+  { t:'Afflitto', pr:'аффли́тто', c:'Характер', d:'Огорчённо, подавленно, с горечью.' },
+  { t:'Addolorato', pr:'аддолора́то', c:'Характер', d:'Скорбно, с болью. Глубокая печаль.' },
+  { t:'Nostalgico', pr:'носта́льджико', c:'Характер', d:'С ностальгией, тоской по прошлому.' },
+
+  // КЛЮЧИ
+  { t:'Скрипичный ключ (соль)', sym:'trebleClef', c:'Ключи', d:'Самый распространённый ключ. Указывает положение ноты соль первой октавы — на второй линейке снизу. До первой октавы пишется на первой (нижней) добавочной линейке под нотоносцем.' },
+  { t:'Басовый ключ (фа)', sym:'bassClef', c:'Ключи', d:'Ключ для низких инструментов и левой руки пианиста. Нота фа малой октавы — на четвёртой линейке снизу. До первой октавы пишется на первой добавочной линейке сверху над нотоносцем.' },
+  { t:'Альтовый ключ (до)', sym:'altoClef', c:'Ключи', d:'До-ключ, где нота до первой октавы — на третьей (средней) линейке нотоносца. Используется альтом и альтовым тромбоном.' },
+  { t:'Теноровый ключ (до)', sym:'tenorClef', c:'Ключи', d:'До-ключ, где нота до первой октавы — на четвёртой линейке снизу. Используется виолончелью, фаготом, теноровым тромбоном в высоком регистре.' },
+  { t:'Сопрановый ключ (до)', sym:'sopranoClef', c:'Ключи', d:'До-ключ, где нота до первой октавы — на первой (нижней) линейке нотоносца. Устаревший ключ, использовался в вокальной музыке XVI–XVIII веков.' },
+  { t:'Меццо-сопрановый ключ (до)', sym:'mezzoClef', c:'Ключи', d:'До-ключ, где нота до первой октавы — на второй линейке снизу. Применялся в старинных изданиях для меццо-сопрано и в партиях альта.' },
+  { t:'Баритоновый ключ', sym:'baritoneClef', c:'Ключи', d:'Ключ, сочетающий функции фа и до: нота фа малой октавы — на третьей линейке. Используется редко — в партиях баритона и в некоторых старинных изданиях.' },
+  { t:'Перкуссионный ключ', sym:'percClef', c:'Ключи', d:'Ключ без звуковысотного значения: две вертикальные линии указывают, что нотоносец используется для записи ритма ударных инструментов. Высота нот здесь значения не имеет.' },
 ];
 
-const CATS = ['Все', 'Темп', 'Динамика', 'Артикуляция', 'Характер', 'Структура', 'Нотация'];
+const CATS = ['Все', 'Темп', 'Динамика', 'Артикуляция', 'Характер', 'Структура', 'Нотация', 'Ключи'];
 let activeCat = 'Все';
 let searchQuery = '';
 
