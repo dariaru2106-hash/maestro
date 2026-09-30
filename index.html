@@ -673,6 +673,15 @@ mark.hl {
           </ol>
           <button type="button" class="btn small" id="micReload" style="margin-top:12px;">Перезагрузить сайт</button>
         </div>
+      <div class="instrument-row">
+          <select id="transposeSelect" title="Транспонирующий инструмент" style="margin-bottom:10px;">
+            <option value="0" selected>Не транспонирующий (C)</option>
+            <option value="2">Bb — труба, кларнет, тенор-сакс, сопрано-сакс</option>
+            <option value="9">Eb — альт-сакс, баритон-сакс</option>
+            <option value="7">F — валторна, английский рожок</option>
+            <option value="-12">Контрабас (звучит октавой ниже)</option>
+          </select>
+        </div>
         <div class="instrument-row">
           <select id="instrumentSelect" title="Строй инструмента">
             <option value="chromatic">Хроматический</option>
@@ -1747,6 +1756,12 @@ if (micReload) {
   });
 }
 
+const transposeSelect = document.getElementById('transposeSelect');
+let transposeOffset = 0;
+transposeSelect.addEventListener('change', () => {
+  transposeOffset = parseInt(transposeSelect.value, 10) || 0;
+});
+
 instrumentSelect.addEventListener('change', e => {
   currentInstrument = e.target.value;
   renderStrings();
@@ -2018,18 +2033,22 @@ function tickTuner() {
     highlightString(null);
     return;
   }
+  // Реально звучащая нота
   const midiFloat = 69 + 12 * Math.log2(freq / ref);
-  const midi = Math.round(midiFloat);
-  const cents = Math.round((midiFloat - midi) * 100);
-  const name = NOTE_NAMES[((midi % 12) + 12) % 12];
-  const octave = Math.floor(midi / 12) - 1;
+  const soundingMidi = Math.round(midiFloat);
+  const cents = Math.round((midiFloat - soundingMidi) * 100);
+
+  // Отображаемая нота (для транспонирующих инструментов)
+  const displayMidi = soundingMidi + transposeOffset;
+  const name = NOTE_NAMES[((displayMidi % 12) + 12) % 12];
+  const octave = Math.floor(displayMidi / 12) - 1;
   tunerNote.innerHTML = name + '<span class="oct">' + octave + '</span>';
   tunerFreq.textContent = freq.toFixed(1) + ' Hz  ·  ' + (cents >= 0 ? '+' : '') + cents + ' ¢';
   const clamped = Math.max(-50, Math.min(50, cents));
   tunerMarker.style.left = (50 + (clamped / 50) * 50) + '%';
-  if (midi !== currentDetectedMidi) {
-    currentDetectedMidi = midi;
-    highlightString(midi);
+  if (soundingMidi !== currentDetectedMidi) {
+    currentDetectedMidi = soundingMidi;
+    highlightString(soundingMidi);
   }
   if (Math.abs(cents) <= 5) {
     tunerMarker.classList.add('in-tune');
