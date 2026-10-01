@@ -15,6 +15,8 @@
     --muted: #837c6e; --line: #ddd6c8;
     --accent: #8a6f47; --accent-2: #b89b6b;
     --green: #5a7a5a; --red: #a05555;
+    --night-1: #0a0e1a; --night-2: #131b2e; --night-3: #1c2540;
+    --star: #ffd97a; --star-glow: rgba(255, 217, 122, 0.55);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { min-height: 100%; -webkit-text-size-adjust: 100%; }
@@ -105,13 +107,7 @@
     text-decoration: underline; cursor: pointer; font-family: inherit;
   }
   .btn.small { padding: 8px 14px; font-size: 11px; }
-  .btn.tempo {
-    padding: 7px 11px;
-    font-size: 10px;
-    letter-spacing: .05em;
-    white-space: nowrap;
-    flex: 0 0 auto;
-  }
+  .btn.tempo { padding: 7px 11px; font-size: 10px; letter-spacing: .05em; white-space: nowrap; flex: 0 0 auto; }
   .switch {
     display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
     user-select: none; -webkit-user-select: none; font-size: 13px; color: var(--muted);
@@ -342,12 +338,7 @@
   .key.scale-note.black { background: linear-gradient(to bottom, #4a3f2e 0%, #2d2519 100%); }
   .key.scale-root.white { background: linear-gradient(to bottom, #e8dcc0 0%, #d4c39b 100%); box-shadow: inset 0 0 0 2px var(--accent); }
   .key.scale-root.black { background: linear-gradient(to bottom, #6a5842 0%, #4a3d2c 100%); box-shadow: inset 0 0 0 2px var(--accent); }
-  .piano-scroll {
-    overflow-x: auto; overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 12px;
-    overscroll-behavior-x: contain;
-  }
+  .piano-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 12px; overscroll-behavior-x: contain; }
   .piano {
     position: relative; height: 200px;
     background: var(--ink); border-radius: 6px; padding: 6px;
@@ -481,32 +472,15 @@
   .placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; margin-bottom: 12px; }
   .placeholder-desc { font-size: 14px; color: var(--muted); max-width: 460px; margin: 0 auto; line-height: 1.6; }
   .contacts-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 900;
-    background: var(--surface);
-    border-top: 1px solid var(--line);
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+    background: var(--surface); border-top: 1px solid var(--line);
     padding: 10px 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: .03em;
+    display: flex; justify-content: center; align-items: center;
+    gap: 24px; flex-wrap: wrap;
+    font-size: 12px; color: var(--muted); letter-spacing: .03em;
     box-shadow: 0 -4px 12px rgba(0,0,0,.03);
   }
-  .contacts-bar a {
-    color: var(--accent);
-    text-decoration: none;
-    transition: color .15s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .contacts-bar a { color: var(--accent); text-decoration: none; transition: color .15s; display: inline-flex; align-items: center; gap: 6px; }
   .contacts-bar a:hover { color: var(--ink); }
   .contacts-bar svg { width: 14px; height: 14px; }
   .contacts-bar .sep { opacity: .4; }
@@ -541,12 +515,151 @@
   mark.hl {
     background: rgba(184,155,107,.35);
     color: var(--accent);
-    padding: 0 2px;
-    border-radius: 3px;
-    font-weight: 600;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+    padding: 0 2px; border-radius: 3px; font-weight: 600;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
   }
+
+  /* ===== ТРЕКЕР ЗАНЯТИЙ ===== */
+  .streak-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .streak-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px;
+    background: rgba(138,111,71,.1); border: 1px solid rgba(138,111,71,.3);
+    font-size: 13px; color: var(--accent); letter-spacing: .02em; transition: all .4s;
+  }
+  .streak-badge.muted { background: transparent; border-color: var(--line); color: var(--muted); }
+  .streak-badge.warm { background: linear-gradient(135deg, rgba(184,148,74,.15), rgba(192,120,80,.15)); border-color: rgba(184,148,74,.5); color: #a07030; }
+  .streak-badge.hot { background: linear-gradient(135deg, rgba(220,120,60,.2), rgba(200,80,40,.2)); border-color: rgba(220,120,60,.6); color: #c06030; animation: streakGlow 2.4s ease-in-out infinite; }
+  @keyframes streakGlow { 0%,100% { box-shadow: 0 0 0 rgba(220,120,60,0); } 50% { box-shadow: 0 0 16px rgba(220,120,60,.35); } }
+  .streak-flame { font-size: 16px; margin-right: 2px; }
+
+  .duration-picker { margin-bottom: 20px; }
+  .duration-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .duration-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .duration-btn {
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    padding: 14px 8px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    transition: all .15s; -webkit-appearance: none;
+    text-align: center; line-height: 1.3;
+  }
+  .duration-btn:hover:not(:disabled) { border-color: var(--accent-2); }
+  .duration-btn.active { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+  .duration-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .duration-btn small { display: block; font-size: 10px; font-weight: 400; letter-spacing: .04em; opacity: 0.65; margin-top: 3px; }
+  .duration-btn.active small { opacity: 0.75; }
+
+  .practice-timer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 88px; font-weight: 500; line-height: 1;
+    text-align: center; font-variant-numeric: tabular-nums;
+    margin: 18px 0;
+    transition: color .3s, text-shadow .3s;
+  }
+  .practice-timer.running { color: var(--accent); animation: timerGlow 2.4s ease-in-out infinite; }
+  .practice-timer.warm { color: #b8944a; }
+  .practice-timer.hot { color: #c07850; }
+
+  .sky-header { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 10px; flex-wrap: wrap; gap: 10px; }
+  .sky-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+  .sky-wrap {
+    position: relative; margin-top: 6px; border-radius: 14px; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, var(--night-3) 0%, var(--night-2) 40%, var(--night-1) 100%);
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: inset 0 0 60px rgba(0,0,0,.5);
+    aspect-ratio: 1 / 1; max-height: 520px;
+  }
+  .sky-wrap.complete { animation: skyComplete 3s ease-in-out infinite; }
+  @keyframes skyComplete {
+    0%,100% { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 40px rgba(255,217,122,.25); }
+    50%     { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 60px rgba(255,217,122,.45); }
+  }
+  #sky-output { display: block; width: 100%; height: 100%; }
+  #sky-output svg { display: block; width: 100%; height: 100%; }
+
+  .star-link { stroke: var(--star); stroke-width: 0.5; opacity: 0; transition: opacity .8s ease; filter: drop-shadow(0 0 3px var(--star-glow)); }
+  .star-link.visible { opacity: 0.55; }
+  .star-link.final { opacity: 0.9; stroke-width: 0.8; }
+
+  .star-node { opacity: 1; }
+  .star-node path { fill: var(--star); filter: drop-shadow(0 0 3px var(--star-glow)); }
+  .star-node .star-core { fill: #fff8d0; filter: drop-shadow(0 0 4px rgba(255,217,122,0.9)); }
+  .star-node.new-star { animation: starPop 1.2s ease-out; }
+  @keyframes starPop { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
+
+  .sky-result {
+    margin-top: 14px; padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(255,217,122,.14), rgba(255,217,122,.05));
+    border: 1px solid rgba(255,217,122,.35);
+    border-radius: 12px;
+    display: none; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;
+    animation: fadeIn .6s ease;
+  }
+  .sky-result.show { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .sky-result-text { font-size: 15px; color: var(--accent); font-weight: 500; line-height: 1.4; }
+  .sky-result-text strong { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; }
+  .constellation-desc {
+    margin-top: 10px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 400; font-style: normal;
+    color: var(--ink); line-height: 1.6; max-width: 560px; opacity: 0.85;
+  }
+  .sky-result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .collection-title { margin-top: 24px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .collection { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+  .collection-item {
+    position: relative;
+    background: radial-gradient(ellipse at 50% 30%, var(--night-3) 0%, var(--night-1) 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px; padding: 10px; text-align: center;
+    transition: border-color .2s, transform .2s, box-shadow .3s;
+  }
+  .collection-item.collected { border-color: rgba(255,217,122,.35); box-shadow: 0 0 12px rgba(255,217,122,.12); }
+  .collection-item.collected:hover { border-color: rgba(255,217,122,.6); transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,217,122,.25); }
+  .collection-item.locked { border-color: rgba(255,255,255,.05); }
+  .collection-item.current { border-color: rgba(255,217,122,.5); box-shadow: 0 0 16px rgba(255,217,122,.2); }
+  .collection-item .mini { width: 100%; aspect-ratio: 1/1; margin-bottom: 6px; }
+  .collection-item .mini svg { width: 100%; height: 100%; display: block; }
+  .collection-item .name { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: var(--star); line-height: 1.2; }
+  .collection-item.locked .name { color: var(--muted); opacity: 0.7; }
+  .collection-item .badge {
+    position: absolute; top: 6px; right: 6px;
+    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); background: var(--surface); border-radius: 8px; padding: 2px 6px; opacity: 0.85;
+  }
+
+  .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+  .goal-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .goal-values { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+  .goal-input { width: 60px; padding: 4px 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; color: var(--ink); outline: none; font-family: inherit; font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: textfield; transition: border-color .15s; }
+  .goal-input:focus { border-color: var(--accent); }
+  .goal-input::-webkit-outer-spin-button, .goal-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .goal-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .goal-bar-fill { height: 100%; background: linear-gradient(to right, #6a8090, var(--accent-2), var(--accent)); transition: width .5s ease; border-radius: 4px; }
+  .goal-bar-fill.full { background: linear-gradient(to right, #b8944a, #c07850, #a05030); animation: goalFull 2s ease-in-out infinite; }
+  @keyframes goalFull { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.25); } }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 8px; }
+  .stat-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  .session-toast {
+    position: fixed; top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-140%);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    z-index: 2000; font-size: 15px;
+    transition: transform .4s cubic-bezier(.2,.9,.3,1.3);
+    pointer-events: none; display: flex; align-items: center; gap: 8px;
+  }
+  .session-toast.show { transform: translateX(-50%) translateY(0); }
+  .session-toast .flame { font-size: 22px; }
+  .session-toast .mins { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--accent); font-weight: 500; }
+
   @media (max-width: 860px) {
     body { flex-direction: column; }
     .sidebar {
@@ -610,149 +723,7 @@
     .duration-btn { padding: 12px 6px; font-size: 12px; }
     .collection { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
   }
-/* ===== ТРЕКЕР ЗАНЯТИЙ ===== */
-  .streak-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-  .streak-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 20px;
-    background: rgba(138,111,71,.1); border: 1px solid rgba(138,111,71,.3);
-    font-size: 13px; color: var(--accent); letter-spacing: .02em; transition: all .4s;
-  }
-  .streak-badge.muted { background: transparent; border-color: var(--line); color: var(--muted); }
-  .streak-badge.warm { background: linear-gradient(135deg, rgba(184,148,74,.15), rgba(192,120,80,.15)); border-color: rgba(184,148,74,.5); color: #a07030; }
-  .streak-badge.hot { background: linear-gradient(135deg, rgba(220,120,60,.2), rgba(200,80,40,.2)); border-color: rgba(220,120,60,.6); color: #c06030; animation: streakGlow 2.4s ease-in-out infinite; }
-  @keyframes streakGlow { 0%,100% { box-shadow: 0 0 0 rgba(220,120,60,0); } 50% { box-shadow: 0 0 16px rgba(220,120,60,.35); } }
-  .streak-flame { font-size: 16px; margin-right: 2px; }
 
-  .duration-picker { margin-bottom: 20px; }
-  .duration-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 10px; }
-  .duration-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .duration-btn {
-    font-family: inherit; font-size: 13px; font-weight: 500;
-    padding: 14px 8px; border-radius: 10px;
-    border: 1px solid var(--line); background: var(--surface);
-    color: var(--ink); cursor: pointer;
-    transition: all .15s; -webkit-appearance: none;
-    text-align: center; line-height: 1.3;
-  }
-  .duration-btn:hover:not(:disabled) { border-color: var(--accent-2); }
-  .duration-btn.active { background: var(--ink); border-color: var(--ink); color: var(--surface); }
-  .duration-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .duration-btn small { display: block; font-size: 10px; font-weight: 400; letter-spacing: .04em; opacity: 0.65; margin-top: 3px; }
-  .duration-btn.active small { opacity: 0.75; }
-
-  .practice-timer {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 88px; font-weight: 500; line-height: 1;
-    text-align: center; font-variant-numeric: tabular-nums;
-    margin: 18px 0;
-    transition: color .3s, text-shadow .3s;
-  }
-  .practice-timer.running { color: var(--accent); animation: timerGlow 2.4s ease-in-out infinite; }
-  .practice-timer.warm { color: #b8944a; }
-  .practice-timer.hot { color: #c07850; }
-  @keyframes timerGlow { 0%,100% { text-shadow: 0 0 0 rgba(138,111,71,0); } 50% { text-shadow: 0 0 32px rgba(138,111,71,.45); } }
-
-  .sky-header { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 10px; flex-wrap: wrap; gap: 10px; }
-  .sky-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-
-  .sky-wrap {
-    position: relative; margin-top: 6px; border-radius: 14px; overflow: hidden;
-    background: radial-gradient(ellipse at 50% 30%, #1c2540 0%, #131b2e 40%, #0a0e1a 100%);
-    border: 1px solid rgba(255,255,255,.06);
-    box-shadow: inset 0 0 60px rgba(0,0,0,.5);
-    aspect-ratio: 1 / 1; max-height: 520px;
-  }
-  .sky-wrap.complete { animation: skyComplete 3s ease-in-out infinite; }
-  @keyframes skyComplete {
-    0%,100% { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 40px rgba(255,217,122,.25); }
-    50%     { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 60px rgba(255,217,122,.45); }
-  }
-  #sky-output { display: block; width: 100%; height: 100%; }
-  #sky-output svg { display: block; width: 100%; height: 100%; }
-
-  .star-link { stroke: #ffd97a; stroke-width: 0.5; opacity: 0; transition: opacity .8s ease; filter: drop-shadow(0 0 3px rgba(255,217,122,0.55)); }
-  .star-link.visible { opacity: 0.55; }
-  .star-link.final { opacity: 0.9; stroke-width: 0.8; }
-
-  .star-node { opacity: 1; }
-  .star-node path { fill: #ffd97a; filter: drop-shadow(0 0 3px rgba(255,217,122,0.55)); }
-  .star-node .star-core { fill: #fff8d0; filter: drop-shadow(0 0 4px rgba(255,217,122,0.9)); }
-  .star-node.new-star { animation: starPop 1.2s ease-out; }
-  @keyframes starPop { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
-
-  .sky-result {
-    margin-top: 14px; padding: 16px 18px;
-    background: linear-gradient(135deg, rgba(255,217,122,.14), rgba(255,217,122,.05));
-    border: 1px solid rgba(255,217,122,.35);
-    border-radius: 12px;
-    display: none; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;
-    animation: fadeIn .6s ease;
-  }
-  .sky-result.show { display: flex; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .sky-result-text { font-size: 15px; color: var(--accent); font-weight: 500; line-height: 1.4; }
-  .sky-result-text strong { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; }
-  .constellation-desc {
-    margin-top: 10px; font-family: 'Inter', sans-serif;
-    font-size: 13px; font-weight: 400; font-style: normal;
-    color: var(--ink); line-height: 1.6; max-width: 560px; opacity: 0.85;
-  }
-  .sky-result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-  .collection-title { margin-top: 24px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-  .collection { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
-  .collection-item {
-    position: relative;
-    background: radial-gradient(ellipse at 50% 30%, #1c2540 0%, #0a0e1a 100%);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 10px; padding: 10px; text-align: center;
-    transition: border-color .2s, transform .2s, box-shadow .3s;
-  }
-  .collection-item.collected { border-color: rgba(255,217,122,.35); box-shadow: 0 0 12px rgba(255,217,122,.12); }
-  .collection-item.collected:hover { border-color: rgba(255,217,122,.6); transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,217,122,.25); }
-  .collection-item.locked { border-color: rgba(255,255,255,.05); }
-  .collection-item.current { border-color: rgba(255,217,122,.5); box-shadow: 0 0 16px rgba(255,217,122,.2); }
-  .collection-item .mini { width: 100%; aspect-ratio: 1/1; margin-bottom: 6px; }
-  .collection-item .mini svg { width: 100%; height: 100%; display: block; }
-  .collection-item .name { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: #ffd97a; line-height: 1.2; }
-  .collection-item.locked .name { color: var(--muted); opacity: 0.7; }
-  .collection-item .badge {
-    position: absolute; top: 6px; right: 6px;
-    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--accent); background: var(--surface); border-radius: 8px; padding: 2px 6px; opacity: 0.85;
-  }
-
-  .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-  .goal-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-  .goal-values { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
-  .goal-input { width: 60px; padding: 4px 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; color: var(--ink); outline: none; font-family: inherit; font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: textfield; transition: border-color .15s; }
-  .goal-input:focus { border-color: var(--accent); }
-  .goal-input::-webkit-outer-spin-button, .goal-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .goal-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin-top: 4px; }
-  .goal-bar-fill { height: 100%; background: linear-gradient(to right, #6a8090, var(--accent-2), var(--accent)); transition: width .5s ease; border-radius: 4px; }
-  .goal-bar-fill.full { background: linear-gradient(to right, #b8944a, #c07850, #a05030); animation: goalFull 2s ease-in-out infinite; }
-  @keyframes goalFull { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.25); } }
-
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 8px; }
-  .stat-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; margin-top: 2px; font-variant-numeric: tabular-nums; }
-
-  .session-toast {
-    position: fixed; top: 24px; left: 50%;
-    transform: translateX(-50%) translateY(-140%);
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 14px; padding: 14px 22px;
-    box-shadow: 0 12px 40px rgba(0,0,0,.18);
-    z-index: 2000; font-size: 15px;
-    transition: transform .4s cubic-bezier(.2,.9,.3,1.3);
-    pointer-events: none; display: flex; align-items: center; gap: 8px;
-  }
-  .session-toast.show { transform: translateX(-50%) translateY(0); }
-  .session-toast .flame { font-size: 22px; }
-  .session-toast .mins { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--accent); font-weight: 500; }
-
-  /* Piano fullscreen in landscape on touch devices */
   @media (orientation: landscape) and (hover: none) and (pointer: coarse) and (max-height: 600px) {
     body:has(#panel-piano.active) { height: 100dvh; overflow: hidden; }
     body:has(#panel-piano.active) .sidebar,
@@ -809,7 +780,7 @@
     <button type="button" class="nav-item" data-panel="scores"><span class="num">07</span>Ноты<span class="tag">soon</span></button>
     <button type="button" class="nav-item" data-panel="recordings"><span class="num">08</span>Записи<span class="tag">soon</span></button>
   </nav>
-  <div class="sidebar-foot">v0.18 · прототип</div>
+  <div class="sidebar-foot">v0.21 · прототип</div>
 </aside>
 
 <main>
@@ -1064,7 +1035,8 @@
     </div>
     <div class="scroll-hint">Играйте пальцами · прокручивайте стрелками по краям</div>
   </section>
-<section id="panel-tracker" class="panel">
+
+  <section id="panel-tracker" class="panel">
     <div class="panel-head">
       <div class="panel-eyebrow">Инструмент 04</div>
       <h1 class="panel-title">Занятия</h1>
@@ -1146,7 +1118,7 @@
 
   <section id="panel-terms" class="panel">
     <div class="panel-head">
-      <div class="panel-eyebrow">Справочник 04</div>
+      <div class="panel-eyebrow">Справочник 05</div>
       <h1 class="panel-title">Музыкальные термины</h1>
       <p class="panel-desc">Термины с русской транскрипцией и знаки нотации. Всё отсортировано по алфавиту.</p>
     </div>
@@ -1160,7 +1132,7 @@
 
   <section id="panel-composers" class="panel">
     <div class="panel-head">
-      <div class="panel-eyebrow">Раздел 05</div>
+      <div class="panel-eyebrow">Раздел 06</div>
       <h1 class="panel-title">Композиторы</h1>
       <p class="panel-desc">Биографии, историко-стилевой контекст и ключевые сочинения — от Средневековья до наших дней.</p>
     </div>
@@ -1174,7 +1146,7 @@
 
   <section id="panel-scores" class="panel">
     <div class="panel-head">
-      <div class="panel-eyebrow">Раздел 06</div>
+      <div class="panel-eyebrow">Раздел 07</div>
       <h1 class="panel-title">Библиотека нот</h1>
       <p class="panel-desc">Партитуры и клавиры — от барокко до XX века.</p>
     </div>
@@ -1187,7 +1159,7 @@
 
   <section id="panel-recordings" class="panel">
     <div class="panel-head">
-      <div class="panel-eyebrow">Раздел 07</div>
+      <div class="panel-eyebrow">Раздел 08</div>
       <h1 class="panel-title">Записи исполнителей</h1>
       <p class="panel-desc">Легендарные интерпретации — для сравнения и вдохновения.</p>
     </div>
@@ -1255,7 +1227,7 @@ function killSilentLoop() {
 }
 
 function startSilentLoop(ctx) {
-  if (tunerRunning) return;
+  if (typeof tunerRunning !== 'undefined' && tunerRunning) return;
   if (silentLoopSource) return;
   try {
     const sr = ctx.sampleRate;
@@ -1275,15 +1247,15 @@ function startSilentLoop(ctx) {
 function updateSilentLoop() {
   const ctx = audioCtx;
   if (!ctx) return;
-  const anyPlaying = metronomePlaying || polyPlaying || tonePlaying;
-  if (anyPlaying && ctx.state === 'running' && !tunerRunning) startSilentLoop(ctx);
+  const anyPlaying = (typeof metronomePlaying !== 'undefined' && metronomePlaying) || (typeof polyPlaying !== 'undefined' && polyPlaying) || (typeof tonePlaying !== 'undefined' && tonePlaying);
+  if (anyPlaying && ctx.state === 'running' && !(typeof tunerRunning !== 'undefined' && tunerRunning)) startSilentLoop(ctx);
   else killSilentLoop();
 }
 
 function ensureAudioAlive() {
   const ctx = getCtx();
   if (!ctx) return null;
-  if (!tunerRunning) setAudioSessionType('playback');
+  if (!(typeof tunerRunning !== 'undefined' && tunerRunning)) setAudioSessionType('playback');
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
   updateSilentLoop();
   return ctx;
@@ -1311,7 +1283,7 @@ function updateAudioIndicator() {
   if (!audioIndicator) return;
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume().catch(() => {});
-    if (!tunerRunning) setAudioSessionType('playback');
+    if (!(typeof tunerRunning !== 'undefined' && tunerRunning)) setAudioSessionType('playback');
   }
   if (!audioCtx || audioCtx.state === 'suspended') {
     audioIndicator.classList.remove('active');
@@ -1357,7 +1329,7 @@ setInterval(() => { updateAudioIndicator(); updateSilentLoop(); }, 400);
 updateAudioIndicator();
 
 function reawaken() {
-  if (tunerRunning) return;
+  if (typeof tunerRunning !== 'undefined' && tunerRunning) return;
   ensureAudioAlive();
   audioUnlocked = false;
   updateAudioIndicator();
@@ -1367,20 +1339,20 @@ function reawaken() {
 window.addEventListener('pageshow', reawaken);
 window.addEventListener('focus', reawaken);
 window.addEventListener('pagehide', () => {
-  if (tunerRunning) stopTuner();
-  if (metronomePlaying) toggleMetronome(false);
-  if (polyPlaying) togglePoly(false);
-  if (tonePlaying) stopTone();
+  if (typeof tunerRunning !== 'undefined' && tunerRunning) stopTuner();
+  if (typeof metronomePlaying !== 'undefined' && metronomePlaying) toggleMetronome(false);
+  if (typeof polyPlaying !== 'undefined' && polyPlaying) togglePoly(false);
+  if (typeof tonePlaying !== 'undefined' && tonePlaying) stopTone();
   killSilentLoop();
 });
 
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) reawaken();
   else {
-    if (tunerRunning) stopTuner();
-    if (metronomePlaying) toggleMetronome(false);
-    if (polyPlaying) togglePoly(false);
-    if (tonePlaying) stopTone();
+    if (typeof tunerRunning !== 'undefined' && tunerRunning) stopTuner();
+    if (typeof metronomePlaying !== 'undefined' && metronomePlaying) toggleMetronome(false);
+    if (typeof polyPlaying !== 'undefined' && polyPlaying) togglePoly(false);
+    if (typeof tonePlaying !== 'undefined' && tonePlaying) stopTone();
     killSilentLoop();
   }
   updateAudioIndicator();
@@ -1448,7 +1420,7 @@ function makeClefStaffSVG(kind, c4Pos) {
   const staffLeft = 52, staffRight = 198;
   const lineSpacing = 10;
   const staffTop = 40;
-  const bottomLineY = staffTop + 4 * lineSpacing; // 80
+  const bottomLineY = staffTop + 4 * lineSpacing;
   const yForPos = p => bottomLineY - p * (lineSpacing / 2);
 
   let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">';
@@ -1490,8 +1462,6 @@ function makeClefStaffSVG(kind, c4Pos) {
   return svg;
 }
 
-/* Только те ключи, для которых рисуем нотоносец.
-   Перкуссионный ключ исключён — у него нет стана. */
 const CLEF_STAFFS = {
   'Скрипичный ключ (соль)':      { kind: 'treble',     c4: -2 },
   'Басовый ключ (фа)':           { kind: 'bass',       c4: 10 },
@@ -2516,7 +2486,6 @@ function scrollPianoBy(delta) {
       pianoScrollAnim = requestAnimationFrame(step);
     } else {
       pianoScrollAnim = null;
-      // финальная фиксация — гасим возможные расхождения
       pianoScroll.scrollLeft = target;
     }
   };
@@ -2697,7 +2666,6 @@ const TERMS = [
   { t:'Двойной диез', sym:'doubleSharp', c:'Нотация', d:'Повышение ноты на два полутона (целый тон).' },
   { t:'Двойной бемоль', sym:'doubleFlat', c:'Нотация', d:'Понижение ноты на два полутона (целый тон).' },
   { t:'Бекар', sym:'♮', c:'Нотация', d:'Отмена ранее выставленного диеза или бемоля.' },
-
   { t:'Bisbigliando', pr:'бизбилья́ндо', c:'Артикуляция', d:'У арфы — быстрое повторение одной ноты для эффекта мерцающего, дрожащего тембра («тембровая трель»). На других инструментах — очень тихое, вкрадчивое звучание.' },
   { t:'Flautando', pr:'флаута́ндо', c:'Артикуляция', d:'У струнных — игра смычком над грифом (или очень лёгким штрихом), дающая мягкий, «флейтовый» звук без резких обертонов.' },
   { t:'Col legno', pr:'коль ле́ньо', c:'Артикуляция', d:'У струнных — удар древком смычка по струнам. Звук сухой, деревянный, почти шумовой. Один из приёмов XX века.' },
@@ -2728,7 +2696,6 @@ const TERMS = [
   { t:'Afflitto', pr:'аффли́тто', c:'Характер', d:'Огорчённо, подавленно, с горечью.' },
   { t:'Addolorato', pr:'аддолора́то', c:'Характер', d:'Скорбно, с болью. Глубокая печаль.' },
   { t:'Nostalgico', pr:'носта́льджико', c:'Характер', d:'С ностальгией, тоской по прошлому.' },
-
   { t:'Скрипичный ключ (соль)', sym:'𝄞', c:'Ключи', d:'Самый распространённый ключ. Указывает положение ноты соль первой октавы — на второй линейке снизу. До первой октавы пишется на первой (нижней) добавочной линейке под нотоносцем.' },
   { t:'Басовый ключ (фа)', sym:'𝄢', c:'Ключи', d:'Ключ для низких инструментов и левой руки пианиста. Нота фа малой октавы — на четвёртой линейке снизу. До первой октавы пишется на первой добавочной линейке сверху над нотоносцем.' },
   { t:'Альтовый ключ (до)', sym:'𝄡', c:'Ключи', d:'До-ключ, где нота до первой октавы — на третьей (средней) линейке нотоносца. Используется альтом и альтовым тромбоном.' },
@@ -3140,64 +3107,137 @@ composerSearch.addEventListener('input', e => {
 
 renderComposerCats();
 renderComposers();
-  
-  /* ============================================================
-   11. ТРЕКЕР ЗАНЯТИЙ
+
+/* ============================================================
+   10. ТРЕКЕР ЗАНЯТИЙ
    ============================================================ */
 const CONSTELLATIONS = [
   {
-    id: "lyra", name: "Лира", duration: "30m",
+    id: "lyra",
+    name: "Лира",
+    duration: "30m",
     description: "В этом созвездии сияет Вега — одна из ярчайших звёзд неба. По мифу, это лира Орфея — музыканта, чья игра укрощала диких зверей и двигала скалы.",
     stars: [
-      { x: 49.0, y: 15.2 }, { x: 67.5, y: 20.6 }, { x: 46.6, y: 33.3 },
-      { x: 46.3, y: 73.3 }, { x: 29.1, y: 36.3 }, { x: 27.1, y: 82.1 }
+      { x: 49.0, y: 15.2 },
+      { x: 67.5, y: 20.6 },
+      { x: 46.6, y: 33.3 },
+      { x: 46.3, y: 73.3 },
+      { x: 29.1, y: 36.3 },
+      { x: 27.1, y: 82.1 }
     ],
-    links: [[0,2],[1,2],[0,1],[3,2],[5,3],[4,5],[4,2]],
+    links: [
+      [0,2],
+      [1,2],
+      [0,1],
+      [3,2],
+      [5,3],
+      [4,5],
+      [4,2]
+    ],
     notes: [60, 62, 64, 65, 67, 69]
   },
   {
-    id: "delfin", name: "Дельфин", duration: "30m",
+    id: "delfin",
+    name: "Дельфин",
+    duration: "30m",
     description: "По легенде, дельфины спасли кифареда Ариона от пиратов. Его последняя песня привлекла их к кораблю, и один из них вынес музыканта на берег.",
     stars: [
-      { x: 98.0, y: 48.5 }, { x: 4.4, y: 39.5 }, { x: 31.0, y: 42.6 },
-      { x: 46.6, y: 27.9 }, { x: 76.4, y: 31.6 }, { x: 24.9, y: 21.3 }
+      { x: 98.0, y: 48.5 },
+      { x: 4.4, y: 39.5 },
+      { x: 31.0, y: 42.6 },
+      { x: 46.6, y: 27.9 },
+      { x: 76.4, y: 31.6 },
+      { x: 24.9, y: 21.3 }
     ],
-    links: [[1,2],[2,3],[3,4],[4,0],[5,3],[5,1]],
+    links: [
+      [1,2],
+      [2,3],
+      [3,4],
+      [4,0],
+      [5,3],
+      [5,1]
+    ],
     notes: [60, 62, 64, 65, 67, 69]
   },
   {
-    id: "lebed", name: "Лебедь", duration: "1h",
+    id: "lebed",
+    name: "Лебедь",
+    duration: "1h",
     description: "Древние греки видели в этом созвездии самого Орфея, превращённого в лебедя после смерти. Птица летит по небу рядом с Лирой — так музыкант остался рядом со своим инструментом навсегда.",
     stars: [
-      { x: 28.1, y: 23.5 }, { x: 23.6, y: 50.7 }, { x: 3.0, y: 55.9 },
-      { x: 63.8, y: 27.7 }, { x: 70.2, y: 10.0 }, { x: 82.0, y: 9.1 },
-      { x: 54.7, y: 64.5 }, { x: 74.4, y: 77.9 }, { x: 35.0, y: 38.7 }
+      { x: 28.1, y: 23.5 },
+      { x: 23.6, y: 50.7 },
+      { x: 3.0, y: 55.9 },
+      { x: 63.8, y: 27.7 },
+      { x: 70.2, y: 10.0 },
+      { x: 82.0, y: 9.1 },
+      { x: 54.7, y: 64.5 },
+      { x: 74.4, y: 77.9 },
+      { x: 35.0, y: 38.7 }
     ],
-    links: [[0,8],[8,3],[3,4],[4,5],[8,1],[1,2],[8,6],[6,7]],
+    links: [
+      [0,8],
+      [8,3],
+      [3,4],
+      [4,5],
+      [8,1],
+      [1,2],
+      [8,6],
+      [6,7]
+    ],
     notes: [60, 62, 64, 65, 67, 69, 71, 72, 74]
   },
   {
-    id: "key", name: "Басовый ключ", duration: "1h",
+    id: "key",
+    name: "Басовый ключ",
+    duration: "1h",
     description: "Басовый ключ используется для низких инструментов — виолончели, контрабаса, фагота, левой руки пианиста.",
     stars: [
-      { x: 24.6, y: 28.4 }, { x: 31.8, y: 15.2 }, { x: 48.0, y: 12.0 },
-      { x: 64.3, y: 19.6 }, { x: 69.2, y: 36.5 }, { x: 54.7, y: 55.1 },
-      { x: 39.9, y: 72.3 }, { x: 32.3, y: 30.9 }, { x: 82.8, y: 26.5 },
+      { x: 24.6, y: 28.4 },
+      { x: 31.8, y: 15.2 },
+      { x: 48.0, y: 12.0 },
+      { x: 64.3, y: 19.6 },
+      { x: 69.2, y: 36.5 },
+      { x: 54.7, y: 55.1 },
+      { x: 39.9, y: 72.3 },
+      { x: 32.3, y: 30.9 },
+      { x: 82.8, y: 26.5 },
       { x: 82.8, y: 47.5 }
     ],
-    links: [[0,1],[2,3],[2,1],[3,4],[4,5],[5,6],[0,7]],
+    links: [
+      [0,1],
+      [2,3],
+      [2,1],
+      [3,4],
+      [4,5],
+      [5,6],
+      [0,7]
+    ],
     notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76]
   },
   {
-    id: "twins", name: "Близнецы", duration: "2h",
+    id: "twins",
+    name: "Близнецы",
+    duration: "2h",
     description: "Амфион получил лиру в дар от Гермеса. Его игра была так гармонична, что камни сами складывались в стены Фив.",
     stars: [
-      { x: 17.7, y: 21.3 }, { x: 24.1, y: 25.7 }, { x: 18.2, y: 35.3 },
-      { x: 35.0, y: 25.5 }, { x: 53.0, y: 15.2 }, { x: 32.8, y: 6.9 },
-      { x: 73.4, y: 2.9 }, { x: 40.4, y: 45.1 }, { x: 38.2, y: 63.0 },
-      { x: 53.0, y: 47.8 }, { x: 68.7, y: 80.1 }, { x: 74.9, y: 67.4 },
-      { x: 74.6, y: 30.1 }, { x: 82.8, y: 51.0 }, { x: 88.7, y: 36.5 },
-      { x: 93.6, y: 33.6 }, { x: 98.0, y: 30.6 }
+      { x: 17.7, y: 21.3 },
+      { x: 24.1, y: 25.7 },
+      { x: 18.2, y: 35.3 },
+      { x: 35.0, y: 25.5 },
+      { x: 53.0, y: 15.2 },
+      { x: 32.8, y: 6.9 },
+      { x: 73.4, y: 2.9 },
+      { x: 40.4, y: 45.1 },
+      { x: 38.2, y: 63.0 },
+      { x: 53.0, y: 47.8 },
+      { x: 68.7, y: 80.1 },
+      { x: 74.9, y: 67.4 },
+      { x: 74.6, y: 30.1 },
+      { x: 82.8, y: 51.0 },
+      { x: 88.7, y: 36.5 },
+      { x: 93.6, y: 33.6 },
+      { x: 98.0, y: 30.6 }
     ],
     links: [
       [0,1],[1,2],[1,3],[1,7],[7,8],[7,9],[9,11],[8,10],
@@ -3206,7 +3246,9 @@ const CONSTELLATIONS = [
     notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84, 86, 88]
   },
   {
-    id: "metronome", name: "Метроном", duration: "2h",
+    id: "metronome",
+    name: "Метроном",
+    duration: "2h",
     description: "Символ ритма и точного пульса. Хранитель времени твоей практики — каждая доля, как удар маятника, приближает тебя к мастерству.",
     stars: [
       { x: 50, y: 18 }, { x: 44, y: 34 }, { x: 38, y: 50 }, { x: 32, y: 66 },
@@ -3224,7 +3266,9 @@ const CONSTELLATIONS = [
     notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 76, 74, 72, 69, 67]
   },
   {
-    id: "tuning-fork", name: "Камертон", duration: "2h",
+    id: "tuning-fork",
+    name: "Камертон",
+    duration: "2h",
     description: "Эталон звука ля — 440 Гц. Небольшой инструмент, который настраивает весь оркестр. Его чистый тон — точка отсчёта для любого музыканта.",
     stars: [
       { x: 34, y: 16 }, { x: 34, y: 28 }, { x: 34, y: 40 },
@@ -3236,15 +3280,16 @@ const CONSTELLATIONS = [
     ],
     links: [
       [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],
-      [9,10],[10,11],[11,12],[12,13],[6,14],[14,15]
+      [9,10],[10,11],[11,12],[12,13],
+      [6,14],[14,15]
     ],
     notes: [60, 62, 64, 67, 69, 72, 74, 72, 69, 67, 64, 62, 60, 62, 64, 67]
   }
 ];
 
 const DURATIONS = {
-  '30m': { seconds: 30 * 60,  label: '30 минут' },
-  '1h':  { seconds: 60 * 60,  label: '1 час' },
+  '30m': { seconds: 30 * 60, label: '30 минут' },
+  '1h':  { seconds: 60 * 60, label: '1 час' },
   '2h':  { seconds: 120 * 60, label: '2 часа' }
 };
 
@@ -3284,7 +3329,7 @@ const DURATIONS = {
   const $collection = $('collection');
   const durationBtns = document.querySelectorAll('.duration-btn');
 
-  if (!$timer) return; // страница без трекера — выходим
+  if (!$timer) return;
 
   let running = false;
   let startedAtMs = null;
@@ -3539,9 +3584,9 @@ const DURATIONS = {
   function renderSky() {
     const c = currentConstellation();
     const totalStars = c.stars.length;
-    let]. svg = '<svg viewBox="0 y0 100 100" xmlns="http://www.w3.org/ +2000/svg" preserveAspect '"Ratio="xMidYMid meet x">';
+    let svg = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">';
     const bg = [
-     2 [10,12],[22,8],[88,15],[92,42],[8,58],[15,80],[85,72],[78,88],
+      [10,12],[22,8],[88,15],[92,42],[8,58],[15,80],[85,72],[78,88],
       [30,15],[70,10],[55,92],[42,6],[6,38],[94,62],[20,45],[80,32],
       [12,92],[88,90],[50,5],[35,95]
     ];
@@ -3553,7 +3598,7 @@ const DURATIONS = {
       if (a < visibleStars && b < visibleStars) {
         const isFinal = visibleStars >= totalStars;
         const cls = 'star-link visible' + (isFinal ? ' final' : '');
-        svg += '<line class="' + cls + '" x1="' + c.stars[a].x + '" y1="' + c.stars[a="' + c.stars[b].x + '" y2="' + c.stars[b].y + '"/>';
+        svg += '<line class="' + cls + '" x1="' + c.stars[a].x + '" y1="' + c.stars[a].y + '" x2="' + c.stars[b].x + '" y2="' + c.stars[b].y + '"/>';
       }
     });
     for (let i = 0; i < visibleStars; i++) {
@@ -3811,7 +3856,7 @@ const DURATIONS = {
 })();
 
 /* ============================================================
-   10. ИНИЦИАЛИЗАЦИЯ
+   11. ИНИЦИАЛИЗАЦИЯ
    ============================================================ */
 updateBpm(90);
 initBeats(4);
