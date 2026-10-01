@@ -606,7 +606,151 @@
     .composer-bio { font-size: 13px; }
     .composer-list li { font-size: 12.5px; }
     .contacts-bar { padding: 8px 12px; gap: 14px; font-size: 11px; }
+    .practice-timer { font-size: 68px; margin: 14px 0; }
+    .duration-btn { padding: 12px 6px; font-size: 12px; }
+    .collection { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
   }
+/* ===== ТРЕКЕР ЗАНЯТИЙ ===== */
+  .streak-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .streak-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px;
+    background: rgba(138,111,71,.1); border: 1px solid rgba(138,111,71,.3);
+    font-size: 13px; color: var(--accent); letter-spacing: .02em; transition: all .4s;
+  }
+  .streak-badge.muted { background: transparent; border-color: var(--line); color: var(--muted); }
+  .streak-badge.warm { background: linear-gradient(135deg, rgba(184,148,74,.15), rgba(192,120,80,.15)); border-color: rgba(184,148,74,.5); color: #a07030; }
+  .streak-badge.hot { background: linear-gradient(135deg, rgba(220,120,60,.2), rgba(200,80,40,.2)); border-color: rgba(220,120,60,.6); color: #c06030; animation: streakGlow 2.4s ease-in-out infinite; }
+  @keyframes streakGlow { 0%,100% { box-shadow: 0 0 0 rgba(220,120,60,0); } 50% { box-shadow: 0 0 16px rgba(220,120,60,.35); } }
+  .streak-flame { font-size: 16px; margin-right: 2px; }
+
+  .duration-picker { margin-bottom: 20px; }
+  .duration-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 10px; }
+  .duration-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .duration-btn {
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    padding: 14px 8px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); cursor: pointer;
+    transition: all .15s; -webkit-appearance: none;
+    text-align: center; line-height: 1.3;
+  }
+  .duration-btn:hover:not(:disabled) { border-color: var(--accent-2); }
+  .duration-btn.active { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+  .duration-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .duration-btn small { display: block; font-size: 10px; font-weight: 400; letter-spacing: .04em; opacity: 0.65; margin-top: 3px; }
+  .duration-btn.active small { opacity: 0.75; }
+
+  .practice-timer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 88px; font-weight: 500; line-height: 1;
+    text-align: center; font-variant-numeric: tabular-nums;
+    margin: 18px 0;
+    transition: color .3s, text-shadow .3s;
+  }
+  .practice-timer.running { color: var(--accent); animation: timerGlow 2.4s ease-in-out infinite; }
+  .practice-timer.warm { color: #b8944a; }
+  .practice-timer.hot { color: #c07850; }
+  @keyframes timerGlow { 0%,100% { text-shadow: 0 0 0 rgba(138,111,71,0); } 50% { text-shadow: 0 0 32px rgba(138,111,71,.45); } }
+
+  .sky-header { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 10px; flex-wrap: wrap; gap: 10px; }
+  .sky-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+  .sky-wrap {
+    position: relative; margin-top: 6px; border-radius: 14px; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, #1c2540 0%, #131b2e 40%, #0a0e1a 100%);
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: inset 0 0 60px rgba(0,0,0,.5);
+    aspect-ratio: 1 / 1; max-height: 520px;
+  }
+  .sky-wrap.complete { animation: skyComplete 3s ease-in-out infinite; }
+  @keyframes skyComplete {
+    0%,100% { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 40px rgba(255,217,122,.25); }
+    50%     { box-shadow: inset 0 0 60px rgba(0,0,0,.5), 0 0 60px rgba(255,217,122,.45); }
+  }
+  #sky-output { display: block; width: 100%; height: 100%; }
+  #sky-output svg { display: block; width: 100%; height: 100%; }
+
+  .star-link { stroke: #ffd97a; stroke-width: 0.5; opacity: 0; transition: opacity .8s ease; filter: drop-shadow(0 0 3px rgba(255,217,122,0.55)); }
+  .star-link.visible { opacity: 0.55; }
+  .star-link.final { opacity: 0.9; stroke-width: 0.8; }
+
+  .star-node { opacity: 1; }
+  .star-node path { fill: #ffd97a; filter: drop-shadow(0 0 3px rgba(255,217,122,0.55)); }
+  .star-node .star-core { fill: #fff8d0; filter: drop-shadow(0 0 4px rgba(255,217,122,0.9)); }
+  .star-node.new-star { animation: starPop 1.2s ease-out; }
+  @keyframes starPop { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
+
+  .sky-result {
+    margin-top: 14px; padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(255,217,122,.14), rgba(255,217,122,.05));
+    border: 1px solid rgba(255,217,122,.35);
+    border-radius: 12px;
+    display: none; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: space-between;
+    animation: fadeIn .6s ease;
+  }
+  .sky-result.show { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .sky-result-text { font-size: 15px; color: var(--accent); font-weight: 500; line-height: 1.4; }
+  .sky-result-text strong { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; }
+  .constellation-desc {
+    margin-top: 10px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 400; font-style: normal;
+    color: var(--ink); line-height: 1.6; max-width: 560px; opacity: 0.85;
+  }
+  .sky-result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .collection-title { margin-top: 24px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .collection { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+  .collection-item {
+    position: relative;
+    background: radial-gradient(ellipse at 50% 30%, #1c2540 0%, #0a0e1a 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px; padding: 10px; text-align: center;
+    transition: border-color .2s, transform .2s, box-shadow .3s;
+  }
+  .collection-item.collected { border-color: rgba(255,217,122,.35); box-shadow: 0 0 12px rgba(255,217,122,.12); }
+  .collection-item.collected:hover { border-color: rgba(255,217,122,.6); transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,217,122,.25); }
+  .collection-item.locked { border-color: rgba(255,255,255,.05); }
+  .collection-item.current { border-color: rgba(255,217,122,.5); box-shadow: 0 0 16px rgba(255,217,122,.2); }
+  .collection-item .mini { width: 100%; aspect-ratio: 1/1; margin-bottom: 6px; }
+  .collection-item .mini svg { width: 100%; height: 100%; display: block; }
+  .collection-item .name { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: #ffd97a; line-height: 1.2; }
+  .collection-item.locked .name { color: var(--muted); opacity: 0.7; }
+  .collection-item .badge {
+    position: absolute; top: 6px; right: 6px;
+    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); background: var(--surface); border-radius: 8px; padding: 2px 6px; opacity: 0.85;
+  }
+
+  .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+  .goal-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .goal-values { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+  .goal-input { width: 60px; padding: 4px 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; color: var(--ink); outline: none; font-family: inherit; font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: textfield; transition: border-color .15s; }
+  .goal-input:focus { border-color: var(--accent); }
+  .goal-input::-webkit-outer-spin-button, .goal-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .goal-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+  .goal-bar-fill { height: 100%; background: linear-gradient(to right, #6a8090, var(--accent-2), var(--accent)); transition: width .5s ease; border-radius: 4px; }
+  .goal-bar-fill.full { background: linear-gradient(to right, #b8944a, #c07850, #a05030); animation: goalFull 2s ease-in-out infinite; }
+  @keyframes goalFull { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.25); } }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 8px; }
+  .stat-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  .session-toast {
+    position: fixed; top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-140%);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    z-index: 2000; font-size: 15px;
+    transition: transform .4s cubic-bezier(.2,.9,.3,1.3);
+    pointer-events: none; display: flex; align-items: center; gap: 8px;
+  }
+  .session-toast.show { transform: translateX(-50%) translateY(0); }
+  .session-toast .flame { font-size: 22px; }
+  .session-toast .mins { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--accent); font-weight: 500; }
 
   /* Piano fullscreen in landscape on touch devices */
   @media (orientation: landscape) and (hover: none) and (pointer: coarse) and (max-height: 600px) {
@@ -659,10 +803,11 @@
     <button type="button" class="nav-item active" data-panel="metronome"><span class="num">01</span>Метроном</button>
     <button type="button" class="nav-item" data-panel="tuner"><span class="num">02</span>Тюнер / Камертон</button>
     <button type="button" class="nav-item" data-panel="piano"><span class="num">03</span>Пианино</button>
-    <button type="button" class="nav-item" data-panel="terms"><span class="num">04</span>Термины</button>
-    <button type="button" class="nav-item" data-panel="composers"><span class="num">05</span>Композиторы</button>
-    <button type="button" class="nav-item" data-panel="scores"><span class="num">06</span>Ноты<span class="tag">soon</span></button>
-    <button type="button" class="nav-item" data-panel="recordings"><span class="num">07</span>Записи<span class="tag">soon</span></button>
+    <button type="button" class="nav-item" data-panel="tracker"><span class="num">04</span>Занятия</button>
+    <button type="button" class="nav-item" data-panel="terms"><span class="num">05</span>Термины</button>
+    <button type="button" class="nav-item" data-panel="composers"><span class="num">06</span>Композиторы</button>
+    <button type="button" class="nav-item" data-panel="scores"><span class="num">07</span>Ноты<span class="tag">soon</span></button>
+    <button type="button" class="nav-item" data-panel="recordings"><span class="num">08</span>Записи<span class="tag">soon</span></button>
   </nav>
   <div class="sidebar-foot">v0.18 · прототип</div>
 </aside>
@@ -918,6 +1063,85 @@
       <button type="button" class="scroll-arrow right" id="scrollRight">›</button>
     </div>
     <div class="scroll-hint">Играйте пальцами · прокручивайте стрелками по краям</div>
+  </section>
+<section id="panel-tracker" class="panel">
+    <div class="panel-head">
+      <div class="panel-eyebrow">Инструмент 04</div>
+      <h1 class="panel-title">Занятия</h1>
+      <p class="panel-desc">Считайте время практики и собирайте созвездие. Выберите длительность — в конце узнаете, что за созвездие вам выпало.</p>
+    </div>
+
+    <div class="card">
+
+      <div class="streak-row">
+        <div class="streak-badge" id="streakBadge">
+          <span class="streak-flame">🔥</span>Streak: <strong id="streakCurrent">0</strong> дн.
+        </div>
+        <div class="streak-badge muted">
+          Лучший: <strong id="streakBest">0</strong>
+        </div>
+      </div>
+
+      <div class="duration-picker">
+        <div class="duration-label">Выберите длительность</div>
+        <div class="duration-row">
+          <button type="button" class="duration-btn" data-duration="30m">30 минут<small>небольшое</small></button>
+          <button type="button" class="duration-btn" data-duration="1h">1 час<small>среднее</small></button>
+          <button type="button" class="duration-btn" data-duration="2h">2 часа<small>большое</small></button>
+        </div>
+      </div>
+
+      <div class="practice-timer" id="practiceTimer">00:00:00</div>
+
+      <div class="metro-row" style="justify-content:center; margin: 6px 0 20px;">
+        <button type="button" class="btn accent" id="practiceStart">Начать занятие</button>
+        <button type="button" class="btn ghost" id="practiceReset" style="display:none;">Сброс</button>
+        <button type="button" class="btn ghost" id="practiceFinish" style="display:none;">Завершить</button>
+      </div>
+
+      <div class="sky-header">
+        <span class="sky-label">✨ Звёзды: <span id="starCount">0</span> / <span id="starTotal">—</span></span>
+        <span class="sky-label" id="constellationHint" style="text-transform:none; letter-spacing:.05em; font-size:12px;">Созвездие: ???</span>
+      </div>
+
+      <div class="sky-wrap" id="skyWrap">
+        <div id="sky-output"></div>
+      </div>
+
+      <div class="sky-result" id="skyResult">
+        <div class="sky-result-text" id="skyResultText"></div>
+        <div class="sky-result-actions">
+          <button type="button" class="btn accent small" id="practicePlay">▶ Прослушать</button>
+          <button type="button" class="btn ghost small" id="practiceNext">Новое созвездие</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="goal-header">
+        <span class="goal-label">Цель на сегодня</span>
+        <span class="goal-values">
+          <span id="goalDone">0</span> /
+          <input type="number" id="goalInput" min="5" max="480" step="5" value="30" class="goal-input">
+          мин
+        </span>
+      </div>
+      <div class="goal-bar"><div class="goal-bar-fill" id="goalFill" style="width:0%"></div></div>
+
+      <div class="divider"></div>
+
+      <div class="stat-label">Статистика</div>
+      <div class="stats-grid">
+        <div><div class="stat-label">Всего</div><div class="stat-value" id="statTotal">0 мин</div></div>
+        <div><div class="stat-label">Сессий</div><div class="stat-value" id="statSessions">0</div></div>
+        <div><div class="stat-label">Средняя</div><div class="stat-value" id="statAvg">0 мин</div></div>
+        <div><div class="stat-label">За неделю</div><div class="stat-value" id="statWeek">0 мин</div></div>
+      </div>
+
+      <div class="collection-title">🗂 Коллекция созвездий</div>
+      <div class="collection" id="collection"></div>
+
+    </div>
   </section>
 
   <section id="panel-terms" class="panel">
@@ -2916,6 +3140,675 @@ composerSearch.addEventListener('input', e => {
 
 renderComposerCats();
 renderComposers();
+  
+  /* ============================================================
+   11. ТРЕКЕР ЗАНЯТИЙ
+   ============================================================ */
+const CONSTELLATIONS = [
+  {
+    id: "lyra", name: "Лира", duration: "30m",
+    description: "В этом созвездии сияет Вега — одна из ярчайших звёзд неба. По мифу, это лира Орфея — музыканта, чья игра укрощала диких зверей и двигала скалы.",
+    stars: [
+      { x: 49.0, y: 15.2 }, { x: 67.5, y: 20.6 }, { x: 46.6, y: 33.3 },
+      { x: 46.3, y: 73.3 }, { x: 29.1, y: 36.3 }, { x: 27.1, y: 82.1 }
+    ],
+    links: [[0,2],[1,2],[0,1],[3,2],[5,3],[4,5],[4,2]],
+    notes: [60, 62, 64, 65, 67, 69]
+  },
+  {
+    id: "delfin", name: "Дельфин", duration: "30m",
+    description: "По легенде, дельфины спасли кифареда Ариона от пиратов. Его последняя песня привлекла их к кораблю, и один из них вынес музыканта на берег.",
+    stars: [
+      { x: 98.0, y: 48.5 }, { x: 4.4, y: 39.5 }, { x: 31.0, y: 42.6 },
+      { x: 46.6, y: 27.9 }, { x: 76.4, y: 31.6 }, { x: 24.9, y: 21.3 }
+    ],
+    links: [[1,2],[2,3],[3,4],[4,0],[5,3],[5,1]],
+    notes: [60, 62, 64, 65, 67, 69]
+  },
+  {
+    id: "lebed", name: "Лебедь", duration: "1h",
+    description: "Древние греки видели в этом созвездии самого Орфея, превращённого в лебедя после смерти. Птица летит по небу рядом с Лирой — так музыкант остался рядом со своим инструментом навсегда.",
+    stars: [
+      { x: 28.1, y: 23.5 }, { x: 23.6, y: 50.7 }, { x: 3.0, y: 55.9 },
+      { x: 63.8, y: 27.7 }, { x: 70.2, y: 10.0 }, { x: 82.0, y: 9.1 },
+      { x: 54.7, y: 64.5 }, { x: 74.4, y: 77.9 }, { x: 35.0, y: 38.7 }
+    ],
+    links: [[0,8],[8,3],[3,4],[4,5],[8,1],[1,2],[8,6],[6,7]],
+    notes: [60, 62, 64, 65, 67, 69, 71, 72, 74]
+  },
+  {
+    id: "key", name: "Басовый ключ", duration: "1h",
+    description: "Басовый ключ используется для низких инструментов — виолончели, контрабаса, фагота, левой руки пианиста.",
+    stars: [
+      { x: 24.6, y: 28.4 }, { x: 31.8, y: 15.2 }, { x: 48.0, y: 12.0 },
+      { x: 64.3, y: 19.6 }, { x: 69.2, y: 36.5 }, { x: 54.7, y: 55.1 },
+      { x: 39.9, y: 72.3 }, { x: 32.3, y: 30.9 }, { x: 82.8, y: 26.5 },
+      { x: 82.8, y: 47.5 }
+    ],
+    links: [[0,1],[2,3],[2,1],[3,4],[4,5],[5,6],[0,7]],
+    notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76]
+  },
+  {
+    id: "twins", name: "Близнецы", duration: "2h",
+    description: "Амфион получил лиру в дар от Гермеса. Его игра была так гармонична, что камни сами складывались в стены Фив.",
+    stars: [
+      { x: 17.7, y: 21.3 }, { x: 24.1, y: 25.7 }, { x: 18.2, y: 35.3 },
+      { x: 35.0, y: 25.5 }, { x: 53.0, y: 15.2 }, { x: 32.8, y: 6.9 },
+      { x: 73.4, y: 2.9 }, { x: 40.4, y: 45.1 }, { x: 38.2, y: 63.0 },
+      { x: 53.0, y: 47.8 }, { x: 68.7, y: 80.1 }, { x: 74.9, y: 67.4 },
+      { x: 74.6, y: 30.1 }, { x: 82.8, y: 51.0 }, { x: 88.7, y: 36.5 },
+      { x: 93.6, y: 33.6 }, { x: 98.0, y: 30.6 }
+    ],
+    links: [
+      [0,1],[1,2],[1,3],[1,7],[7,8],[7,9],[9,11],[8,10],
+      [3,4],[4,5],[4,6],[4,12],[12,13],[12,14],[14,15],[15,16]
+    ],
+    notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84, 86, 88]
+  },
+  {
+    id: "metronome", name: "Метроном", duration: "2h",
+    description: "Символ ритма и точного пульса. Хранитель времени твоей практики — каждая доля, как удар маятника, приближает тебя к мастерству.",
+    stars: [
+      { x: 50, y: 18 }, { x: 44, y: 34 }, { x: 38, y: 50 }, { x: 32, y: 66 },
+      { x: 28, y: 80 }, { x: 24, y: 90 }, { x: 56, y: 34 }, { x: 62, y: 50 },
+      { x: 68, y: 66 }, { x: 72, y: 80 }, { x: 76, y: 90 },
+      { x: 32, y: 92 }, { x: 44, y: 92 }, { x: 56, y: 92 }, { x: 68, y: 92 },
+      { x: 50, y: 50 }
+    ],
+    links: [
+      [0,1],[1,2],[2,3],[3,4],[4,5],
+      [0,6],[6,7],[7,8],[8,9],[9,10],
+      [5,11],[11,12],[12,13],[13,14],[14,10],
+      [0,15]
+    ],
+    notes: [60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 76, 74, 72, 69, 67]
+  },
+  {
+    id: "tuning-fork", name: "Камертон", duration: "2h",
+    description: "Эталон звука ля — 440 Гц. Небольшой инструмент, который настраивает весь оркестр. Его чистый тон — точка отсчёта для любого музыканта.",
+    stars: [
+      { x: 34, y: 16 }, { x: 34, y: 28 }, { x: 34, y: 40 },
+      { x: 34, y: 52 }, { x: 34, y: 62 }, { x: 38, y: 70 },
+      { x: 44, y: 74 }, { x: 50, y: 74 }, { x: 56, y: 70 },
+      { x: 60, y: 62 }, { x: 60, y: 52 }, { x: 60, y: 40 },
+      { x: 60, y: 28 }, { x: 60, y: 16 },
+      { x: 47, y: 84 }, { x: 47, y: 92 }
+    ],
+    links: [
+      [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],
+      [9,10],[10,11],[11,12],[12,13],[6,14],[14,15]
+    ],
+    notes: [60, 62, 64, 67, 69, 72, 74, 72, 69, 67, 64, 62, 60, 62, 64, 67]
+  }
+];
+
+const DURATIONS = {
+  '30m': { seconds: 30 * 60,  label: '30 минут' },
+  '1h':  { seconds: 60 * 60,  label: '1 час' },
+  '2h':  { seconds: 120 * 60, label: '2 часа' }
+};
+
+(function initTracker() {
+  const LS_SESSIONS = 'maestro-practice-sessions';
+  const LS_STREAK   = 'maestro-practice-streak';
+  const LS_GOAL     = 'maestro-practice-goal';
+  const LS_ACTIVE   = 'maestro-practice-active';
+  const LS_SKY      = 'maestro-practice-sky';
+
+  const FIRST_STAR_DELAY = 30;
+
+  const $ = id => document.getElementById(id);
+  const $timer = $('practiceTimer');
+  const $start = $('practiceStart');
+  const $finish = $('practiceFinish');
+  const $reset = $('practiceReset');
+  const $skyOutput = $('sky-output');
+  const $skyWrap = $('skyWrap');
+  const $starCount = $('starCount');
+  const $starTotal = $('starTotal');
+  const $constellationHint = $('constellationHint');
+  const $play = $('practicePlay');
+  const $next = $('practiceNext');
+  const $skyResult = $('skyResult');
+  const $skyResultText = $('skyResultText');
+  const $streakBadge = $('streakBadge');
+  const $streakCur = $('streakCurrent');
+  const $streakBest = $('streakBest');
+  const $goalDone = $('goalDone');
+  const $goalInput = $('goalInput');
+  const $goalFill = $('goalFill');
+  const $statTotal = $('statTotal');
+  const $statSessions = $('statSessions');
+  const $statAvg = $('statAvg');
+  const $statWeek = $('statWeek');
+  const $collection = $('collection');
+  const durationBtns = document.querySelectorAll('.duration-btn');
+
+  if (!$timer) return; // страница без трекера — выходим
+
+  let running = false;
+  let startedAtMs = null;
+  let accumulatedMs = 0;
+  let elapsedSec = 0;
+  let lastElapsedSec = 0;
+  let tickId = null;
+  let visibleStars = 0;
+  let previousStars = 0;
+  let playingPreview = false;
+
+  function loadJSON(k, f) {
+    try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; }
+    catch(e) { return f; }
+  }
+  function saveJSON(k, v) {
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
+  }
+
+  function poolForDuration(d) { return CONSTELLATIONS.filter(c => c.duration === d); }
+  function pickConstellation(duration, collected) {
+    const pool = poolForDuration(duration);
+    const fresh = pool.filter(c => !collected || collected.indexOf(c.id) === -1);
+    const candidates = fresh.length > 0 ? fresh : pool;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+  function newSkyState(duration) {
+    const d = duration || '30m';
+    const c = pickConstellation(d, []);
+    return { duration: d, constellationId: c.id, progressSec: 0, collected: [] };
+  }
+  function loadSkyState() {
+    const s = loadJSON(LS_SKY, null);
+    if (
+      s && typeof s.duration === 'string' && DURATIONS[s.duration] &&
+      typeof s.constellationId === 'string' && typeof s.progressSec === 'number' &&
+      Array.isArray(s.collected) && CONSTELLATIONS.some(c => c.id === s.constellationId)
+    ) return s;
+    return newSkyState('30m');
+  }
+
+  let skyState = loadSkyState();
+  function saveSkyState() { saveJSON(LS_SKY, skyState); }
+  function currentConstellation() {
+    return CONSTELLATIONS.find(c => c.id === skyState.constellationId) || CONSTELLATIONS[0];
+  }
+  function currentDurationSec() {
+    const d = DURATIONS[skyState.duration];
+    return d ? d.seconds : 30 * 60;
+  }
+
+  function dayKey(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  function yesterdayKey() {
+    const d = new Date(); d.setDate(d.getDate() - 1);
+    return dayKey(d);
+  }
+  const getSessions = () => loadJSON(LS_SESSIONS, []);
+  const setSessions = s => saveJSON(LS_SESSIONS, s);
+  const getStreak = () => loadJSON(LS_STREAK, { current: 0, best: 0, lastDate: null });
+  const setStreak = s => saveJSON(LS_STREAK, s);
+
+  function fmt(sec) {
+    const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+    return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function starsCountForSec(sec) {
+    const total = currentConstellation().stars.length;
+    if (total <= 1) return sec >= FIRST_STAR_DELAY ? total : 0;
+    if (sec < FIRST_STAR_DELAY) return 0;
+    const totalDur = currentDurationSec();
+    if (sec >= totalDur) return total;
+    const workSec = sec - FIRST_STAR_DELAY;
+    const workTotal = totalDur - FIRST_STAR_DELAY;
+    const progress = workSec / workTotal;
+    return Math.min(total, Math.floor(progress * (total - 1)) + 1);
+  }
+
+  function persistActive() {
+    if (running || accumulatedMs > 0) {
+      saveJSON(LS_ACTIVE, { running, startedAtMs, accumulatedMs, savedAt: Date.now(), savedElapsed: elapsedSec });
+    } else {
+      try { localStorage.removeItem(LS_ACTIVE); } catch(e) {}
+    }
+  }
+  function computeElapsedSec() {
+    let sec = Math.floor(accumulatedMs / 1000);
+    if (running && startedAtMs) sec += Math.floor((Date.now() - startedAtMs) / 1000);
+    return sec;
+  }
+  function applyTimerColor() {
+    const mins = elapsedSec / 60;
+    $timer.classList.remove('warm', 'hot');
+    if (mins >= 90) $timer.classList.add('hot');
+    else if (mins >= 45) $timer.classList.add('warm');
+  }
+
+  function tick() {
+    if (!running) return;
+    const newElapsed = computeElapsedSec();
+    const delta = newElapsed - lastElapsedSec;
+    if (delta > 0) {
+      skyState.progressSec += delta;
+      lastElapsedSec = newElapsed;
+      saveSkyState();
+    }
+    elapsedSec = newElapsed;
+    $timer.textContent = fmt(elapsedSec);
+    applyTimerColor();
+    syncSky();
+    persistActive();
+  }
+
+  function setDurationButtonsEnabled(enabled) {
+    durationBtns.forEach(btn => { btn.disabled = !enabled; });
+  }
+  function syncDurationButtons() {
+    durationBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.duration === skyState.duration));
+  }
+
+  function startTimer() {
+    running = true;
+    startedAtMs = Date.now();
+    lastElapsedSec = computeElapsedSec();
+    persistActive();
+    if (!tickId) tickId = setInterval(tick, 500);
+    tick();
+    $timer.classList.add('running');
+    $start.textContent = 'Пауза';
+    $start.classList.add('ghost');
+    $start.classList.remove('accent');
+    $finish.style.display = 'inline-block';
+    $reset.style.display = 'inline-block';
+    setDurationButtonsEnabled(false);
+  }
+  function pauseTimer() {
+    if (running && startedAtMs) { accumulatedMs += Date.now() - startedAtMs; startedAtMs = null; }
+    running = false;
+    persistActive();
+    $timer.classList.remove('running');
+    $timer.textContent = fmt(computeElapsedSec());
+    $start.textContent = 'Продолжить';
+    $start.classList.add('accent');
+    $start.classList.remove('ghost');
+    setDurationButtonsEnabled(true);
+  }
+  function resetTimer() {
+    if (running && startedAtMs) { accumulatedMs += Date.now() - startedAtMs; startedAtMs = null; }
+    accumulatedMs = 0; startedAtMs = null; elapsedSec = 0; lastElapsedSec = 0;
+    running = false;
+    skyState.progressSec = 0;
+    visibleStars = 0; previousStars = 0;
+    saveSkyState();
+    $skyResult.classList.remove('show');
+    $skyWrap.classList.remove('complete');
+    $starCount.textContent = '0';
+    renderSky();
+    persistActive();
+    $timer.textContent = '00:00:00';
+    $timer.classList.remove('running', 'warm', 'hot');
+    $start.textContent = 'Начать занятие';
+    $start.classList.add('accent');
+    $start.classList.remove('ghost');
+    $finish.style.display = 'none';
+    $reset.style.display = 'none';
+    setDurationButtonsEnabled(true);
+  }
+  function finishTimer() {
+    if (running && startedAtMs) { accumulatedMs += Date.now() - startedAtMs; startedAtMs = null; }
+    const totalSec = Math.floor(accumulatedMs / 1000);
+    running = false;
+    if (totalSec < 30) { resetTimer(); return; }
+    const sessions = getSessions();
+    sessions.push({ date: dayKey(), duration: totalSec, ts: Date.now() });
+    setSessions(sessions);
+    updateStreak(); renderStats(); showToast(totalSec);
+    accumulatedMs = 0; startedAtMs = null; elapsedSec = 0; lastElapsedSec = 0;
+    persistActive();
+    $timer.textContent = '00:00:00';
+    $timer.classList.remove('running', 'warm', 'hot');
+    $start.textContent = 'Начать занятие';
+    $start.classList.add('accent');
+    $start.classList.remove('ghost');
+    $finish.style.display = 'none';
+    $reset.style.display = 'none';
+    setDurationButtonsEnabled(true);
+  }
+
+  function updateStreak() {
+    const s = getStreak();
+    const today = dayKey();
+    if (s.lastDate === today) {}
+    else if (s.lastDate === yesterdayKey()) { s.current += 1; if (s.current > s.best) s.best = s.current; s.lastDate = today; }
+    else { s.current = 1; if (s.current > s.best) s.best = s.current; s.lastDate = today; }
+    setStreak(s); renderStreak();
+  }
+  function renderStreak() {
+    const s = getStreak();
+    $streakCur.textContent = s.current;
+    $streakBest.textContent = s.best;
+    $streakBadge.classList.remove('warm', 'hot');
+    if (s.current >= 30) $streakBadge.classList.add('hot');
+    else if (s.current >= 7) $streakBadge.classList.add('warm');
+  }
+
+  function renderStats() {
+    const sessions = getSessions();
+    const goal = parseInt(localStorage.getItem(LS_GOAL) || '30', 10);
+    if ($goalInput.value !== String(goal)) $goalInput.value = goal;
+    const today = dayKey();
+    const todaySec = sessions.filter(s => s.date === today).reduce((a, s) => a + s.duration, 0);
+    const todayMin = Math.round(todaySec / 60);
+    $goalDone.textContent = todayMin;
+    const pct = Math.min(100, (todayMin / goal) * 100);
+    $goalFill.style.width = pct + '%';
+    $goalFill.classList.toggle('full', todayMin >= goal);
+    const totalSec = sessions.reduce((a, s) => a + s.duration, 0);
+    $statTotal.textContent = Math.round(totalSec / 60) + ' мин';
+    $statSessions.textContent = sessions.length;
+    $statAvg.textContent = sessions.length ? Math.round(totalSec / sessions.length / 60) + ' мин' : '0 мин';
+    const weekAgo = Date.now() - 7 * 86400000;
+    const weekSec = sessions.filter(s => s.ts >= weekAgo).reduce((a, s) => a + s.duration, 0);
+    $statWeek.textContent = Math.round(weekSec / 60) + ' мин';
+  }
+
+  function showToast(sec) {
+    const mins = Math.max(1, Math.round(sec / 60));
+    const streak = getStreak().current;
+    const t = document.createElement('div');
+    t.className = 'session-toast';
+    t.innerHTML = '<span class="mins">+' + mins + ' мин</span> <span class="flame">🔥</span> Серия: ' + streak;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 500); }, 3200);
+  }
+
+  function starPath(size) {
+    const inner = size * 0.18;
+    return 'M 0,' + (-size) +
+      ' L ' + inner + ',' + (-inner) +
+      ' L ' + size + ',0' +
+      ' L ' + inner + ',' + inner +
+      ' L 0,' + size +
+      ' L ' + (-inner) + ',' + inner +
+      ' L ' + (-size) + ',0' +
+      ' L ' + (-inner) + ',' + (-inner) + ' Z';
+  }
+
+  function renderSky() {
+    const c = currentConstellation();
+    const totalStars = c.stars.length;
+    let]. svg = '<svg viewBox="0 y0 100 100" xmlns="http://www.w3.org/ +2000/svg" preserveAspect '"Ratio="xMidYMid meet x">';
+    const bg = [
+     2 [10,12],[22,8],[88,15],[92,42],[8,58],[15,80],[85,72],[78,88],
+      [30,15],[70,10],[55,92],[42,6],[6,38],[94,62],[20,45],[80,32],
+      [12,92],[88,90],[50,5],[35,95]
+    ];
+    for (let i = 0; i < bg.length; i++) {
+      svg += '<circle cx="' + bg[i][0] + '" cy="' + bg[i][1] + '" r="0.18" fill="rgba(255,255,255,0.28)"/>';
+    }
+    c.links.forEach(pair => {
+      const a = pair[0], b = pair[1];
+      if (a < visibleStars && b < visibleStars) {
+        const isFinal = visibleStars >= totalStars;
+        const cls = 'star-link visible' + (isFinal ? ' final' : '');
+        svg += '<line class="' + cls + '" x1="' + c.stars[a].x + '" y1="' + c.stars[a="' + c.stars[b].x + '" y2="' + c.stars[b].y + '"/>';
+      }
+    });
+    for (let i = 0; i < visibleStars; i++) {
+      const isLast = i === visibleStars - 1;
+      const star = c.stars[i];
+      const size = isLast ? 3.4 : 2.4;
+      const p = starPath(size);
+      const cls = 'star-node' + (isLast ? ' new-star' : '');
+      svg += '<g class="' + cls + '" transform="translate(' + star.x + ',' + star.y + ')">';
+      svg += '<path d="' + p + '"/>';
+      svg += '<path d="' + p + '" transform="rotate(45)"/>';
+      svg += '<circle class="star-core" cx="0" cy="0" r="' + (size * 0.38) + '"/>';
+      svg += '</g>';
+    }
+    svg += '</svg>';
+    $skyOutput.innerHTML = svg;
+    if ($constellationHint) {
+      const isComplete = visibleStars >= totalStars;
+      $constellationHint.textContent = isComplete ? 'Созвездие: ' + c.name : 'Созвездие: ???';
+    }
+  }
+
+  function syncSky() {
+    const total = currentConstellation().stars.length;
+    const count = Math.min(starsCountForSec(skyState.progressSec), total);
+    if (count === visibleStars) return;
+    visibleStars = count;
+    renderSky();
+    $starCount.textContent = count;
+    $starTotal.textContent = total;
+    if (count > previousStars && count > 0) {
+      if (!document.hidden) playStarSound(count - 1);
+    }
+    previousStars = count;
+    if (count >= total && total > 0) showSkyCompleted();
+  }
+
+  function showSkyCompleted() {
+    if ($skyResult.classList.contains('show')) return;
+    const c = currentConstellation();
+    $skyResultText.innerHTML =
+      '🎉 Созвездие собрано! Это <strong>«' + c.name + '»</strong>' +
+      '<p class="constellation-desc">' + c.description + '</p>';
+    $skyResult.classList.add('show');
+    $skyWrap.classList.add('complete');
+    if (skyState.collected.indexOf(c.id) === -1) {
+      skyState.collected.push(c.id);
+      saveSkyState();
+      renderCollection();
+    }
+  }
+
+  function renderCollection() {
+    const collected = skyState.collected || [];
+    let html = '';
+    CONSTELLATIONS.forEach(c => {
+      const isCollected = collected.indexOf(c.id) !== -1;
+      const isCurrent = c.id === skyState.constellationId;
+      const revealed = isCollected;
+      const cls = 'collection-item' + (revealed ? ' collected' : ' locked') + (isCurrent ? ' current' : '');
+      html += '<div class="' + cls + '">';
+      html += '<div class="mini">' + miniConstellationSVG(c, revealed) + '</div>';
+      html += '<div class="name">' + (revealed ? c.name : '???') + '</div>';
+      if (isCurrent && !isCollected) html += '<div class="badge">собирается</div>';
+      html += '</div>';
+    });
+    $collection.innerHTML = html;
+  }
+
+  function miniConstellationSVG(c, revealed) {
+    const opacity = revealed ? 1 : 0.22;
+    let svg = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:' + opacity + ';">';
+    c.links.forEach(pair => {
+      const a = pair[0], b = pair[1];
+      svg += '<line x1="' + c.stars[a].x + '" y1="' + c.stars[a].y + '" x2="' + c.stars[b].x + '" y2="' + c.stars[b].y + '" stroke="#ffd97a" stroke-width="0.8" opacity="0.55"/>';
+    });
+    c.stars.forEach(s => {
+      svg += '<circle cx="' + s.x + '" cy="' + s.y + '" r="1.3" fill="#ffd97a"/>';
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  function playStarSound(index) {
+    const ctx = getCtx();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume();
+    const c = currentConstellation();
+    const midi = c.notes[index] || 60;
+    const freq = midiToFreq(midi, 440);
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0, now);
+    g.gain.linearRampToValueAtTime(0.14, now + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+    osc.connect(g).connect(ctx.destination);
+    osc.start(now); osc.stop(now + 0.75);
+  }
+
+  async function playPreview() {
+    if (playingPreview || visibleStars === 0) return;
+    playingPreview = true;
+    const ctx = getCtx();
+    if (!ctx) { playingPreview = false; return; }
+    if (ctx.state === 'suspended') { try { await ctx.resume(); } catch(e) {} }
+    const c = currentConstellation();
+    const noteDur = 0.5;
+    const startTime = ctx.currentTime + 0.1;
+    for (let i = 0; i < visibleStars; i++) {
+      const midi = c.notes[i] || 60;
+      const freq = midiToFreq(midi, 440);
+      const t = startTime + i * noteDur;
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.28, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + noteDur - 0.05);
+      osc.connect(g).connect(ctx.destination);
+      osc.start(t); osc.stop(t + noteDur + 0.05);
+    }
+    const totalMs = visibleStars * noteDur * 1000 + 500;
+    setTimeout(() => { playingPreview = false; }, totalMs);
+  }
+
+  function newConstellation() {
+    if (visibleStars >= currentConstellation().stars.length) {
+      if (skyState.collected.indexOf(skyState.constellationId) === -1) {
+        skyState.collected.push(skyState.constellationId);
+      }
+    }
+    const next = pickConstellation(skyState.duration, skyState.collected);
+    skyState.constellationId = next.id;
+    skyState.progressSec = 0;
+    visibleStars = 0; previousStars = 0;
+    saveSkyState();
+    $skyResult.classList.remove('show');
+    $skyWrap.classList.remove('complete');
+    $starCount.textContent = '0';
+    $starTotal.textContent = next.stars.length;
+    renderSky();
+    renderCollection();
+    syncDurationButtons();
+  }
+
+  function changeDuration(newDuration) {
+    if (running) return;
+    if (newDuration === skyState.duration) return;
+    const next = pickConstellation(newDuration, skyState.collected);
+    skyState.duration = newDuration;
+    skyState.constellationId = next.id;
+    skyState.progressSec = 0;
+    visibleStars = 0; previousStars = 0;
+    saveSkyState();
+    $skyResult.classList.remove('show');
+    $skyWrap.classList.remove('complete');
+    $starCount.textContent = '0';
+    $starTotal.textContent = next.stars.length;
+    $timer.textContent = '00:00:00';
+    accumulatedMs = 0; startedAtMs = null; elapsedSec = 0; lastElapsedSec = 0;
+    $start.textContent = 'Начать занятие';
+    $start.classList.add('accent');
+    $start.classList.remove('ghost');
+    $finish.style.display = 'none';
+    $reset.style.display = 'none';
+    persistActive();
+    renderSky();
+    renderCollection();
+    syncDurationButtons();
+  }
+
+  durationBtns.forEach(btn => {
+    btn.addEventListener('click', () => changeDuration(btn.dataset.duration));
+  });
+
+  $start.addEventListener('click', () => { running ? pauseTimer() : startTimer(); });
+  $finish.addEventListener('click', finishTimer);
+  $reset.addEventListener('click', resetTimer);
+  $play.addEventListener('click', playPreview);
+  $next.addEventListener('click', newConstellation);
+
+  $goalInput.addEventListener('change', () => {
+    const v = Math.max(5, Math.min(480, parseInt($goalInput.value, 10) || 30));
+    $goalInput.value = v;
+    try { localStorage.setItem(LS_GOAL, v); } catch(e) {}
+    renderStats();
+  });
+  $goalInput.addEventListener('blur', () => {
+    const v = Math.max(5, Math.min(480, parseInt($goalInput.value, 10) || 30));
+    $goalInput.value = v;
+    try { localStorage.setItem(LS_GOAL, v); } catch(e) {}
+    renderStats();
+  });
+  $goalInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); $goalInput.blur(); }
+  });
+
+  function restore() {
+    const active = loadJSON(LS_ACTIVE, null);
+    if (active) {
+      if (active.running && active.startedAtMs) {
+        const now = Date.now();
+        const closedDuration = Math.max(0, Math.floor((now - (active.savedAt || now)) / 1000));
+        if (closedDuration > 0) { skyState.progressSec += closedDuration; saveSkyState(); }
+        running = true;
+        startedAtMs = active.startedAtMs;
+        accumulatedMs = active.accumulatedMs || 0;
+        elapsedSec = computeElapsedSec();
+        lastElapsedSec = elapsedSec;
+        $timer.textContent = fmt(elapsedSec);
+        applyTimerColor();
+        $timer.classList.add('running');
+        $start.textContent = 'Пауза';
+        $start.classList.add('ghost');
+        $start.classList.remove('accent');
+        $finish.style.display = 'inline-block';
+        $reset.style.display = 'inline-block';
+        if (!tickId) tickId = setInterval(tick, 500);
+        setDurationButtonsEnabled(false);
+      } else if ((active.accumulatedMs || 0) > 0) {
+        accumulatedMs = active.accumulatedMs || 0;
+        startedAtMs = null; running = false;
+        elapsedSec = Math.floor(accumulatedMs / 1000);
+        lastElapsedSec = elapsedSec;
+        $timer.textContent = fmt(elapsedSec);
+        applyTimerColor();
+        $start.textContent = 'Продолжить';
+        $finish.style.display = 'inline-block';
+        $reset.style.display = 'inline-block';
+      }
+    }
+    const total = currentConstellation().stars.length;
+    visibleStars = Math.min(starsCountForSec(skyState.progressSec), total);
+    previousStars = visibleStars;
+    renderSky();
+    $starCount.textContent = visibleStars;
+    $starTotal.textContent = total;
+    if (visibleStars >= total && total > 0) showSkyCompleted();
+  }
+
+  window.addEventListener('pagehide', persistActive);
+  window.addEventListener('beforeunload', persistActive);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) persistActive(); });
+
+  restore();
+  renderStreak();
+  renderStats();
+  syncDurationButtons();
+  renderCollection();
+  $starTotal.textContent = currentConstellation().stars.length;
+})();
 
 /* ============================================================
    10. ИНИЦИАЛИЗАЦИЯ
