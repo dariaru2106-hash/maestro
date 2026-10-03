@@ -1444,6 +1444,14 @@ function switchPanel(target, save) {
       localStorage.setItem(LS_PANEL_TIME_KEY, Date.now().toString());
     } catch(e) {}
   }
+  // Пробуждаем аудио-контекст заранее, чтобы пианино работало с первого нажатия
+  if (target === 'piano' || target === 'tuner' || target === 'metronome') {
+    const ctx = getCtx();
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
+    if (typeof ensureAudioAlive === 'function') ensureAudioAlive();
+  }
 }
 
 navItems.forEach(item => {
@@ -2508,10 +2516,12 @@ function applyScaleHighlight() {
   });
 }
 
-function playPianoNote(freq) {
+async function playPianoNote(freq) {
   const ctx = getCtx();
   if (!ctx) return;
-  if (ctx.state === 'suspended') ctx.resume();
+  if (ctx.state === 'suspended') {
+    try { await ctx.resume(); } catch(e) {}
+  }
   ensureAudioAlive();
 
   const cfg = TIMBRES[currentTimbre] || TIMBRES.piano;
